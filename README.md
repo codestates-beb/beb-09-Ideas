@@ -1,1 +1,2 @@
-# beb-09-second-01
+# beb-09-Ideas
+## 작업 화이팅
