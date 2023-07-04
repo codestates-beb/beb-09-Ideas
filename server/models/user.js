@@ -79,8 +79,6 @@ userSchema.pre("save", function (next) {
     next();
   }
 });
-
-<<<<<<< Updated upstream
 /**
  * 비밀번호 일치 여부 확인
  */
@@ -113,10 +111,4 @@ userSchema.methods.generateToken = function () {
 
 const User = mongoose.model("user", userSchema);
 export default User;
-=======
 
-
-const User = mongoose.model("user", userSchema);;
-
-export default User;
->>>>>>> Stashed changes

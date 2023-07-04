@@ -15,11 +15,7 @@
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
-    "body-parser": "^1.20.2",
-<<<<<<< Updated upstream
     "cookie-parser": "^1.4.6",
-=======
->>>>>>> Stashed changes
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "ethers": "^6.6.2",
