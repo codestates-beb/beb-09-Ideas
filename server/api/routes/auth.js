@@ -1,7 +1,9 @@
 import { Router } from "express";
 
 import User from "./../../models/user.js";
-
+import Wallet from"./../../models/wallet.js";
+import {ethers} from "ethers";
+import crypto from "crypto";
 const route = Router();
 
 export default (app) => {
@@ -13,9 +15,27 @@ export default (app) => {
   route.post("/signup", async (req, res) => {
     // console.log(req.body);
 
+
     const user = new User(req.body);
+
     try {
       await user.save();
+
+      //============
+      const id = crypto.randomBytes(32).toString('hex');
+      const privateKey = "0x" + id;
+      console.log("SAVE BUT DO NOT SHARE THIS", privateKey);
+
+      const newWallet = new ethers.Wallet(privateKey);
+      console.log("Address : " + newWallet.address);
+      const walletData = {
+        userId:req.body.id,
+        address:newWallet.address
+      }
+      const wallet = new Wallet(walletData);
+      await wallet.save();
+      //============
+
       return res.status(200).json({ success: true });
     } catch (err) {
       return res.json({ success: false, err });
@@ -67,4 +87,12 @@ export default (app) => {
    * 로그아웃
    */
   route.get("/logout");
+
+
+  /**
+   * 지갑 주소
+   */
+  route.get("/wallet",(req,res)=>{
+
+  })
 };
