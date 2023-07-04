@@ -27,4 +27,12 @@ export default {
   logs: {
     level: process.env.LOG_LEVEL || "silly",
   },
+
+  /**
+   * bcrypt
+   */
+  bcryptConfig: {
+    saltRounds: process.env.SALT_ROUNDS,
+    secretToken: process.env.ACCESS_SECRET,
+  },
 };
