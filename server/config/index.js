@@ -19,7 +19,7 @@ export default {
   /**
    * mongoDB
    */
-  databaseURL: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@ideascluster.917vce4.mongodb.net/?retryWrites=true&w=majority`,
+  databaseURL: `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@ideascluster.917vce4.mongodb.net/ideas`,
 
   /**
    * Used by winston logger

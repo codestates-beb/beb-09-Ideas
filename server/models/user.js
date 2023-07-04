@@ -2,30 +2,51 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import config from "./../config/index.js";
 
+/**
+ * User Collection Schema
+ */
 const userSchema = new mongoose.Schema({
-  userId: {
+  id: {
+    // 사용자 아이디
     type: String,
     unique: true,
   },
-  userPw: {
+  email: {
+    // 사용자 이메일
     type: String,
   },
-  userName: {
+  user_name: {
+    // 사용자 이름
     type: String,
   },
-  phoneNum: {
+  password: {
+    // 사용자 비밀번호
     type: String,
-    unique: true,
   },
+  phone_number: {
+    // 사용자 핸드폰 번호
+    type: String,
+  },
+  // 사용자 권한 설정
+  // 0 : 일반 사용자, 0이 아닌 숫자 : 관리자
   role: {
     type: Number,
     default: 0,
   },
   token: {
+    // 로그인 관련 토큰 값 저장
     type: String,
   },
   tokenExp: {
+    // 로그인 가능 기간
     type: Number,
+  },
+  wallet_address: {
+    type: String,
+  },
+  created_at: {
+    type: Date,
+    default: Date.now,
   },
 });
 
