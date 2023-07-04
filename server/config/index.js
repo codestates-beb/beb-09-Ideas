@@ -33,6 +33,6 @@ export default {
    */
   bcryptConfig: {
     saltRounds: process.env.SALT_ROUNDS,
-    secretToken: process.env.ACCESS_SECRET,
+    accessToken: process.env.ACCESS_SECRET,
   },
 };

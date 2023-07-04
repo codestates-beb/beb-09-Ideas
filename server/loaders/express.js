@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import config from "./../config/index.js";
 import routes from "./../api/index.js";
 
@@ -21,6 +22,7 @@ export default (app) => {
   app.use(express.urlencoded({ extended: true }));
   // Transforms the raw string of req.body into JSON
   app.use(express.json());
+  app.use(cookieParser());
 
   // Load API routes
   app.use(routes());

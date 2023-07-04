@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 import config from "./../config/index.js";
 
 /**
@@ -78,5 +79,35 @@ userSchema.pre("save", function (next) {
   }
 });
 
-const User = mongoose.model("User", userSchema);
+/**
+ * 비밀번호 일치 여부 확인
+ */
+userSchema.methods.comparePassword = function (plainPassword) {
+  let user = this;
+
+  return new Promise((resolve, reject) => {
+    bcrypt.compare(plainPassword, user.password, function (err, isMatch) {
+      if (err) reject(err);
+
+      resolve(isMatch);
+    });
+  });
+};
+
+/**
+ * 토큰
+ */
+userSchema.methods.generateToken = function () {
+  let user = this;
+
+  // json web token 생성
+  const jsonToken = jwt.sign(
+    user._id.toHexString(),
+    config.bcryptConfig.accessToken
+  );
+  user.token = jsonToken;
+  return user.save();
+};
+
+const User = mongoose.model("user", userSchema);
 export default User;
