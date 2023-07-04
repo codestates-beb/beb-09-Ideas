@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import config from "./../config/index.js";
+import routes from "./../api/index.js";
 
 export default (app) => {
   /**
@@ -20,7 +21,7 @@ export default (app) => {
   app.use(express.json());
 
   // Load API routes
-  //   app.use(config.api.prefix, routes());
+  app.use(routes());
 
   // Catch 404 and forward to the error handler
   app.use((req, res, next) => {
