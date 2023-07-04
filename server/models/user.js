@@ -27,9 +27,9 @@ const userSchema = new mongoose.Schema({
     // 사용자 핸드폰 번호
     type: String,
   },
-  // 사용자 권한 설정
-  // 0 : 일반 사용자, 0이 아닌 숫자 : 관리자
   role: {
+    // 사용자 권한 설정
+    // 0 : 일반 사용자, 0이 아닌 숫자 : 관리자
     type: Number,
     default: 0,
   },
@@ -38,33 +38,35 @@ const userSchema = new mongoose.Schema({
     type: String,
   },
   tokenExp: {
-    // 로그인 가능 기간
+    // 로그인 유효기간
     type: Number,
   },
   wallet_address: {
+    // 사용자 지갑 주소
     type: String,
   },
   created_at: {
+    // 사용자 생성 시간
     type: Date,
     default: Date.now,
   },
 });
 
 /**
- * user 데이터 저장 전에 비밀번호 암호화
+ * user 데이터 저장 전 비밀번호 암호화
  */
 userSchema.pre("save", function (next) {
   let user = this;
   const rounds = Number(config.bcryptConfig.saltRounds);
 
   // 비밀번호 암호화
-  if (user.isModified("userPw")) {
+  if (user.isModified("password")) {
     bcrypt.genSalt(rounds, function (err, salt) {
-      if (err) return console.log(err); //next(err);
+      if (err) return next(err);
 
-      bcrypt.hash(user.userPw, salt, function (err, hash) {
+      bcrypt.hash(user.password, salt, function (err, hash) {
         if (err) return next(err);
-        user.userPw = hash; // 암호화된 값으로 비밀번호 변경
+        user.password = hash; // 암호화된 값으로 비밀번호 변경
         next();
       });
     });
