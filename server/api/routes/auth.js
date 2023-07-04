@@ -1,5 +1,5 @@
 import { Router } from "express";
-import bodyParser from "body-parser";
+
 import User from "./../../models/user.js";
 
 const route = Router();
@@ -9,7 +9,15 @@ export default (app) => {
 
   // 회원가입
   route.post("/signup", async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
+
+    const user = new User(req.body);
+    try {
+      await user.save();
+      return res.status(200).json({ success: true });
+    } catch (err) {
+      return res.json({ success: false, err });
+    }
   });
 
   // 로그인

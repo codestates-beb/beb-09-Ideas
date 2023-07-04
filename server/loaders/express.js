@@ -17,6 +17,8 @@ export default (app) => {
   // Enable Cross Origin Resource Sharing to all origins by default
   app.use(cors());
 
+  // application/x-www-form-urlencoded
+  app.use(express.urlencoded({ extended: true }));
   // Transforms the raw string of req.body into JSON
   app.use(express.json());
 
