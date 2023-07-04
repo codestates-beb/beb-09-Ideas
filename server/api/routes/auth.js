@@ -1,5 +1,4 @@
 import { Router } from "express";
-import cookieParser from "cookie-parser";
 
 import User from "./../../models/user.js";
 
