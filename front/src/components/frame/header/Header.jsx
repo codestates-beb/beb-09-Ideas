@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import React, { useState } from 'react';
 
 import Profile from "./Profile";
 import LoginButton from "./LoginButton";
 import { actions1 } from '../../../reducer/testReducer';
+import LoginPage from './LoginPage';
 
 
 // import Logo from "../../frequently-used/Logo";
@@ -25,15 +27,20 @@ const HeaderDiv = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
+  const [loginModal, setLoginModal] = useState(false);
 
   const testFunction = () => {
     dispatch(actions1.toggleIsLoggedIn(true));
-}
+  }
 
   return (
     <HeaderDiv>
-        <h2>Ideas</h2>
-        <button onClick={testFunction}>Login</button>
+      <h2>Ideas</h2>
+      <LoginPage
+        show={loginModal}
+        onHide={() => setLoginModal(null)}
+      />
+      <button onClick={() => setLoginModal(true)}>로그인</button>
     </HeaderDiv>
   );
 };
