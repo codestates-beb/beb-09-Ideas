@@ -27,6 +27,8 @@ const userSchema = new mongoose.Schema({
     // 사용자 핸드폰 번호
     type: String,
   },
+  // 사용자 권한 설정
+  // 0 : 일반 사용자, 0이 아닌 숫자 : 관리자
   role: {
     // 사용자 권한 설정
     // 0 : 일반 사용자, 0이 아닌 숫자 : 관리자
@@ -47,6 +49,7 @@ const userSchema = new mongoose.Schema({
   },
   created_at: {
     // 사용자 생성 시간
+
     type: Date,
     default: Date.now,
   },
