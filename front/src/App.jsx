@@ -21,7 +21,7 @@ function App() {
   return (
     <Provider store={store}>
         <BrowserRouter>
-            {/* <Header/> */}
+            <Header/>
             <Routes>
                 <Route path="/" element={<MainPage/>}/>
                 <Route path="/signup" element={<Signup/>}/>

@@ -53,8 +53,8 @@ const userSchema = new mongoose.Schema({
 });
 
 /**
- * user 데이터 저장 전 비밀번호 암호화
- */
+ 
+user 데이터 저장 전 비밀번호 암호화*/
 userSchema.pre("save", function (next) {
   let user = this;
   const rounds = Number(config.bcryptConfig.saltRounds);
