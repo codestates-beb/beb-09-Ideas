@@ -1,12 +1,17 @@
 import { Router } from "express";
 import auth from "./routes/auth.js";
-//import user from "./routes/user";
 
 // guaranteed to get dependencies
 export default () => {
   const app = Router();
+
+  /**
+   *@swagger
+   * tags:
+   *  name: Auth
+   *  description: 회원가입, 로그인, 로그아웃
+   */
   auth(app);
-  //user(app);
 
   return app;
 };

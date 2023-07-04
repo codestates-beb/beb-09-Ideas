@@ -1,8 +1,8 @@
 import { Router } from "express";
-
 import User from "./../../models/user.js";
-import Wallet from"./../../models/wallet.js";
-import {ethers} from "ethers";
+import Wallet from "./../../models/wallet.js";
+import logoutAuth from "../../services/auth.js";
+import { ethers } from "ethers";
 import crypto from "crypto";
 const route = Router();
 
@@ -15,23 +15,22 @@ export default (app) => {
   route.post("/signup", async (req, res) => {
     // console.log(req.body);
 
-
     const user = new User(req.body);
 
     try {
       await user.save();
 
       //============
-      const id = crypto.randomBytes(32).toString('hex');
+      const id = crypto.randomBytes(32).toString("hex");
       const privateKey = "0x" + id;
       console.log("SAVE BUT DO NOT SHARE THIS", privateKey);
 
       const newWallet = new ethers.Wallet(privateKey);
       console.log("Address : " + newWallet.address);
       const walletData = {
-        userId:req.body.id,
-        address:newWallet.address
-      }
+        userId: req.body.id,
+        address: newWallet.address,
+      };
       const wallet = new Wallet(walletData);
       await wallet.save();
       //============
@@ -86,13 +85,15 @@ export default (app) => {
   /**
    * 로그아웃
    */
-  route.get("/logout");
-
+  route.get("/logout", logoutAuth, (req, res) => {
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
+      if (err) return res.json({ success: false, err });
+      return res.status(200).send({ success: true });
+    });
+  });
 
   /**
    * 지갑 주소
    */
-  route.get("/wallet",(req,res)=>{
-
-  })
+  route.get("/wallet", (req, res) => {});
 };

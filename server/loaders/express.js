@@ -3,18 +3,9 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import config from "./../config/index.js";
 import routes from "./../api/index.js";
+import { swaggerUi, specs } from "./swagger.js";
 
 export default (app) => {
-  /**
-   * Health Check endpoints
-   */
-  // app.get("/status", (req, res) => {
-  //   res.status(200).end();
-  // });
-  // app.head("/status", (req, res) => {
-  //   res.status(200).end();
-  // });
-
   // Enable Cross Origin Resource Sharing to all origins by default
   app.use(cors());
 
@@ -27,29 +18,13 @@ export default (app) => {
   // Load API routes
   app.use(routes());
 
+  // swagger
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+
   // Catch 404 and forward to the error handler
   app.use((req, res, next) => {
     const err = new Error("Not Found");
     err.status = 404;
     next(err);
   });
-
-  // Error handlers
-  //   app.use((err, req, res, next) => {
-  //     /**
-  //      * Handle 401 thrown by express-jwt library
-  //      */
-  //     if (err.name === "UnauthorizedError") {
-  //       return res.status(err.status).send({ message: err.message }).end();
-  //     }
-  //     return next(err);
-  //   });
-  //   app.use((err, req, res, next) => {
-  //     res.status(err.status || 500);
-  //     res.json({
-  //       errors: {
-  //         message: err.message,
-  //       },
-  //     });
-  //   });
 };
