@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import config from "./../config/index.js";
 
+const accessString = config.bcryptConfig.accessToken;
+
 /**
  * User Collection Schema
  */
@@ -28,8 +30,6 @@ const userSchema = new mongoose.Schema({
     // 사용자 핸드폰 번호
     type: String,
   },
-  // 사용자 권한 설정
-  // 0 : 일반 사용자, 0이 아닌 숫자 : 관리자
   role: {
     // 사용자 권한 설정
     // 0 : 일반 사용자, 0이 아닌 숫자 : 관리자
@@ -55,7 +55,6 @@ const userSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-
 
 /**
  *user 데이터 저장 전 비밀번호 암호화
@@ -95,20 +94,42 @@ userSchema.methods.comparePassword = function (plainPassword) {
 };
 
 /**
- * 토큰
+ * 로그인 토큰 생성
  */
 userSchema.methods.generateToken = function () {
   let user = this;
 
   // json web token 생성
-  const jsonToken = jwt.sign(
-    user._id.toHexString(),
-    config.bcryptConfig.accessToken
-  );
+  const jsonToken = jwt.sign(user._id.toHexString(), accessString);
   user.token = jsonToken;
   return user.save();
 };
 
+/**
+ * 로그아웃, 토큰 decode 후 삭제
+ */
+userSchema.statics.findByToken = function (token) {
+  let user = this;
+
+  return new Promise((resolve, reject) => {
+    // 토큰 decode
+    jwt.verify(token, accessString, function (err, decoded) {
+      if (err) {
+        reject(err);
+        return;
+      }
+
+      user
+        .findOne({ _id: decoded, token: token })
+        .then((foundUser) => {
+          resolve(foundUser);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  });
+};
+
 const User = mongoose.model("user", userSchema);
 export default User;
-
