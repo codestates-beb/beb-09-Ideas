@@ -66,7 +66,7 @@ const LoginPage = ({ show, onHide }) => {
 
   const goToSignup = () => {
     navigate("/Signup")
-    {onHide}
+    
   }
 
   return (
