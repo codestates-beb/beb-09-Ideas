@@ -60,7 +60,7 @@ const CloseButton = styled(Reactbtn)`
   cursor: pointer;
 `;
 
-const LoginPage = ({ show, onHide }) => {
+const LoginModal = ({ show, onHide }) => {
   const navigate = useNavigate();
   const [idValue, setId] = useState('');
   const [pwValue, setPw] = useState('');
@@ -157,4 +157,4 @@ const LoginPage = ({ show, onHide }) => {
   )
 }
 
-export default LoginPage
+export default LoginModal;
