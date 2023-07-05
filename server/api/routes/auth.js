@@ -13,7 +13,7 @@ export default (app) => {
    * 회원가입
    */
   route.post("/signup", async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
 
     const user = new User(req.body);
 
