@@ -6,11 +6,6 @@ import config from "./../config/index.js";
 const accessString = config.bcryptConfig.accessToken;
 
 const userSchema = new mongoose.Schema({
-  id: {
-    // 사용자 아이디
-    type: String,
-    unique: true,
-  },
   email: {
     // 사용자 이메일
     type: String,
@@ -47,9 +42,19 @@ const userSchema = new mongoose.Schema({
   },
   created_at: {
     // 사용자 생성 시간
-
     type: Date,
     default: Date.now,
+  },
+  profile: {
+    // 사용자 이미지 정보
+    image_url: String,
+    title: String,
+    description: String,
+  },
+  score: {
+    // 사용자 점수
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Score",
   },
 });
 
