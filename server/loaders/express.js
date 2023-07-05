@@ -18,7 +18,7 @@ export default (app) => {
   // Load API routes
   app.use(routes());
 
-  // swagger
+  // Swagger UI
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
   // Catch 404 and forward to the error handler
