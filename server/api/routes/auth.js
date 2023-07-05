@@ -67,11 +67,11 @@ export default (app) => {
             });
           }
 
-          // 비밀번호가 일치한다면 토큰 생성 후 저장
+          // 비밀번호가 일치한다면 토큰 생성 후 쿠키에 저장
           return user.generateToken().then(() => {
             res.cookie("x_auth", user.token).status(200).json({
               loginSuccess: true,
-              id: user._id, // user_id 반환
+              id: user._id,
             });
           });
         })
@@ -86,10 +86,13 @@ export default (app) => {
    * 로그아웃
    */
   route.get("/logout", logoutAuth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
-      if (err) return res.json({ success: false, err });
-      return res.status(200).send({ success: true });
-    });
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
+      .then(() => {
+        return res.status(200).send({ success: true });
+      })
+      .catch((err) => {
+        return res.json({ success: false, err });
+      });
   });
 
   /**
