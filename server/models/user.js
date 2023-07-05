@@ -5,9 +5,6 @@ import config from "./../config/index.js";
 
 const accessString = config.bcryptConfig.accessToken;
 
-/**
- * User Collection Schema
- */
 const userSchema = new mongoose.Schema({
   id: {
     // 사용자 아이디

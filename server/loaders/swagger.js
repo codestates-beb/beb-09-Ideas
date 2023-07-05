@@ -9,14 +9,16 @@ const options = {
     info: {
       title: "Ideas API 문서", // 문서 제목
       version: "1.0.0", // 문서 버전
+      description: "Ideas API 문서",
     },
     servers: [
       {
         url: `http://127.0.0.1:${config.port}`, // 요청 URL
       },
     ],
+    basePath: "/", // 기본 경로
   },
-  apis: ["../api/routes/*.js"], // @Swagger 주석이 포함된 파일 경로
+  apis: ["./api/routes/*.js", "./models/*"], // @Swagger 주석이 포함된 파일 경로
 };
 
 const specs = swaggerJSDoc(options);
