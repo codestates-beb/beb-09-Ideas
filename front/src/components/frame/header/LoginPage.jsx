@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import TextField from '@mui/material/TextField';
 import { Button as MuiButton } from '@mui/material';
@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { Modal, Button as Reactbtn } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const LoginView = styled.div`
 width: 100%;
@@ -59,19 +60,42 @@ const CloseButton = styled(Reactbtn)`
   cursor: pointer;
 `;
 
-
-
 const LoginPage = ({ show, onHide }) => {
   const navigate = useNavigate();
+  const [idValue, setId] = useState('');
+  const [pwValue, setPw] = useState('');
+  const [isOpen,setIsOpen] = useState(true); // 로그인 모달 상태관리
+  const [isLoggedIn, seIsLoggedIn] = useState(false); //로그인 상태 관리
 
+  //회원가입 버튼 시 화면 이동
   const goToSignup = () => {
     navigate("/Signup")
-    
+  }
+  console.log(pwValue);
+  //로그인 버튼 눌렀을 때 통신
+  const handleLogin = () => {
+    const data = {
+      id: idValue,
+      password: pwValue,
+    }
+    axios
+      .post("http://localhost:3000/auth/login", data)
+      .then((res) => {
+        console.log(res.data);
+        if(res.data.loginSuccess !== true){
+          alert(res.data.message);
+        }else{
+          setIsOpen(false);
+        }
+      })
+      .catch((err) => {
+        console.err(err);
+      })
   }
 
   return (
     <div>
-      <Modal show={show} onHide={onHide}>
+      {isOpen && (<Modal show={show}>
         <ModalContent>
           <CloseButton onClick={onHide}>
             &times;
@@ -99,6 +123,8 @@ const LoginPage = ({ show, onHide }) => {
                 required
                 fullWidth
                 name="id"
+                value={idValue}
+                onChange={e => setId(e.target.value)}
               />
 
               <FieldTitle>패스워드</FieldTitle>
@@ -108,14 +134,15 @@ const LoginPage = ({ show, onHide }) => {
                 required
                 fullWidth
                 autoComplete='current-password'
+                value={pwValue}
+                onChange={e => setPw(e.target.value)}
               />
-              <LoginButton>
-                <MuiButton type="submit" fullWidth variant="contained">로그인</MuiButton>
+              <LoginButton >
+                <MuiButton onClick={handleLogin} fullWidth variant="contained">확인</MuiButton>
 
-                <Grid container>
-                  <Grid item>
-                    {/* <Link onclieck={goToSignup}>Sign Up</Link> */}
-                    <MuiButton  onClick={goToSignup}>Signup</MuiButton>
+                <Grid container >
+                  <Grid item onClick={onHide}>
+                    <MuiButton onClick={goToSignup}>Signup</MuiButton>
                   </Grid>
                 </Grid>
               </LoginButton>
@@ -123,6 +150,8 @@ const LoginPage = ({ show, onHide }) => {
           </LoginPageView>
         </ModalContent>
       </Modal>
+      )}
+     
 
     </div>
   )

@@ -16,6 +16,7 @@ import Blockchain from './pages/category/Blockchain.jsx';
 import Cloud from './pages/category/Cloud.jsx';
 import MainPage from './pages/MainPage.jsx';
 import NotFound from './pages/NotFound.jsx';
+import { Navbar } from 'react-bootstrap';
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
                 <Route path="*" element={<NotFound/>}/>
             </Routes>
             <Footer/>
+            <Navbar />
         </BrowserRouter>
     </Provider>
   );

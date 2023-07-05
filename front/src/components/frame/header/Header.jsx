@@ -6,13 +6,13 @@ import Profile from "./Profile";
 import LoginButton from "./LoginButton";
 import { actions1 } from '../../../reducer/testReducer';
 import LoginPage from './LoginPage';
-
+import { FiUser } from "react-icons/fi";
 
 // import Logo from "../../frequently-used/Logo";
 
 
 const HeaderDiv = styled.div`
-  background-color: #8a8afa;
+  background-color: rgb(193, 211, 223);
   position: fixed;
   top: 0;
   left: 0;
@@ -28,19 +28,36 @@ const HeaderDiv = styled.div`
 const Header = () => {
   const dispatch = useDispatch();
   const [loginModal, setLoginModal] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
 
   const testFunction = () => {
     dispatch(actions1.toggleIsLoggedIn(true));
   }
 
+  const handleLogin = () => {
+    // 로그인 처리
+    setIsLoggedIn(true);
+    setLoginModal(true);
+  };
+
+
   return (
     <HeaderDiv>
-      <h2>Ideas</h2>
+      <h2>Ideas</h2>        
       <LoginPage
         show={loginModal}
-        onHide={() => setLoginModal(null)}
+        onHide={() => setLoginModal(false)}
       />
-      <button onClick={() => setLoginModal(true)}>로그인</button>
+       {isLoggedIn ? (
+        // 로그인이 완료되었을 때 표시되는 아이콘
+        <FiUser />
+      ) : (
+        // 로그인이 안되었을때 표시 로그인 버튼
+         <button  onClick={handleLogin}>로그인</button>
+         
+      )}
+      
+     
     </HeaderDiv>
   );
 };
