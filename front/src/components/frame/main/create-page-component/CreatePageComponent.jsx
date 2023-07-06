@@ -55,10 +55,6 @@ const CreatePageComponent = () => {
     const [contentValue, setContentValue] = useState('');
     const [categoryValue, setCategoryValue] =useState('');
   
-    console.log(categoryValue);
-    console.log(titleValue);
-    console.log(contentValue);
-  
     const handleSignUp = () => {
      
       const data = {

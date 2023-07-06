@@ -5,6 +5,7 @@ const slice = createSlice({
   initialState: {
     isLoggedin: false,
     accessToken: "",
+    boards: [],
   }, // 여기에 모든 데이터가 저장이 됌
   reducers: {
     //조건문
@@ -14,6 +15,9 @@ const slice = createSlice({
     },
     setAccessToken: (state, action) => {
       state.accessToken = action.payload;
+    },
+    setBoards: (state, action) => {
+      state.boards = action.payload;
     },
   },
 });
