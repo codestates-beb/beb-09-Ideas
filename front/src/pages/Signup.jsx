@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import TextField from '@mui/material/TextField';
 import { Button as MuiButton } from '@mui/material';
-
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 const SignupPageView = styled.div`
   display: flex;
@@ -24,39 +25,52 @@ const Title = styled.div`
 `;
 
 const SignupView = styled.div`
-width: 100%;
-max-width: 640px;
-padding: 24px;
-text-align: left;
+  width: 100%;
+  max-width: 640px;
+  padding: 24px;
+  margin: 30px;
+  text-align: left;
 `;
 
-const Inlabel = styled.label`
-    border-radius:4px;
-    display: inline-block;
-    padding: 10px 10px;
-    color: #fff;
-    vertical-align: middle;
-    background-color: #999999;
-    cursor: pointer;
-    height: 24px;
-    margin: 0 0 3px;
-    margin-left: 5px;
-`;
-
-const btnStyle = styled.button`
-  color: white;
-  background: teal;
-  padding: .375rem .75rem;
-  border: 1px solid teal;
-  borderRadius: .25rem;
-  fontSize: 1rem;
-  lineHeight: 1.5;
-  `
 const SingupButton = styled.div`
-  
+  display: inline-block;
+  margin: 8px;
+  float: right;
 `;
 
 const Signup = () => {
+  const navigate = useNavigate();
+  const [idValue, setId] = useState('');
+  const [pwValue, setPw] = useState('');
+  const [userNamelValue, setuserNmae] = useState('');
+  const [phNumberValue, setPhNumber] = useState('');
+  const [isRegistered, setIsRegistered] = useState(false);
+
+  const goToBack = () => {
+    navigate("/")
+  }
+
+  const handleSignUp = () => {
+    console.log(idValue);
+    const data = {
+      id: idValue,
+      password: pwValue,
+      user_name: userNamelValue,
+      phone_number: phNumberValue
+    }
+    axios
+      .post("http://localhost:3000/auth/signup", data)
+      .then((res) => {
+        console.log(res.data);
+        alert("회원가입이 되었습니다.");
+        navigate("/");
+      })
+      .catch((err) => {
+        console.err(err);
+      })
+
+  }
+  
   return (
     <SignupPageView>
       <SignupView>
@@ -67,6 +81,8 @@ const Signup = () => {
           required
           fullWidth
           name="id"
+          value={idValue}
+          onChange={e => setId(e.target.value)}
         />
         <FieldTitle>비밀번호</FieldTitle>
         <TextField
@@ -75,27 +91,36 @@ const Signup = () => {
           required
           fullWidth
           autoComplete='current-password'
+          value={pwValue}
+          onChange={e => setPw(e.target.value)}
         />
         <FieldTitle>이름</FieldTitle>
         <TextField
           label="username"
-          type='username'
           required
           fullWidth
-          autoComplete='current-password'
+          id="name"
+          value={userNamelValue}
+          onChange={e => setuserNmae(e.target.value)}
         />
         <FieldTitle>전화번호</FieldTitle>
         <TextField
           label="phone_number"
-          type='phone_number'
           required
           fullWidth
-          autoComplete='current-password'
+          value={phNumberValue}
+          onChange={e => setPhNumber(e.target.value)}
+
         />
+        <SingupButton onClick={goToBack}>
+          <MuiButton fullWidth variant="contained" >취소</MuiButton>
+
+        </SingupButton >
+        <SingupButton>
+          <MuiButton onClick={handleSignUp} fullWidth variant="contained">확인</MuiButton>
+        </SingupButton>
       </SignupView>
-      <SingupButton>
-        <MuiButton type="submit" fullWidth variant="contained">취소</MuiButton>
-      </SingupButton>
+
     </SignupPageView>
   )
 }

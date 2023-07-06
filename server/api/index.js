@@ -1,5 +1,6 @@
 import { Router } from "express";
 import auth from "./routes/auth.js";
+import wallet from "./routes/wallet.js";
 import user from "./routes/user.js";
 import board from "./routes/board.js";
 
@@ -8,6 +9,7 @@ export default () => {
   const app = Router();
 
   auth(app);
+  wallet(app);
   user(app);
   board(app);
 

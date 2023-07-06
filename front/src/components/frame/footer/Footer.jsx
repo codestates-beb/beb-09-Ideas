@@ -81,15 +81,15 @@ const Footer = () => (
       </FooterLinks>
     </LogoAndLinksContainer>
     <LogoDescription>
-      <p>아토미는 유저의 가상화폐 지갑과 연동되어 거래소 본연의 역할을 수행합니다.</p>
+      <p>Ideas는 유저의 가상화폐 지갑과 연동되어 거래소 본연의 역할을 수행합니다.</p>
       <p>즉 유저가 보유한 디지털 자산을 자신들의 거래소에 저장하지 않으며,</p>
       <p>NFT를 구매, 판매, 생성 및 거래할 수 있는 장소를 제공하고</p>
       <p>판매자와 구매자의 지갑에서 거래가 이뤄지도록 설계되었습니다</p>
     </LogoDescription>
     <FooterText>
-      © 2023 Atomy Company
+      © 2023 Ideas Company
       <LogoIcon src="korea.png" alt="Logo Icon" />
-      <CountryText>이효확 이동욱 이승민 한재경</CountryText>
+      <CountryText>조영훈 이승민 이지수 김성환</CountryText>
     </FooterText>
   </FooterContainer>
 );

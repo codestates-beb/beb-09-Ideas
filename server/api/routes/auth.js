@@ -69,7 +69,7 @@ export default (app) => {
    *           description: 사용자 핸드폰 번호 (유니크 값)
    */
   route.post("/signup", async (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
 
     // profile 객체 추가
     const image_url = "https://newsimg.sedaily.com/2023/04/11/29O9FX10T6_1.jpg";
@@ -89,7 +89,6 @@ export default (app) => {
       console.log("SAVE BUT DO NOT SHARE THIS", privateKey);
 
       const newWallet = new ethers.Wallet(privateKey);
-      console.log("Address : " + newWallet.address);
       const walletData = {
         userId: req.body.id,
         address: newWallet.address,
@@ -200,10 +199,15 @@ export default (app) => {
 
           // 비밀번호가 일치한다면 토큰 생성 후 쿠키에 저장
           return user.generateToken().then(() => {
-            res.cookie("x_auth", user.token).status(200).json({
-              loginSuccess: true,
-              id: user._id,
-            });
+
+            Wallet.findOne({userId:req.body.id})
+                .then((wallet)=>{
+                  res.cookie("x_auth", user.token).status(200).json({
+                    loginSuccess: true,
+                    id: user._id,
+                    address:wallet.address
+                  });
+                })
           });
         })
         .catch((err) => {
@@ -255,8 +259,5 @@ export default (app) => {
       });
   });
 
-  /**
-   * 지갑 주소
-   */
-  route.get("/wallet", (req, res) => {});
+
 };
