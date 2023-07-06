@@ -157,4 +157,4 @@ const LoginModal = ({ show, onHide }) => {
   )
 }
 
-export default LoginModal
+export default LoginModal;

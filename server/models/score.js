@@ -4,141 +4,268 @@ import mongoose from "mongoose";
  * Score Collection Schema
  */
 const scoreSchema = new mongoose.Schema({
-  id: {
-    // user._id or board._id 값이 들어감
-    type: String,
-    unique: true,
-  },
-  score_type: {
-    // user와 board 구분
-    // USER : user의 score 정보를 저장할때
-    // BOARD : 게시판의 score 정보를 저장할때
-    type: String,
-  },
   management: {
-    voting_power: Number,
-    score: Number,
+    voting_power: {
+      type: Number,
+      default: 0,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
     management_theory: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     human_resource: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     marketing: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     finance_accounting: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
   },
   economy: {
-    voting_power: Number,
-    score: Number,
+    voting_power: {
+      type: Number,
+      default: 0,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
     economy_theory: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     market_structure: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     equilibrium_theory: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     externalities: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
   },
   security: {
-    voting_power: Number,
-    score: Number,
+    voting_power: {
+      type: Number,
+      default: 0,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
     security_theory: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     vpn: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     ids_ips: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     rsa: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     digital_signature: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     cryptography: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     ecdsa: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
   },
   ai: {
-    voting_power: Number,
-    score: Number,
+    voting_power: {
+      type: Number,
+      default: 0,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
     ai_theory: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     autonomous_driving: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     natural_language: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     speech_recognition: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     game_ai: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     sentiment_analysis: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     robotics_control: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
   },
   blockchain: {
-    voting_power: Number,
-    score: Number,
+    voting_power: {
+      type: Number,
+      default: 0,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
     blockchain_theory: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     consensus_algorithm: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     dao: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     did: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     smartcontract: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     defi: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
   },
   cloud: {
-    voting_power: Number,
-    score: Number,
+    voting_power: {
+      type: Number,
+      default: 0,
+    },
+    score: {
+      type: Number,
+      default: 0,
+    },
     cloud_theory: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     scalability: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     virtualization: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     automation: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     resilience: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
     resource_sharing: {
-      score: Number,
+      score: {
+        type: Number,
+        default: 0,
+      },
     },
   },
 });
