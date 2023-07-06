@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import Profile from "./Profile";
 import LoginButton from "./LoginButton";
 import { actions1 } from '../../../reducer/testReducer';
-import LoginPage from './LoginPage';
+import LoginModal from "./LoginModal";
 import { FiUser } from "react-icons/fi";
 
 // import Logo from "../../frequently-used/Logo";
@@ -44,7 +44,7 @@ const Header = () => {
   return (
     <HeaderDiv>
       <h2>Ideas</h2>        
-      <LoginPage
+      <LoginModal
         show={loginModal}
         onHide={() => setLoginModal(false)}
       />
