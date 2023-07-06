@@ -64,6 +64,8 @@ const Board = () => {
             <div>view : 3,205</div>
             <div> : 87</div>
         </BottomDiv>
+
+        
     </BoardDiv>
   )
 }

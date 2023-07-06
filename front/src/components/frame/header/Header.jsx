@@ -5,7 +5,10 @@ import { useNavigate } from "react-router-dom";
 import { Button } from '@mui/material'
 
 import Profile from "./Profile";
-import LoginModal from './LoginModal';
+
+import LoginModal from "./LoginModal";
+
+
 // import Logo from "../../frequently-used/Logo";
 // import { FiUser } from "react-icons/fi";
 
@@ -39,7 +42,7 @@ const HeaderDiv = styled.div`
   }
 `;
 
- const VirtualHeaderDiv = styled.div`
+const VirtualHeaderDiv = styled.div`
     height: 70px;
  `;
 
@@ -79,8 +82,6 @@ const Header = () => {
         </HeaderDiv>
         <VirtualHeaderDiv/>
     </div>
-        
-    
   );
 };
 

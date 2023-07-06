@@ -7,8 +7,13 @@ import axios from 'axios';
 
 const SignupPageView = styled.div`
   display: flex;
-  justify-content: center;
   width: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  justify-content: center;
+  width: 90%;
+  height: 700px;
+
 `;
 
 const FieldTitle = styled.div`
