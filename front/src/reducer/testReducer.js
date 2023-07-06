@@ -2,13 +2,18 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const slice = createSlice({
   name: "name", // 구분하기 위한 이름
-  initialState: { isLoggedin: false }, // 여기에 모든 데이터가 저장이 됌
+  initialState: {
+    isLoggedin: false,
+    accessToken: "",
+  }, // 여기에 모든 데이터가 저장이 됌
   reducers: {
     //조건문
     toggleIsLoggedIn: (state, action) => {
-      console.log(state);
       // state 파라미터 안에 initialState 정보가 들어있음, dispatch를 이용해 전달한 데이터는 action 파라미터로 받아짐 ex) dispatch(true) => action.payload 값은 true
       state.isLoggedin = action.payload;
+    },
+    setAccessToken: (state, action) => {
+      state.accessToken = action.payload;
     },
   },
 });

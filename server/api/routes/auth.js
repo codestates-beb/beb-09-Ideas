@@ -174,7 +174,6 @@ export default (app) => {
    *           description: 사용자 비밀번호
    */
   route.post("/login", (req, res) => {
-    // console.log(req.body);
     // userId 가 존재하는지 확인
     User.findOne({ id: req.body.id }).then((user) => {
       // userId가 존재하지 않을때
@@ -199,15 +198,13 @@ export default (app) => {
 
           // 비밀번호가 일치한다면 토큰 생성 후 쿠키에 저장
           return user.generateToken().then(() => {
-
-            Wallet.findOne({userId:req.body.id})
-                .then((wallet)=>{
-                  res.cookie("x_auth", user.token).status(200).json({
-                    loginSuccess: true,
-                    id: user._id,
-                    address:wallet.address
-                  });
-                })
+            Wallet.findOne({ userId: req.body.id }).then((wallet) => {
+              res.cookie("x_auth", user.token).status(200).json({
+                loginSuccess: true,
+                id: user._id,
+                address: wallet.address,
+              });
+            });
           });
         })
         .catch((err) => {
@@ -258,6 +255,4 @@ export default (app) => {
         return res.json({ success: false, err });
       });
   });
-
-
 };
