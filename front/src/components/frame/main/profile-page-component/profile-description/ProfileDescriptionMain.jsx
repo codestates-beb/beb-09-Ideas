@@ -10,10 +10,10 @@ const MainDiv = styled.div`
     height: 300px;
     width: 100%;
     & > div:first-child {
-        background: red;
+        
     }
     & > div:nth-child(2) {
-        background: #dbdbe0;
+        
 
     }
 `;

@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
+import Score from './Score';
 
 const ScoreMainDiv = styled.h3`
-    background: #97e1e4;
     height: 500px;
     margin: 50px;
 `; 
@@ -10,6 +10,7 @@ const ScoreMainDiv = styled.h3`
 const ScoreMain = () => {
   return (
     <ScoreMainDiv>
+        <Score/>
     </ScoreMainDiv>
   )
 }

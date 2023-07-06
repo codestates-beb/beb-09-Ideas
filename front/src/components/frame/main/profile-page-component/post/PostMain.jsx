@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PostList from './PostList';
 
 const PostMainDiv = styled.div`
-    background: #f4e3f5;
+    /* background: #f4e3f5; */
     height: 500px;
     margin: 50px;
     h3 {

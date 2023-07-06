@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import Post from './Post';
 
 const PostListDiv = styled.div`
-    background: #f1f6f7;
+    /* background: #f1f6f7; */
     height: 1000px;
     margin-top: 50px;
 `; 
@@ -11,7 +11,6 @@ const PostListDiv = styled.div`
 const PostList = () => {
   return (
     <PostListDiv>
-        profileList
         <Post/>
         <Post/>
     </PostListDiv>
