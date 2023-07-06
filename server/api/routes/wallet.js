@@ -1,5 +1,5 @@
 import { Router } from "express";
-import Wallet from "./../../models/wallet.js";
+
 import {createServerAccount, sendToken,getERC20} from "../../services/wallet.js";
 
 const route = Router();
