@@ -1,7 +1,7 @@
 import { Router } from "express";
 import User from "./../../models/user.js";
 import Wallet from "./../../models/wallet.js";
-import logoutAuth from "../../services/auth.js";
+import Auth from "../../services/auth.js";
 import { ethers } from "ethers";
 import crypto from "crypto";
 const route = Router();
@@ -71,6 +71,13 @@ export default (app) => {
   route.post("/signup", async (req, res) => {
     // console.log(req.body);
 
+    // profile 객체 추가
+    const image_url = "https://newsimg.sedaily.com/2023/04/11/29O9FX10T6_1.jpg";
+    req.body.profile = {
+      image_url: image_url,
+      title: "춘식이",
+      description: "test",
+    };
     const user = new User(req.body);
 
     try {
@@ -168,6 +175,7 @@ export default (app) => {
    *           description: 사용자 비밀번호
    */
   route.post("/login", (req, res) => {
+    // console.log(req.body);
     // userId 가 존재하는지 확인
     User.findOne({ id: req.body.id }).then((user) => {
       // userId가 존재하지 않을때
@@ -237,7 +245,7 @@ export default (app) => {
    *                error:
    *                  type: object
    */
-  route.get("/logout", logoutAuth, (req, res) => {
+  route.get("/logout", Auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, { token: "" })
       .then(() => {
         return res.status(200).send({ success: true });
