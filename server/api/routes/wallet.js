@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import {createServerAccount, sendToken,getERC20} from "../../services/wallet.js";
+import {createServerAccount, sendToken, getERC20, getERC20Test, sendTokenTest} from "../../services/wallet.js";
 
 const route = Router();
 
@@ -17,7 +17,7 @@ export default (app) => {
 
     })
 
-    route.get("/send",sendToken,(req,res)=>{
+    route.get("/send",sendTokenTest,(req,res)=>{
         //console.log(req.body);
         try {
             return res.status(200).send({success:true});
@@ -27,7 +27,7 @@ export default (app) => {
 
     })
 
-    route.get("/token", getERC20,(req,res)=>{
+    route.get("/token", getERC20Test,(req,res)=>{
         try {
             return res.status(200).send({success:true});
         }catch (err){
