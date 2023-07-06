@@ -12,6 +12,7 @@ import { Modal, Button as Reactbtn } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
+
 const LoginView = styled.div`
 width: 100%;
 max-width: 640px;
@@ -47,6 +48,7 @@ const ModalContent = styled.div`
   border-radius: 20px;
   border: 5px solid #64A6DF;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 3;
 `;
 const CloseButton = styled(Reactbtn)`
   position: absolute;
@@ -60,42 +62,40 @@ const CloseButton = styled(Reactbtn)`
   cursor: pointer;
 `;
 
-const LoginModal = ({ show, onHide }) => {
+const LoginModal = ({ loginModal, onHide }) => {
   const navigate = useNavigate();
-  const [idValue, setId] = useState('');
-  const [pwValue, setPw] = useState('');
-  const [isOpen,setIsOpen] = useState(true); // 로그인 모달 상태관리
-  const [isLoggedIn, seIsLoggedIn] = useState(false); //로그인 상태 관리
+  const [id, setId] = useState('');
+  const [pw, setPw] = useState('');
+
 
   //회원가입 버튼 시 화면 이동
   const goToSignup = () => {
     navigate("/Signup")
   }
-  console.log(pwValue);
   //로그인 버튼 눌렀을 때 통신
-  const handleLogin = () => {
+  const handleLogin = async () => {
     const data = {
-      id: idValue,
-      password: pwValue,
+      id: id,
+      password: pw,
     }
-    axios
-      .post("http://localhost:3000/auth/login", data)
-      .then((res) => {
-        console.log(res.data);
-        if(res.data.loginSuccess !== true){
-          alert(res.data.message);
-        }else{
-          setIsOpen(false);
+    try {
+        const response = await axios.post("http://localhost:3000/auth/login", data);
+        if(response.data.loginSuccess !== true) {
+            alert(response.data.message);
         }
-      })
-      .catch((err) => {
-        console.err(err);
-      })
+        else {
+            onHide()
+        }
+    }
+    catch (err) {
+        console.error(err);
+    }
   }
 
   return (
     <div>
-      {isOpen && (<Modal show={show}>
+      {loginModal && (<Modal show={loginModal}>
+        
         <ModalContent>
           <CloseButton onClick={onHide}>
             &times;
@@ -123,7 +123,7 @@ const LoginModal = ({ show, onHide }) => {
                 required
                 fullWidth
                 name="id"
-                value={idValue}
+                value={id}
                 onChange={e => setId(e.target.value)}
               />
 
@@ -134,7 +134,7 @@ const LoginModal = ({ show, onHide }) => {
                 required
                 fullWidth
                 autoComplete='current-password'
-                value={pwValue}
+                value={pw}
                 onChange={e => setPw(e.target.value)}
               />
               <LoginButton >

@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from '@emotion/styled'
-import { Link } from 'react-router-dom';
+import React from 'react';
+import styled from '@emotion/styled';
+import CategoryButton from '../../frequently_used/CategoryButton';
 
 const SidebarDiv = styled.div`
     height:100%;
@@ -8,23 +8,38 @@ const SidebarDiv = styled.div`
     background: #e3e7ea;
     position:fixed;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
 
 `;
 
-const VirtualSidebarDiv = styled.div`
+const VirtualSidebarDiv = styled.div` 
     width: 100px;
     height: 1000px;
     
 `;
 
+const Div = styled.div`
+    
+`;
+
+
 const Sidebar = () => {
   return (
     <div style={{float:'left'}}>
         <SidebarDiv>
+                <CategoryButton text1={"manage"} path="management"/>
+                <CategoryButton text1={"economy"} path="economy"/>
+                <CategoryButton text1={"security"} path="security"/>
+                <CategoryButton text1={"ai"} path="ai"/>
+                <CategoryButton text1={"blockchain"} path="blockchain"/>
+                <CategoryButton text1={"cloud"} path="cloud"/>
         </SidebarDiv>
         <VirtualSidebarDiv/>
     </div>
   )
 }
 
-export default Sidebar
+export default Sidebar;

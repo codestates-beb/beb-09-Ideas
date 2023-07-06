@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import config from "./../config/index.js";
 
 const walletSchema = new mongoose.Schema({
     userId:{

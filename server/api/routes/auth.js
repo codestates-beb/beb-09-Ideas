@@ -82,7 +82,6 @@ export default (app) => {
       console.log("SAVE BUT DO NOT SHARE THIS", privateKey);
 
       const newWallet = new ethers.Wallet(privateKey);
-      console.log("Address : " + newWallet.address);
       const walletData = {
         userId: req.body.id,
         address: newWallet.address,
@@ -192,10 +191,15 @@ export default (app) => {
 
           // 비밀번호가 일치한다면 토큰 생성 후 쿠키에 저장
           return user.generateToken().then(() => {
-            res.cookie("x_auth", user.token).status(200).json({
-              loginSuccess: true,
-              id: user._id,
-            });
+
+            Wallet.findOne({userId:req.body.id})
+                .then((wallet)=>{
+                  res.cookie("x_auth", user.token).status(200).json({
+                    loginSuccess: true,
+                    id: user._id,
+                    address:wallet.address
+                  });
+                })
           });
         })
         .catch((err) => {
@@ -247,8 +251,5 @@ export default (app) => {
       });
   });
 
-  /**
-   * 지갑 주소
-   */
-  route.get("/wallet", (req, res) => {});
+
 };
