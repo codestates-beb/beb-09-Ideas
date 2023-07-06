@@ -25,7 +25,7 @@ const boardSchema = new mongoose.Schema({
     // 좋아요, 싫어요 중복 방지
     type: Map,
     of: Boolean,
-    required: true,
+    // required: true,
   },
   created_at: {
     type: Date,
@@ -33,18 +33,21 @@ const boardSchema = new mongoose.Schema({
   },
   user_id: {
     // 작성자의 id
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "User",
+    type: String,
   },
-  comments: {
-    // 댓글 id
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Comment",
-  },
-  score: {
+  // comments: {
+  //   // 댓글 id
+  //   // type: mongoose.Schema.Types.ObjectId,
+  //   // ref: "Comment",
+  //   type: String,
+  // },
+  score_id: {
     // 게시판 점수 id
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Score",
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "Score",
+    type: String,
   },
   view_count: {
     // 게시글 조회수
@@ -55,7 +58,7 @@ const boardSchema = new mongoose.Schema({
     // 게시글 조회수 중복 방지
     type: Map,
     of: Boolean,
-    required: true,
+    // required: true,
   },
 });
 

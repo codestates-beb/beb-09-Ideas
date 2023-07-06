@@ -6,6 +6,10 @@ import config from "./../config/index.js";
 const accessString = config.bcryptConfig.accessToken;
 
 const userSchema = new mongoose.Schema({
+  id: {
+    // 사용자 id
+    type: String,
+  },
   email: {
     // 사용자 이메일
     type: String,
@@ -53,8 +57,9 @@ const userSchema = new mongoose.Schema({
   },
   score: {
     // 사용자 점수
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Score",
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "Score",
+    type: String,
   },
 });
 

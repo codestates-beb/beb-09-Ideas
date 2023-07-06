@@ -6,8 +6,12 @@ import mongoose from "mongoose";
 const commentSchema = new mongoose.Schema({
   user_id: {
     // 작성자의 id
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
+    // type: mongoose.Schema.Types.ObjectId,
+    // ref: "User",
+    type: String,
+  },
+  board_id: {
+    type: String,
   },
   content: {
     // 댓글 내용
@@ -25,7 +29,7 @@ const commentSchema = new mongoose.Schema({
     // 좋아요, 싫어요 중복 방지
     type: Map,
     of: Boolean,
-    required: true,
+    // required: true,
   },
   created_at: {
     type: Date,
