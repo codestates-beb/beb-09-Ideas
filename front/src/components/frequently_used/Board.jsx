@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const BoardDiv = styled.div`
     
@@ -13,8 +14,6 @@ const BoardDiv = styled.div`
     &:hover {
         background: rgba(241,248,248,0.8);
     }
-    
-        
     
 `;
 
@@ -44,8 +43,10 @@ const TitleH3 = styled.h3`
 `; 
 
 const Board = () => {
+    const navigate = useNavigate();
+
   return (
-    <BoardDiv>
+    <BoardDiv onclick={navigate("/board/:1")}>
         <TopDiv>
             <ProfileImg src='profile.png' width="70px" height="70px"/>
             <TitleH3>

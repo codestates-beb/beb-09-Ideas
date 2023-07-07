@@ -18,12 +18,10 @@ const CreateBoardView = styled.div`
   justify-content: center;
   width: 90%;
   height: 700px;
-
 `;
 
 const TitleInput = styled.div`
   position: relative;
-
 `;
 
 const CreatedView = styled.div`
@@ -53,7 +51,7 @@ const CreatePageComponent = () => {
     const navigate = useNavigate();
     const [titleValue, setTitleValue] = useState('');
     const [contentValue, setContentValue] = useState('');
-    const [categoryValue, setCategoryValue] =useState('');
+    const [categoryValue, setCategoryValue] = useState('');
   
     console.log(categoryValue);
     console.log(titleValue);
