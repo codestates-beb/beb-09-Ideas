@@ -2,6 +2,7 @@ import { Router } from "express";
 import User from "./../../models/user.js";
 import Wallet from "./../../models/wallet.js";
 import Auth from "../../services/auth.js";
+import Score from "../../models/score.js";
 import { ethers } from "ethers";
 import crypto from "crypto";
 const route = Router();
@@ -69,9 +70,9 @@ export default (app) => {
    *           description: 사용자 핸드폰 번호 (유니크 값)
    */
   route.post("/signup", async (req, res) => {
-    console.log(req.body);
+    // console.log(req.body);
 
-    // profile 객체 추가
+    // profile 더미 데이터 추가
     const image_url = "https://newsimg.sedaily.com/2023/04/11/29O9FX10T6_1.jpg";
     req.body.profile = {
       image_url: image_url,
@@ -79,8 +80,14 @@ export default (app) => {
       description: "test",
     };
     const user = new User(req.body);
+    const score = new Score();
 
     try {
+      // 사용자 점수 데이터 생성
+      const scoreData = await score.save();
+      user.score_id = scoreData._id;
+
+      // 사용자 데이터 저장
       await user.save();
 
       //============
@@ -99,6 +106,7 @@ export default (app) => {
 
       return res.status(200).json({ success: true });
     } catch (err) {
+      console.log(err);
       return res.json({ success: false, err });
     }
   });
