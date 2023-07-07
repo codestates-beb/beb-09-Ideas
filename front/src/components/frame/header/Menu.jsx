@@ -38,10 +38,10 @@ const SubMenuDiv = styled.div`
 
 const Menu = ({handleLogout}) => {
     const nav = useNavigate();
-    const profile = useSelector(state=>(state.profile));
+    const myProfile = useSelector(state=>(state.myProfile));
   return (
     <MenuDiv>
-        <SubMenuDiv onClick={()=>{nav(`profile/${profile?.id}`)}}>
+        <SubMenuDiv onClick={()=>{nav(`profile/${myProfile?.id}`)}}>
             <img src="profile.png" alt="profile" width="30px" height="30px"/>
             <h4>profile</h4>
         </SubMenuDiv>

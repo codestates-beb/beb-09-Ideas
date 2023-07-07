@@ -24,6 +24,7 @@ const listBoards = async () => {
         const response = await axios.get('/board/list')
         if(response.status === 200) {
             dispatch(actions1.setBoards(response.data.data))
+            console.log(response.data.data);
         }
         console.log(response)
         

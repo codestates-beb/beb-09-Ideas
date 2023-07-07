@@ -47,15 +47,7 @@ const BoardList = ({boards}) => {
      <MainDiv>
         {typeof boards !=="undefined"?
         (boards.slice(0,5).map((board)=> (
-            <Board 
-                id={board.id}
-                title={board.title}
-                category={board.category}
-                created_at={board.created_at}
-                thumb_up={board.thumb_up}
-                thumb_down={board.thumb_down}
-                view_count={board.view_count}
-            />
+            <Board board={board}/>
         ))):""}
         <BottomDiv>
             <Pagination count={10} color="primary" variant='outlined'/>

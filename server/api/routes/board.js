@@ -304,14 +304,10 @@ export default (app) => {
 
     try {
       // 게시글 조회
-<<<<<<< HEAD
-      const boards = await Board.find({ category: category });
-=======
       const boards = await Board.find({ category: category })
         .sort({ created_at: -1 })
         .exec();
 
->>>>>>> ab3c56f1510af9d7bea3be922bc0182cf1b3157f
       if (boards.length === 0) {
         return res
           .status(404)

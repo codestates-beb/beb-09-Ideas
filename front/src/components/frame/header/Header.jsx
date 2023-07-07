@@ -24,8 +24,9 @@ const BlurrDiv = styled.div`
 `;
 
 const HeaderDiv = styled.div`
-  background-color: rgb(193, 211, 223);
+  background-color: rgba(236, 245, 250);
   position: fixed;
+  border-radius: 0px 0px 15px 15px;
   width:94%;
   height:70px;
   z-index: 1;
