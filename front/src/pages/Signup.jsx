@@ -65,7 +65,7 @@ const Signup = () => {
       user_name: userNamelValue,
       phone_number: phNumberValue
     }
-    try {const response = await axios.post("http://localhost:3000/auth/signup", data, {
+    try {const response = await axios.post("/auth/signup", data, {
         headers: {
             "Content-Type":"application/json",
             
@@ -76,7 +76,6 @@ const Signup = () => {
             console.log(response);
             alert("회원가입이 되었습니다.");
             navigate("/");
-            
         }
     }
     catch (err) {

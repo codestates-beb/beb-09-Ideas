@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import MainPageComponent from '../components/frame/main/main-page-component/MainPageComponent';
 import { actions1 } from '../reducer/testReducer';
@@ -16,6 +16,8 @@ const MainPageDiv = styled.div`
 
 const MainPage = () => {
     const dispatch = useDispatch();
+    const accessToken = useSelector(state=>(state.accessToken));
+    console.log(`accessToken : ${accessToken}`);
     useEffect(()=>{
         listBoards();
     }, []);

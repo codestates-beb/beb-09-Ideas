@@ -1,6 +1,7 @@
+// import {useEffect} from 'react';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import store from './store';
-import { Provider } from 'react-redux';
+import { Provider} from 'react-redux';
 
 import Header from './components/frame/header/Header.jsx';
 import Footer from './components/frame/footer/Footer.jsx';
@@ -16,6 +17,14 @@ import Sidebar from './components/frame/sidebar/Sidebar';
 
 
 function App() {
+    // const accessToken = useSelector(state=>state.accessToken);
+    // useEffect(()=>{
+    //     requestAccessToken();
+    // },[accessToken]);
+
+    // const requestAccessToken = () => {
+    //     axios.post()
+    // }
   return (
     <Provider store={store}>
         <BrowserRouter>
