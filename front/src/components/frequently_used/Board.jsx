@@ -1,6 +1,6 @@
 import React from 'react'
-import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 
 const BoardDiv = styled.div`
     
@@ -41,32 +41,46 @@ const TitleH3 = styled.h3`
     }
 
 `; 
+// const CateSpan = styled.span`
+//     font-weight: bold;
+// `;
 
-const Board = () => {
-    const navigate = useNavigate();
-
+const Board = ({
+    id, 
+    title, 
+    category,
+    img_url,
+    created_at, 
+    user_name, 
+    view_count, 
+    management, 
+    economy, 
+    security, 
+    ai, 
+    blockchain, 
+    cloud
+}) => {
+    const nav = useNavigate();
   return (
-    <BoardDiv onclick={navigate("/board/:1")}>
+    <BoardDiv onClick={()=>{nav(`/board/${id}`)}}>
+        {/* <CateSpan>{category}aer</CateSpan> */}
         <TopDiv>
-            <ProfileImg src='profile.png' width="70px" height="70px"/>
+            <ProfileImg src={img_url} width="70px" height="70px"/>
             <TitleH3>
-                Recurrent Neural NetWorks Explained with a Real Life Example and Python Code
-                <span style={{fontWeight:'normal'}}> &nbsp;2 days ago</span> 
-                
+                {title}
+                <span style={{fontWeight:'normal'}}> &nbsp;{created_at} ago</span> 
             </TitleH3>
         </TopDiv>
         <BottomDiv>
-            <div>management : 38</div>
-            <div>Economy : 8</div>
-            <div>Security : 22</div>
-            <div>AI : 113</div>
-            <div>Blockchain : 0</div>
-            <div>Cloud : 0</div>
-            <div>view : 3,205</div>
-            <div> : 87</div>
+            <div>management : {management}</div>
+            <div>Economy : {economy}</div>
+            <div>Security : {security}</div>
+            <div>AI : {ai}</div>
+            <div>Blockchain : {blockchain}</div>
+            <div>Cloud : {cloud}</div>
+            <div>view : {view_count}</div>
+            <div>comments : 87</div>
         </BottomDiv>
-
-        
     </BoardDiv>
   )
 }

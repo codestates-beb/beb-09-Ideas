@@ -1,16 +1,13 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import TextField from '@mui/material/TextField';
-import { Button as MuiButton } from '@mui/material';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import { Button as MuiButton, TextField, Link, Grid, Typography, Avatar, Box } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Avatar from '@mui/material/Avatar';
-import Box from '@mui/material/Box';
 import { Modal, Button as Reactbtn } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { actions1 } from '../../../reducer/testReducer';
 import axios from 'axios';
+
 
 
 const LoginView = styled.div`
@@ -64,9 +61,9 @@ const CloseButton = styled(Reactbtn)`
 
 const LoginModal = ({ loginModal, onHide }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
-
 
   //회원가입 버튼 시 화면 이동
   const goToSignup = () => {
@@ -79,17 +76,21 @@ const LoginModal = ({ loginModal, onHide }) => {
       password: pw,
     }
     try {
-        const response = await axios.post("http://localhost:3000/auth/login", data);
-        if(response.data.loginSuccess !== true) {
-            alert(response.data.message);
+        const response = await axios.post("/auth/login", data, {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            withCredentials:true,
+        });
+        if(response.status === 200) {
+            dispatch(actions1.setAccessToken("1111111"));
+            onHide();
         }
-        else {
-            onHide()
-        }
+        
     }
     catch (err) {
-        console.error(err);
-    }
+         alert(err.response.data.message);
+        }
   }
 
   return (

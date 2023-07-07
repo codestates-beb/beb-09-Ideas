@@ -6,7 +6,7 @@ import path from "path";
 import config from "./../config/index.js";
 const accessString = config.bcryptConfig.accessToken;
 const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = '../contract/build/contracts'
 const abi = JSON.parse(fs.readFileSync(__dirname+"/MyERC20.json",'utf8'));
 
 import {fileURLToPath} from "url";
@@ -28,9 +28,10 @@ let sendToken = async (req,res,next) =>{
     const signer = await provider.getSigner(sendAccount);
 
     const walletAddress = jwt.verify(token,accessString).address;
-    const contAddress = '0xeF0f312E21Cc22DaAcf0B6F3d12B21379516e60d';
+    const deployedNet = abi.networks['5777'];
+    const contractAddress = deployedNet.address;
 
-    const contract = new ethers.Contract(contAddress,abi.abi,provider);
+    const contract = new ethers.Contract(contractAddress,abi.abi,provider);
 
     const amount = ethers.parseUnits("1.0",18);
 
@@ -49,9 +50,10 @@ let getERC20 = async (req,res,next) =>{
 
     const walletAddress = jwt.verify(token,accessString).address;
 
-    const contAddress = '0xeF0f312E21Cc22DaAcf0B6F3d12B21379516e60d';
+    const deployedNet = abi.networks['5777'];
+    const contractAddress = deployedNet.address;
 
-    const contract = new ethers.Contract(contAddress,abi.abi,provider);
+    const contract = new ethers.Contract(contractAddress,abi.abi,provider);
 
     const serverBalance = await contract.balanceOf(account[0].address);
     const walletBalance = await contract.balanceOf(walletAddress);
@@ -71,9 +73,10 @@ let sendTokenTest = async (req,res,next) =>{
     const privateKey = "0x119dc30ef65ad4617345190dccb34f43219fc714f608792c001598222bbadae5";
     const newWallet = new ethers.Wallet(privateKey);
 
-    const contAddress = '0xeF0f312E21Cc22DaAcf0B6F3d12B21379516e60d';
+    const deployedNet = abi.networks['5777'];
+    const contractAddress = deployedNet.address;
 
-    const contract = new ethers.Contract(contAddress,abi.abi,provider);
+    const contract = new ethers.Contract(contractAddress,abi.abi,provider);
 
     const amount = ethers.parseUnits("1.0",18);
 
@@ -90,12 +93,13 @@ let getERC20Test = async (req,res,next) =>{
     const account = await provider.listAccounts();
     const privateKey = "0x119dc30ef65ad4617345190dccb34f43219fc714f608792c001598222bbadae5";
 
+
     const newWallet = new ethers.Wallet(privateKey);
 
-    const contAddress = '0xeF0f312E21Cc22DaAcf0B6F3d12B21379516e60d';
+    const deployedNet = abi.networks['5777'];
+    const contractAddress = deployedNet.address;
 
-    const contract = new ethers.Contract(contAddress,abi.abi,provider);
-
+    const contract = new ethers.Contract(contractAddress,abi.abi,provider);
     const serverBalance = await contract.balanceOf(account[0].address);
     const walletBalance = await contract.balanceOf(await newWallet.getAddress());
 

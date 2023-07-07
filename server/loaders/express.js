@@ -7,7 +7,13 @@ import { swaggerUi, specs } from "./swagger.js";
 
 export default (app) => {
   // Enable Cross Origin Resource Sharing to all origins by default
-  app.use(cors());
+  app.use(
+    cors({
+      origin: ["http://localhost:3000"],
+      credentials: true,
+      methods: ["GET", "POST", "OPTIONS"],
+    })
+  );
 
   // application/x-www-form-urlencoded
   app.use(express.urlencoded({ extended: true }));
