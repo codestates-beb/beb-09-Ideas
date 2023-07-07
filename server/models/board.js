@@ -24,8 +24,9 @@ const boardSchema = new mongoose.Schema({
   thumb_users: {
     // 좋아요, 싫어요 중복 방지
     type: Map,
-    of: Boolean,
+    of: String,
     // required: true,
+    default: new Map(),
   },
   created_at: {
     type: Date,
