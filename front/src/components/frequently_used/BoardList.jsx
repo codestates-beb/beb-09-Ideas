@@ -1,7 +1,6 @@
 import React from 'react'
 import styled from 'styled-components';
 import { BsPencilSquare } from "react-icons/bs";
-import { useSelector } from 'react-redux';
 import { Pagination } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
@@ -42,9 +41,8 @@ const BottomDiv = styled.div`
     }
 `;
 
-const BoardList = () => {
+const BoardList = ({boards}) => {
     const nav = useNavigate();
-  const boards = useSelector((state)=>(state.boards));
   return (
      <MainDiv>
         {typeof boards !=="undefined"?

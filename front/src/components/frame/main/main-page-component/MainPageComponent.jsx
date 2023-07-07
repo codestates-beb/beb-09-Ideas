@@ -4,10 +4,10 @@ import BoardList from '../../../frequently_used/BoardList'
 
 
 
-const MainPageComponent = () => {
+const MainPageComponent = ({boards}) => {
   return (
     <>
-        <BoardList/>
+        <BoardList boards={boards}/>
     </> 
   )
 }

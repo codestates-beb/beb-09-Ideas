@@ -33,6 +33,10 @@ const BottomDiv = styled.div`
 `;
 
 const ProfileImg = styled.img`
+    z-index: 10;
+    &:hover {
+        opacity: 0.5;
+    }
 `;
 
 const TitleH3 = styled.h3`
@@ -52,7 +56,8 @@ const Board = ({
     category,
     img_url,
     created_at, 
-    user_name, 
+    user_name,
+    autorId,
     view_count, 
     management, 
     economy, 
@@ -62,14 +67,18 @@ const Board = ({
     cloud
 }) => {
     const nav = useNavigate();
+    const goToProfile = (event)=>{
+        event.stopPropagation();
+        nav(`/profile/${autorId}`); 
+    }
   return (
     <BoardDiv onClick={()=>{nav(`/board/${id}`)}}>
         {/* <CateSpan>{category}aer</CateSpan> */}
         <TopDiv>
-            <ProfileImg src={img_url} width="70px" height="70px"/>
+            <ProfileImg src={img_url} width="70px" height="70px" onClick={goToProfile}/>
             <TitleH3>
                 {title}
-                <span style={{fontWeight:'normal'}}> &nbsp;{created_at} ago</span> 
+                <span style={{fontWeight:'normal'}}> &nbsp;{created_at}</span> 
             </TitleH3>
         </TopDiv>
         <BottomDiv>

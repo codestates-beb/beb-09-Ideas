@@ -194,12 +194,12 @@ export default (app) => {
    */
   route.get("/list/:category", async (req, res) => {
     // management, economy, security, ai, blockchain, cloud,
+
     const category = req.params.category;
 
     try {
       // 게시글 조회
       const boards = await Board.find({ category: category });
-
       if (boards.length === 0) {
         return res
           .status(404)
