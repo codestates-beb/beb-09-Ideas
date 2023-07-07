@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import Board from './Board';
 
 const MainDiv = styled.div`
+    position:relative;
+    left: -250px;
     display:flex;
     flex-direction: column;
     overflow: hidden;
@@ -15,7 +17,7 @@ const MainDiv = styled.div`
     margin-top: 40px;
     margin-bottom: 40px;
     background-color: #58585833;
-    width: 70%;
+    width: 50%;
     height: 800px;
     padding: 30px;
     & > * + * {

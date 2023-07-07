@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
-import { Modal, Box, Typography } from '@mui/material'
 import { AiOutlineStar } from "react-icons/ai";
 import { BiSolidCommentDetail} from 'react-icons/bi';
+import CommentModal from './CommentModal';
+import { Modal, Box, Typography } from '@mui/material';
 
 const BoardDiv = styled.div`
     position:relative;
@@ -77,17 +78,8 @@ const CommentDiv = styled.span`
     }
 `;
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 400,
-  bgcolor: 'background.paper',
-  border: '2px solid #000',
-  boxShadow: 24,
-  p: 4,
-};
+
+
 
 const Board = ({board}) => {
     const [open, setOpen] = useState(false);
@@ -123,16 +115,8 @@ const Board = ({board}) => {
             <div>view : {board?.view_count}</div>
             <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px"/> 87</CommentDiv>
         </BottomDiv>
-        <Modal open={open} onClose={handleClose}>
-            <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-        </Modal>
+        
+        <CommentModal open={open} handleClose={handleClose}/>
     </BoardDiv>
   )
 }

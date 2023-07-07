@@ -78,7 +78,7 @@ const Header = () => {
                 <Profile handleLogout={handleLogout}/>
             ) : (
                 // 로그인이 안되었을때 표시 로그인 버튼
-                <Button onClick={handleLogin} variant='contained' >로그인</Button>
+                <Button onClick={handleLogin} variant='contained' >Login</Button>
                 
             )}
 
