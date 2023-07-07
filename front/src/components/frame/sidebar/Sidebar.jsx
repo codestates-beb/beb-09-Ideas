@@ -5,7 +5,7 @@ import CategoryButton from '../../frequently_used/CategoryButton';
 const SidebarDiv = styled.div`
     height:100%;
     width: 100px;
-    background: #e3e7ea;
+    background: #ffffff;
     position:fixed;
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
     display:flex;
@@ -21,9 +21,6 @@ const VirtualSidebarDiv = styled.div`
     
 `;
 
-const Div = styled.div`
-    
-`;
 
 
 const Sidebar = () => {

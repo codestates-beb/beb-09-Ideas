@@ -5,14 +5,15 @@ import styled from 'styled-components';
 const BoardDiv = styled.div`
     
     padding: 15px;
-    border: 0 solid black;
+    border: 1 solid black;
+    border-radius: 15px;
     height:100px;
     align-items: center;
     display:grid;
     cursor: pointer;
-    background: rgb(241,248,248);
+    background: rgb(255, 255, 255);
     &:hover {
-        background: rgba(241,248,248,0.8);
+        background: rgba(255, 255, 255, 0.5);
     }
     
 `;

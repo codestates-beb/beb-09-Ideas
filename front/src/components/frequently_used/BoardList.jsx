@@ -11,12 +11,13 @@ const MainDiv = styled.div`
     display:flex;
     flex-direction: column;
     overflow: hidden;
+    border-radius: 15px;
     margin: auto;
     margin-top: 40px;
     margin-bottom: 40px;
-    background-color: #3333;
+    background-color: #58585833;
     width: 70%;
-    height: 700px;
+    height: 800px;
     padding: 30px;
     & > * + * {
         margin-top: 15px;
@@ -31,12 +32,23 @@ const WriteButton = styled.div`
     }
 `;
 
+const BottomDiv = styled.div`
+    display:flex;
+    justify-content: center;
+    margin-top:30px;
+    & > :nth-child(2) {
+        position:absolute;
+        right:200px;
+    }
+`;
+
 const BoardList = () => {
     const nav = useNavigate();
   const boards = useSelector((state)=>(state.boards));
   return (
      <MainDiv>
-        {boards.map((board)=> (
+        {typeof boards !=="undefined"?
+        (boards.slice(0,5).map((board)=> (
             <Board 
                 id={board.id}
                 title={board.title}
@@ -46,11 +58,14 @@ const BoardList = () => {
                 thumb_down={board.thumb_down}
                 view_count={board.view_count}
             />
-        ))}
-        <Pagination count={10} color="primary" variant='outlined'/>
-        <WriteButton onClick={()=>{nav('/board/create')}}>
-          <BsPencilSquare size="40"/>
-        </WriteButton>
+        ))):""}
+        <BottomDiv>
+            <Pagination count={10} color="primary" variant='outlined'/>
+            <WriteButton onClick={()=>{nav('/board/create')}}>
+                <BsPencilSquare size="40"/>
+            </WriteButton>
+        </BottomDiv>
+        
     </MainDiv>
   );
 }
