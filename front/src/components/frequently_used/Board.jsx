@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { Modal, Box, Typography } from '@mui/material'
 import { AiOutlineStar } from "react-icons/ai";
-
+import { BiSolidCommentDetail} from 'react-icons/bi';
 
 const BoardDiv = styled.div`
     position:relative;
@@ -16,7 +16,7 @@ const BoardDiv = styled.div`
     cursor: pointer;
     background: rgb(255, 255, 255);
     &:hover {
-        background: rgba(255, 255, 255, 0.5);
+        background: rgba(255, 255, 255, 0.85);
     }
     box-shadow: 3px 2px 2px;
     
@@ -70,6 +70,12 @@ const CateDiv = styled.div`
         text-align: center;
     }
 `;
+const CommentDiv = styled.span`
+    /* font-weight: bold; */
+    &:hover{
+        opacity: 0.8;
+    }
+`;
 
 const style = {
   position: 'absolute',
@@ -115,7 +121,7 @@ const Board = ({board}) => {
             <div>Blockchain : {board?.score.blockchain.score}</div>
             <div>Cloud : {board?.score.cloud.score}</div>
             <div>view : {board?.view_count}</div>
-            <button onClick={handleClose}>comments : 87</button>
+            <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px"/> 87</CommentDiv>
         </BottomDiv>
         <Modal open={open} onClose={handleClose}>
             <Box sx={style}>
