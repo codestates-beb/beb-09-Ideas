@@ -48,9 +48,10 @@ export default (app) => {
    *                  type: object
    */
   route.get("/list", async (req, res) => {
+    console.log("test111111111111");
     try {
       const boards = await Board.find().sort({ view_count: -1 }).exec();
-
+      
       // 사용자 정보를 조회하여 추가
       let dataArray = [];
       for (let board of boards) {
