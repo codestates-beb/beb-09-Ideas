@@ -83,6 +83,8 @@ const LoginModal = ({ loginModal, onHide }) => {
             withCredentials:true,
         });
         if(response.status === 200) {
+            console.log(response);
+            dispatch(actions1.toggleIsLoggedIn(true));
             dispatch(actions1.setAccessToken("1111111"));
             onHide();
         }
