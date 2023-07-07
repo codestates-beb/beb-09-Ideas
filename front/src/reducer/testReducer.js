@@ -7,6 +7,7 @@ const slice = createSlice({
     accessToken: "",
     boards: [],
     board: {},
+    profile: {},
   }, // 여기에 모든 데이터가 저장이 됌
   reducers: {
     //조건문
@@ -22,6 +23,9 @@ const slice = createSlice({
     },
     setBoard: (state, action) => {
       state.board = action.payload;
+    },
+    setProfileInfo: (state, action) => {
+      state.profile.id = action.payload;
     },
   },
 });

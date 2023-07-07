@@ -34,7 +34,6 @@ const WriteButton = styled.div`
 const BoardList = () => {
     const nav = useNavigate();
   const boards = useSelector((state)=>(state.boards));
-  console.log(boards);
   return (
      <MainDiv>
         {boards.map((board)=> (

@@ -11,7 +11,7 @@ const abi = JSON.parse(fs.readFileSync(__dirname+"/MyERC20.json",'utf8'));
 
 import {fileURLToPath} from "url";
 
-// 로그아웃 인증 처리
+// 로그아웃 인증 처리t
 let createServerAccount = async (req, res, next) => {
     const provider = new ethers.JsonRpcProvider("http://localhost:7545");
     const serverAccount = await provider.listAccounts()

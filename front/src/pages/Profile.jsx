@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import ProfilePageComponent from '../components/frame/main/profile-page-component/ProfilePageComponent'
 
 

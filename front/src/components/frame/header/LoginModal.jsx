@@ -1,20 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { Button as MuiButton, TextField, Link, Grid, Typography, Avatar, Box } from '@mui/material';
+import { Button as MuiButton, TextField, Grid, Typography, Avatar, Box } from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Modal, Button as Reactbtn } from "react-bootstrap";
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { actions1 } from '../../../reducer/testReducer';
 import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 
 
 const LoginView = styled.div`
-width: 100%;
-max-width: 640px;
-padding: 24px;
-text-align: left;
+    width: 100%;
+    max-width: 640px;
+    padding: 24px;
+    text-align: left;
 `;
 
 const LoginPageView = styled.div`
@@ -64,6 +65,7 @@ const LoginModal = ({ loginModal, onHide }) => {
   const dispatch = useDispatch();
   const [id, setId] = useState('');
   const [pw, setPw] = useState('');
+  const [cookies] = useCookies(['x_auth']);
 
   //회원가입 버튼 시 화면 이동
   const goToSignup = () => {
@@ -85,7 +87,8 @@ const LoginModal = ({ loginModal, onHide }) => {
         if(response.status === 200) {
             console.log(response);
             dispatch(actions1.toggleIsLoggedIn(true));
-            dispatch(actions1.setAccessToken("1111111"));
+            dispatch(actions1.setAccessToken(cookies.x_auth));
+            dispatch(actions1.setProfileInfo(response.data.id));
             onHide();
         }
         
