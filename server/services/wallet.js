@@ -1,15 +1,10 @@
 import { ethers } from "ethers";
 import fs from "fs";
 import jwt from "jsonwebtoken";
-import dotenv from "dotenv";
-import path from "path";
 import config from "./../config/index.js";
 const accessString = config.bcryptConfig.accessToken;
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = "../contract/build/contracts";
-const abi = JSON.parse(fs.readFileSync(__dirname + "/MyERC20.json", "utf8"));
-
-import { fileURLToPath } from "url";
+const __dirname = '../contract/build/contracts'
+const abi = JSON.parse(fs.readFileSync(__dirname+"/MyERC20.json",'utf8'));
 
 // 로그아웃 인증 처리
 let createServerAccount = async (req, res, next) => {

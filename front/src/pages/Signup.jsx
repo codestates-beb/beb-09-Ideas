@@ -4,6 +4,9 @@ import TextField from '@mui/material/TextField';
 import { Button as MuiButton } from '@mui/material';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { useDispatch } from'react-redux';
+
+import { actions1 } from '../reducer/testReducer';
 
 const SignupPageView = styled.div`
   display: flex;
@@ -55,24 +58,29 @@ const Signup = () => {
     navigate("/")
   }
 
-  const handleSignUp = () => {
-    console.log(idValue);
+  const handleSignUp = async () => {
     const data = {
       id: idValue,
       password: pwValue,
       user_name: userNamelValue,
       phone_number: phNumberValue
     }
-    axios
-      .post("http://localhost:3000/auth/signup", data)
-      .then((res) => {
-        console.log(res.data);
-        alert("회원가입이 되었습니다.");
-        navigate("/");
-      })
-      .catch((err) => {
-        console.err(err);
-      })
+    try {const response = await axios.post("/auth/signup", data, {
+        headers: {
+            "Content-Type":"application/json",
+            
+        },
+        withCredentials:true,
+        });
+        if(response.status === 200) {
+            console.log(response);
+            alert("회원가입이 되었습니다.");
+            navigate("/");
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
 
   }
   

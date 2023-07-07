@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from '@mui/material'
 
 import Profile from "./Profile";
 
 import LoginModal from "./LoginModal";
+import { actions1 } from '../../../reducer/testReducer';
 
 
 // import Logo from "../../frequently-used/Logo";
@@ -48,9 +49,10 @@ const VirtualHeaderDiv = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state)=> (state.isLoggedIn));
   const nav = useNavigate();
   const [loginModal, setLoginModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
+//   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
 
 
   const handleLogin = () => {
@@ -58,7 +60,7 @@ const Header = () => {
     setLoginModal(true);
   };
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    dispatch(actions1.toggleIsLoggedIn(false));
   }
 
   return (
