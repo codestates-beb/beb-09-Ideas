@@ -90,7 +90,7 @@ const Board = ({board}) => {
     const nav = useNavigate();
     const goToProfile = (event)=>{
         event.stopPropagation();
-        nav(`/profile/${board.id}`); 
+        nav(`/profile/${board?.author.id}`); 
     }
   return (
     <BoardDiv onClick={()=>{nav(`/board/${board?.id}`)}}>
