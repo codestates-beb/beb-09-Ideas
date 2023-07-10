@@ -541,27 +541,36 @@ export default (app) => {
    *         comments:
    *           type: object
    *           properties:
-   *             user_id:
-   *              type: string
-   *              description: 작성자의 id
-   *             board_id:
-   *              type: string
-   *              description: 게시판 id (프론트에서 사용X)
+   *             id:
+   *               type: string
+   *               description: 댓글 아이디
+   *             user:
+   *               type: object
+   *               properties:
+   *                 id:
+   *                   type: string
+   *                   description: 사용자 아이디
+   *                 user_name:
+   *                   type: string
+   *                   description: 사용자 이름
+   *                 profile:
+   *                   type: object
+   *                   properties:
+   *                     image_url:
+   *                       type: string
+   *                       description: 이미지 url
    *             content:
-   *              type: string
-   *              description: 댓글 내용
+   *               type: string
+   *               description: 댓글 내용
    *             thumb_up:
-   *              type: number
-   *              description: 추천 수
+   *               type: number
+   *               description: 댓글 좋아요 갯수
    *             thumb_down:
-   *              type: array
-   *              description: 비추천 수
-   *             thumb_users:
-   *              type: string
-   *              description: 추천 중복 방지 (프론트에서 사용X)
+   *               type: number
+   *               description: 댓글 싫어요 갯수
    *             created_at:
-   *              type: string
-   *              description: 댓글 작성 시간
+   *               type: string
+   *               description: 댓글 생성일
    */
   route.get("/detail/:id", Auth, async (req, res) => {
     const userId = req.user._id; // 해당 게시글을 보고 있는 사용자id
