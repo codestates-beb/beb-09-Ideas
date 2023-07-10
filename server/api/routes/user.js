@@ -245,6 +245,8 @@ export default (app) => {
    */
   route.get("/profile/:id", async (req, res) => {
     const userId = req.params.id;
+    console.log("userId");
+    console.log(userId);
 
     try {
       // 사용자 정보 조회

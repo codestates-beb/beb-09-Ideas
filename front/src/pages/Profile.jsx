@@ -8,16 +8,15 @@ import { actions1 } from '../reducer/testReducer';
 
 
 const Profile = () => {
-    const {autorId} = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
     useEffect(()=>{
         getAPIUserProfile();
     });
     const getAPIUserProfile = async () => {
-        try {const response = await axios.get(`/profile/${autorId}`);
+        try {const response = await axios.get(`/user/profile/${id}`);
             if(response.status === 200) {
                 dispatch(actions1.setProfileInfo)
-                console.log(response.data);
             }
         }
         catch (err) {
