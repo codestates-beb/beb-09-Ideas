@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from '@mui/material'
 
 import Profile from "./Profile";
 
 import LoginModal from "./LoginModal";
+import { actions1 } from '../../../reducer/testReducer';
 
 
 // import Logo from "../../frequently-used/Logo";
@@ -23,8 +24,9 @@ const BlurrDiv = styled.div`
 `;
 
 const HeaderDiv = styled.div`
-  background-color: rgb(193, 211, 223);
+  background-color: rgba(236, 245, 250);
   position: fixed;
+  border-radius: 0px 0px 15px 15px;
   width:94%;
   height:70px;
   z-index: 1;
@@ -48,9 +50,10 @@ const VirtualHeaderDiv = styled.div`
 
 const Header = () => {
   const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state)=> (state.isLoggedIn));
   const nav = useNavigate();
   const [loginModal, setLoginModal] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
+//   const [isLoggedIn, setIsLoggedIn] = useState(false); // 로그인 상태 관리
 
 
   const handleLogin = () => {
@@ -58,7 +61,7 @@ const Header = () => {
     setLoginModal(true);
   };
   const handleLogout = () => {
-    setIsLoggedIn(false);
+    dispatch(actions1.toggleIsLoggedIn(false));
   }
 
   return (
@@ -75,7 +78,7 @@ const Header = () => {
                 <Profile handleLogout={handleLogout}/>
             ) : (
                 // 로그인이 안되었을때 표시 로그인 버튼
-                <Button onClick={handleLogin} variant='contained' >로그인</Button>
+                <Button onClick={handleLogin} variant='contained' >Login</Button>
                 
             )}
 

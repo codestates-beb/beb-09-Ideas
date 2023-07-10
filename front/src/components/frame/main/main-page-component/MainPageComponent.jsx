@@ -1,14 +1,15 @@
-import React from 'react'
-import { Pagination } from '@mui/material';
-import BoardList from '../../../frequently_used/BoardList';
+import React, {useState} from 'react'
+import BoardList from '../../../frequently_used/BoardList'
 
 
 
-const MainPageComponent = () => {
 
+const MainPageComponent = ({boards}) => {
+    
   return (
     <>
-        <BoardList/>
+        <BoardList boards={boards}/>
+        
     </> 
   )
 }

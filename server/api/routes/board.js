@@ -308,6 +308,7 @@ export default (app) => {
    */
   route.get("/list/:category", async (req, res) => {
     // management, economy, security, ai, blockchain, cloud,
+
     const category = req.params.category;
 
     try {

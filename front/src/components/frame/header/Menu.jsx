@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MenuDiv = styled.div`
     position:absolute;
@@ -37,9 +38,10 @@ const SubMenuDiv = styled.div`
 
 const Menu = ({handleLogout}) => {
     const nav = useNavigate();
+    const myProfile = useSelector(state=>(state.myProfile));
   return (
     <MenuDiv>
-        <SubMenuDiv onClick={()=>{nav('profile')}}>
+        <SubMenuDiv onClick={()=>{nav(`profile/${myProfile?.id}`)}}>
             <img src="profile.png" alt="profile" width="30px" height="30px"/>
             <h4>profile</h4>
         </SubMenuDiv>

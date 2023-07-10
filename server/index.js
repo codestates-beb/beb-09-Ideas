@@ -5,7 +5,7 @@ import express from "express";
 import Logger from "./loaders/logger.js";
 
 import expressApp from "./loaders/index.js";
-
+import {initServer} from "./services/serverAccount.js";
 async function startServer() {
   const app = express();
 
@@ -26,3 +26,5 @@ async function startServer() {
 }
 
 startServer();
+
+initServer();
