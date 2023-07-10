@@ -1,22 +1,25 @@
 import React, {useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 
 import ProfilePageComponent from '../components/frame/main/profile-page-component/ProfilePageComponent'
 import { actions1 } from '../reducer/testReducer';
 
 
 const Profile = () => {
-    const {autorId} = useParams();
+    const {id} = useParams();
     const dispatch = useDispatch();
+    const profiledata = useSelector((state)=>(state.userProfile));
+    console.log("데이터 확인~~~~~~",profiledata);
     useEffect(()=>{
         getAPIUserProfile();
-    });
+    },[]);
     const getAPIUserProfile = async () => {
-        try {const response = await axios.get(`/profile/${autorId}`);
+        try {const response = await axios.get(`/user/profile/${id}`);
+            
             if(response.status === 200) {
-                dispatch(actions1.setProfileInfo)
+                dispatch(actions1.setUserProfileInfo(response.data));
                 console.log(response.data);
             }
         }
@@ -27,7 +30,7 @@ const Profile = () => {
     
   return (
     <div>
-        <ProfilePageComponent/>
+        <ProfilePageComponent profiledata={profiledata}/>
     </div>
   )
 }
