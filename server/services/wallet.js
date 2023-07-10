@@ -90,7 +90,7 @@ let sendTokenTest = async (req, res, next) => {
 };
 
 let getERC20Test = async (req, res, next) => {
-  const provider = new ethers.JsonRpcProvider("http://127.0.0.1:7545");
+  const provider = new ethers.JsonRpcProvider("http://125.138.251.33:7545");
   const account = await provider.listAccounts();
   const privateKey =
     "0x119dc30ef65ad4617345190dccb34f43219fc714f608792c001598222bbadae5";
