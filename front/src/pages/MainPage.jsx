@@ -1,23 +1,20 @@
 import { useEffect } from 'react';
 import styled from '@emotion/styled';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 
 import MainPageComponent from '../components/frame/main/main-page-component/MainPageComponent';
 import { actions1 } from '../reducer/testReducer';
 
 const MainPageDiv = styled.div`
     width: 100%;
-    /* margin: 20px; */
-    /* padding: 24px; */
-    /* text-align: left; */
+
 `;
 
 
 const MainPage = () => {
     const dispatch = useDispatch();
-    const accessToken = useSelector(state=>(state.accessToken));
-    console.log(`accessToken : ${accessToken}`);
+    const boards = useSelector((state)=>(state.boards));
     useEffect(()=>{
         listBoards();
     }, []);
@@ -27,7 +24,9 @@ const listBoards = async () => {
         const response = await axios.get('/board/list')
         if(response.status === 200) {
             dispatch(actions1.setBoards(response.data.data))
+            console.log(response.data.data);
         }
+        console.log(response)
         
         
     }
@@ -40,7 +39,7 @@ const listBoards = async () => {
 }
   return (
     <MainPageDiv>
-        <MainPageComponent/>
+        <MainPageComponent boards={boards}/>
     </MainPageDiv>
   )
 }

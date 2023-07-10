@@ -85,10 +85,9 @@ const LoginModal = ({ loginModal, onHide }) => {
             withCredentials:true,
         });
         if(response.status === 200) {
-            console.log(response);
             dispatch(actions1.toggleIsLoggedIn(true));
             dispatch(actions1.setAccessToken(cookies.x_auth));
-            dispatch(actions1.setProfileInfo(response.data.id));
+            dispatch(actions1.setMyProfileInfo(response.data.id));
             onHide();
         }
         

@@ -24,8 +24,9 @@ const BlurrDiv = styled.div`
 `;
 
 const HeaderDiv = styled.div`
-  background-color: rgb(193, 211, 223);
+  background-color: rgba(236, 245, 250);
   position: fixed;
+  border-radius: 0px 0px 15px 15px;
   width:94%;
   height:70px;
   z-index: 1;
@@ -77,7 +78,7 @@ const Header = () => {
                 <Profile handleLogout={handleLogout}/>
             ) : (
                 // 로그인이 안되었을때 표시 로그인 버튼
-                <Button onClick={handleLogin} variant='contained' >로그인</Button>
+                <Button onClick={handleLogin} variant='contained' >Login</Button>
                 
             )}
 

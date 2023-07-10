@@ -1,28 +1,40 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { AiOutlineStar } from "react-icons/ai";
+import { BiSolidCommentDetail} from 'react-icons/bi';
+import CommentModal from './CommentModal';
+import { Modal, Box, Typography } from '@mui/material';
 
 const BoardDiv = styled.div`
-    
+    position:relative;
     padding: 15px;
-    border: 0 solid black;
+    border: 1 solid black;
+    border-radius: 15px;
     height:100px;
     align-items: center;
     display:grid;
     cursor: pointer;
-    background: rgb(241,248,248);
+    background: rgb(255, 255, 255);
     &:hover {
-        background: rgba(241,248,248,0.8);
+        background: rgba(255, 255, 255, 0.85);
     }
+    box-shadow: 3px 2px 2px;
     
 `;
 
 const TopDiv = styled.div`
+    position:absolute;
+    top:15px;
+    left: 20px;
     display:grid;
     grid-template-columns: 70px 1fr;
 `;
 
 const BottomDiv = styled.div`
+    position:absolute;
+    bottom:5px;
+    left:40px;
     display:grid;
     grid-template-columns: repeat(8, 1fr);
     justify-content: space-between;
@@ -32,6 +44,10 @@ const BottomDiv = styled.div`
 `;
 
 const ProfileImg = styled.img`
+     
+    &:hover {
+        opacity: 0.5;
+    }
 `;
 
 const TitleH3 = styled.h3`
@@ -41,46 +57,66 @@ const TitleH3 = styled.h3`
     }
 
 `; 
-// const CateSpan = styled.span`
-//     font-weight: bold;
-// `;
+const CateDiv = styled.div`
+    position:absolute;
+    top:-20px;
+    left:-20px;
+    height: 30px;
+    width: 30px;
+    border-radius: 50px;
+    h4{
+        position:absolute;
+        top:-8px;
+        left:19px;
+        text-align: center;
+    }
+`;
+const CommentDiv = styled.span`
+    /* font-weight: bold; */
+    &:hover{
+        opacity: 0.8;
+    }
+`;
 
-const Board = ({
-    id, 
-    title, 
-    category,
-    img_url,
-    created_at, 
-    user_name, 
-    view_count, 
-    management, 
-    economy, 
-    security, 
-    ai, 
-    blockchain, 
-    cloud
-}) => {
+
+
+
+const Board = ({board}) => {
+    const [open, setOpen] = useState(false);
+    const handleClose = (event) => {
+        event.stopPropagation();
+        setOpen(!open);
+    }
     const nav = useNavigate();
+    const goToProfile = (event)=>{
+        event.stopPropagation();
+        nav(`/profile/${board.id}`); 
+    }
   return (
-    <BoardDiv onClick={()=>{nav(`/board/${id}`)}}>
-        {/* <CateSpan>{category}aer</CateSpan> */}
+    <BoardDiv onClick={()=>{nav(`/board/${board?.id}`)}}>
+        <CateDiv>
+            <AiOutlineStar size="50px"/>
+            <h4>{board?.category[0].toUpperCase()}</h4> 
+        </CateDiv>
         <TopDiv>
-            <ProfileImg src={img_url} width="70px" height="70px"/>
+            <ProfileImg src={board?.autor.profile.image_url} width="70px" height="70px" onClick={goToProfile}/>
             <TitleH3>
-                {title}
-                <span style={{fontWeight:'normal'}}> &nbsp;{created_at} ago</span> 
+                {board?.title}
+                <span style={{fontWeight:'normal'}}> &nbsp;{board?.created_at}</span> 
             </TitleH3>
         </TopDiv>
         <BottomDiv>
-            <div>management : {management}</div>
-            <div>Economy : {economy}</div>
-            <div>Security : {security}</div>
-            <div>AI : {ai}</div>
-            <div>Blockchain : {blockchain}</div>
-            <div>Cloud : {cloud}</div>
-            <div>view : {view_count}</div>
-            <div>comments : 87</div>
+            <div>manage: {board?.score.management.score} </div>
+            <div>Economy : {board?.score.economy.score}</div>
+            <div>Security : {board?.score.security.score}</div>
+            <div>AI : {board?.score.ai.score}</div>
+            <div>Blockchain : {board?.score.blockchain.score}</div>
+            <div>Cloud : {board?.score.cloud.score}</div>
+            <div>view : {board?.view_count}</div>
+            <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px"/> 87</CommentDiv>
         </BottomDiv>
+        
+        <CommentModal open={open} handleClose={handleClose}/>
     </BoardDiv>
   )
 }

@@ -40,10 +40,6 @@ const userSchema = new mongoose.Schema({
     // 로그인 유효기간
     type: Number,
   },
-  wallet_address: {
-    // 사용자 지갑 주소
-    type: String,
-  },
   created_at: {
     // 사용자 생성 시간
     type: Date,
@@ -55,11 +51,19 @@ const userSchema = new mongoose.Schema({
     title: String,
     description: String,
   },
-  score: {
+  score_id: {
     // 사용자 점수
     // type: mongoose.Schema.Types.ObjectId,
     // ref: "Score",
     type: String,
+  },
+  isVoted: {
+    type: Boolean,
+    default: false,
+  },
+  followers: {
+    type: Number,
+    default: 0,
   },
 });
 
