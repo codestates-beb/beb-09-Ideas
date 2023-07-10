@@ -245,7 +245,7 @@ export default (app) => {
    */
   route.get("/profile/:id", async (req, res) => {
     const userId = req.params.id;
-    console.log("userId");
+    console.log("userID");
     console.log(userId);
 
     try {

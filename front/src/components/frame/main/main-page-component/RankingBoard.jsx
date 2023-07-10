@@ -18,7 +18,7 @@ const CircleDiv = styled.div`
     height: 30px;
     width: 30px;
     span {
-        margin: auto;
+        
     }
 `;
 

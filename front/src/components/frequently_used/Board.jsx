@@ -2,9 +2,13 @@ import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineStar } from "react-icons/ai";
-import { BiSolidCommentDetail} from 'react-icons/bi';
+import { BiSolidCommentDetail, BiSolidLockOpenAlt} from 'react-icons/bi';
+import { BsFillBootstrapFill, BsFillCloudsFill } from "react-icons/bs";
+import { FaBookReader, FaChartLine, FaRobot } from 'react-icons/fa'
+import { RiMoneyDollarCircleFill } from 'react-icons/ri'
 import CommentModal from './CommentModal';
 import { Modal, Box, Typography } from '@mui/material';
+
 
 const BoardDiv = styled.div`
     position:relative;
@@ -78,10 +82,16 @@ const CommentDiv = styled.span`
     }
 `;
 
+const ImgDiv = styled.div`
+    position: absolute;
+    top: 0;
+    right: 0;
+`;
 
 
 
 const Board = ({board}) => {
+    let CategoryIcon;
     const [open, setOpen] = useState(false);
     const handleClose = (event) => {
         event.stopPropagation();
@@ -92,18 +102,41 @@ const Board = ({board}) => {
         event.stopPropagation();
         nav(`/profile/${board?.author.id}`); 
     }
+
+    if (board.category[0] === "m"){
+        CategoryIcon = <FaBookReader size= "25px"/> 
+    }
+    else if (board.category[0] === "e"){
+        CategoryIcon = <RiMoneyDollarCircleFill size = "25px" />
+    }
+    else if (board.category[0] === "s"){
+        CategoryIcon = <BiSolidLockOpenAlt size= "25px"/> 
+    }
+    else if (board.category[0] === "a"){
+        CategoryIcon = <FaRobot size= "25px"/> 
+    }
+    else if (board.category[0] === "b"){
+        CategoryIcon = <BsFillBootstrapFill size= "25px"/> 
+    }
+    else if (board.category[0] === "c"){
+        CategoryIcon = <BsFillCloudsFill size= "25px" />
+    }
   return (
     <BoardDiv onClick={()=>{nav(`/board/${board?.id}`)}}>
         <CateDiv>
-            <AiOutlineStar size="50px"/>
             <h4>{board?.category[0].toUpperCase()}</h4> 
         </CateDiv>
+        <ImgDiv>
+           {CategoryIcon}
+        </ImgDiv>
         <TopDiv>
             <ProfileImg src={board?.autor?.profile.image_url} width="70px" height="70px" onClick={goToProfile}/>
             <TitleH3>
                 {board?.title}
                 <span style={{fontWeight:'normal'}}> &nbsp;{board?.created_at}</span> 
+                
             </TitleH3>
+                
         </TopDiv>
         <BottomDiv>
             <div>manage: {board?.score.management.score} </div>
