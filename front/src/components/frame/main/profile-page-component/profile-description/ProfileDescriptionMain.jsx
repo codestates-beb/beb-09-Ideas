@@ -18,10 +18,10 @@ const MainDiv = styled.div`
     }
 `;
 
-const ProfileDescriptionMain = () => {
+const ProfileDescriptionMain = ({profiledata}) => {
   return (
     <MainDiv>
-        <Profile/>
+        <Profile profiledata={profiledata}/>
         <div>
             <Title/>
             <hr/>

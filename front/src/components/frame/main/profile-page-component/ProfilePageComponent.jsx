@@ -12,10 +12,10 @@ const ProfileDiv = styled.div`
     width: 1300px;
 `;
 
-const ProfilePageComponent = () => {
+const ProfilePageComponent = ({profiledata}) => {
   return (
-    <ProfileDiv>
-        <ProfileDescriptionMain/>
+    <ProfileDiv >
+        <ProfileDescriptionMain profiledata={profiledata}/>
         <ScoreMain/>
         <PostMain/>
     </ProfileDiv>    

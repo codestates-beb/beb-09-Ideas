@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components';
+import TokenInfo from './TokenInfo';
+import MainPageComponent from './RankingComponent';
 
 const SideInfoDiv = styled.div`
     height:800px;
-    width:350px;
+    width:400px;
     border: 1px solid black;
     border-radius: 15px;
     margin: auto;
@@ -16,7 +18,8 @@ const SideInfoDiv = styled.div`
 const SideInfo = () => {
   return (
     <SideInfoDiv>
-            
+        <TokenInfo/>
+        <MainPageComponent/>
     </SideInfoDiv>
   )
 }
