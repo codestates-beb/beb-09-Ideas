@@ -8,7 +8,7 @@ import Board from './Board';
 
 const MainDiv = styled.div`
     position:relative;
-    left: -250px;
+    /* left: -250px; */
     display:flex;
     flex-direction: column;
     overflow: hidden;
@@ -16,10 +16,10 @@ const MainDiv = styled.div`
     margin: auto;
     margin-top: 40px;
     margin-bottom: 40px;
+    padding: 30px;
     background-color: #58585833;
     width: 50%;
     height: 800px;
-    padding: 30px;
     & > * + * {
         margin-top: 15px;
     }

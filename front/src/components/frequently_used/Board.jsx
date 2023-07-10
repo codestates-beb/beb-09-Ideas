@@ -99,7 +99,7 @@ const Board = ({board}) => {
             <h4>{board?.category[0].toUpperCase()}</h4> 
         </CateDiv>
         <TopDiv>
-            <ProfileImg src={board?.autor.profile.image_url} width="70px" height="70px" onClick={goToProfile}/>
+            <ProfileImg src={board?.autor?.profile.image_url} width="70px" height="70px" onClick={goToProfile}/>
             <TitleH3>
                 {board?.title}
                 <span style={{fontWeight:'normal'}}> &nbsp;{board?.created_at}</span> 
