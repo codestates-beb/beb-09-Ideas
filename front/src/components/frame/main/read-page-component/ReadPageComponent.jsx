@@ -8,6 +8,7 @@ import ThumbsUp from './ThumbsUp';
 import TopStatus from './TopStatus';
 import Voting from './Voting';
 import Comment from './Comment';
+import { useDispatch, useSelector} from 'react-redux';
 
 const ReadDiv = styled.div`
     display:block;
@@ -45,6 +46,8 @@ const VoteViewDiv = styled.div`
 
 
 const ReadPageComponent = () => {
+  const dispatch = useDispatch();
+  
   return (
 
     <ReadDiv>
