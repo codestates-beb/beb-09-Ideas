@@ -49,6 +49,11 @@ const tokenAlgorithmSchema = new mongoose.Schema({
     type: Number,
     default: 1.7,
   },
+  mft_price: {
+    // mft 토큰 가격 (추후 수정 예정)
+    type: Number,
+    default: 1000,
+  },
 });
 
 const TokenAlgorithm = mongoose.model("tokenAlgorithm", tokenAlgorithmSchema);

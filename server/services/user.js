@@ -1,3 +1,4 @@
+import fetch from "node-fetch";
 import User from "../models/user.js";
 import TokenAlgorithm from "../models/tokenAlgorithm.js";
 
@@ -23,4 +24,20 @@ const calculateUserScore = async (boardId) => {
   console.log(userScoreCoefficient);
 };
 
-export { getTotalUserCount };
+const getEtherPeice = async () => {
+  try {
+    const response = await fetch(
+      "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd"
+    );
+    const data = await response.json();
+    const ethereumPrice = data.ethereum.usd;
+    console.log(`Current Ethereum Price: $${ethereumPrice}`);
+
+    return ethereumPrice;
+  } catch (err) {
+    console.error("Error fetching Ethereum price:", error);
+    throw err;
+  }
+};
+
+export { getTotalUserCount, calculateUserScore, getEtherPeice };
