@@ -1,10 +1,10 @@
 import { Router } from "express";
 import Board from "../../models/board.js";
 import Comment from "../../models/comment.js";
-import User from "../../models/user.js";
 import Score from "../../models/score.js";
 import Auth from "../../services/auth.js";
-import CalcTime from "../../services/calcTime.js";
+import { getBoardData, getBoardDetailData } from "../../services/board.js";
+import Logger from "../../loaders/logger.js";
 
 const route = Router();
 
@@ -49,45 +49,21 @@ export default (app) => {
    */
   route.get("/list", async (req, res) => {
     try {
+      // 게시판 리스트 조회
       const boards = await Board.find().sort({ created_at: -1 }).exec();
 
-      // 사용자 정보를 조회하여 추가
-      let dataArray = [];
-      for (let board of boards) {
-        // 유저 조회
-        const userData = await User.findById(board.user_id);
-
-        // 게시판 점수 데이터 조회
-        const boardScore = await Score.findById(board.score_id);
-
-        // 시간 데이터 처리
-        const created_at = CalcTime(board.created_at);
-
-        const data = {
-          id: board._id,
-          created_at: created_at,
-          autor: {
-            id: userData._id,
-            user_name: userData.user_name,
-            profile: {
-              image_url: userData.profile.image_url,
-            },
-          },
-          title: board.title,
-          category: board.category,
-          content: board.content,
-          thumb_up: board.thumb_up,
-          thumb_down: board.thumb_down,
-          view_count: board.view_count,
-          score: boardScore,
-        };
-
-        dataArray.push(data);
+      // 게시판 데이터가 없을 경우
+      if (boards.length === 0) {
+        return res
+          .status(404)
+          .json({ success: false, message: "조회된 데이터가 없습니다." });
       }
 
+      // 게시글 관련 데이터 조회
+      const dataArray = await getBoardData(boards);
       return res.status(200).json({ success: true, data: dataArray });
     } catch (err) {
-      console.log(err);
+      Logger.error(err);
       return res.status(500).json({ success: false, err });
     }
   });
@@ -296,6 +272,39 @@ export default (app) => {
    *                     score:
    *                       type: number
    *                       description: 디지털 서명 점수
+   *         comments:
+   *           type: object
+   *           properties:
+   *             id:
+   *               type: string
+   *               description: 댓글 아이디
+   *             user:
+   *               type: object
+   *               properties:
+   *                 id:
+   *                   type: string
+   *                   description: 사용자 아이디
+   *                 user_name:
+   *                   type: string
+   *                   description: 사용자 이름
+   *                 profile:
+   *                   type: object
+   *                   properties:
+   *                     image_url:
+   *                       type: string
+   *                       description: 이미지 url
+   *             content:
+   *               type: string
+   *               description: 댓글 내용
+   *             thumb_up:
+   *               type: number
+   *               description: 댓글 좋아요 갯수
+   *             thumb_down:
+   *               type: number
+   *               description: 댓글 싫어요 갯수
+   *             created_at:
+   *               type: string
+   *               description: 댓글 생성일
    */
   route.get("/list/:category", async (req, res) => {
     // management, economy, security, ai, blockchain, cloud,
@@ -303,53 +312,23 @@ export default (app) => {
     const category = req.params.category;
 
     try {
-      // 게시글 조회
+      // 게시판 리스트 조회
       const boards = await Board.find({ category: category })
         .sort({ created_at: -1 })
         .exec();
 
+      // 게시판 데이터가 없을 경우
       if (boards.length === 0) {
         return res
           .status(404)
           .json({ success: false, message: "조회된 데이터가 없습니다." });
       }
 
-      // 사용자 정보를 조회하여 추가
-      let dataArray = [];
-      for (let board of boards) {
-        // 유저 조회
-        const userData = await User.findById(board.user_id);
-
-        // 게시판 점수 조회
-        const boardScore = await Score.findById(board.score_id);
-
-        // 시간 데이터 처리
-        const created_at = CalcTime(board.created_at);
-
-        const data = {
-          id: board._id,
-          created_at: created_at,
-          autor: {
-            id: userData._id,
-            user_name: userData.user_name,
-            profile: {
-              image_url: userData.profile.image_url,
-            },
-          },
-          title: board.title,
-          category: board.category,
-          content: board.content,
-          thumb_up: board.thumb_up,
-          thumb_down: board.thumb_down,
-          view_count: board.view_count,
-          score: boardScore,
-        };
-
-        dataArray.push(data);
-      }
-
+      // 게시글 관련 데이터 조회
+      const dataArray = await getBoardData(boards);
       return res.status(200).json({ success: true, data: dataArray });
     } catch (err) {
+      Logger.error(err);
       return res.status(500).json({ success: false, err });
     }
   });
@@ -562,33 +541,42 @@ export default (app) => {
    *         comments:
    *           type: object
    *           properties:
-   *             user_id:
-   *              type: string
-   *              description: 작성자의 id
-   *             board_id:
-   *              type: string
-   *              description: 게시판 id (프론트에서 사용X)
+   *             id:
+   *               type: string
+   *               description: 댓글 아이디
+   *             user:
+   *               type: object
+   *               properties:
+   *                 id:
+   *                   type: string
+   *                   description: 사용자 아이디
+   *                 user_name:
+   *                   type: string
+   *                   description: 사용자 이름
+   *                 profile:
+   *                   type: object
+   *                   properties:
+   *                     image_url:
+   *                       type: string
+   *                       description: 이미지 url
    *             content:
-   *              type: string
-   *              description: 댓글 내용
+   *               type: string
+   *               description: 댓글 내용
    *             thumb_up:
-   *              type: number
-   *              description: 추천 수
+   *               type: number
+   *               description: 댓글 좋아요 갯수
    *             thumb_down:
-   *              type: array
-   *              description: 비추천 수
-   *             thumb_users:
-   *              type: string
-   *              description: 추천 중복 방지 (프론트에서 사용X)
+   *               type: number
+   *               description: 댓글 싫어요 갯수
    *             created_at:
-   *              type: string
-   *              description: 댓글 작성 시간
+   *               type: string
+   *               description: 댓글 생성일
    */
   route.get("/detail/:id", Auth, async (req, res) => {
     const userId = req.user._id; // 해당 게시글을 보고 있는 사용자id
-    try {
-      const boardId = req.params.id;
+    const boardId = req.params.id; // 상세 조회할 게시글 id
 
+    try {
       // 게시글 조회
       const board = await Board.findById(boardId);
 
@@ -598,62 +586,11 @@ export default (app) => {
           .json({ success: false, message: "게시글을 찾을 수 없습니다." });
       }
 
-      // 조회수
-      const userId = req.user._id;
-       console.log(userId);
-
-      // 이미 조회한 유저인지 확인
-      if (!board.view_users || !board.view_users.get(userId)) {
-        if (!board.view_users) {
-          board.view_users = new Map(); // view_users 초기화
-        }
-        board.view_users.set(userId, true); // 유저 추가
-        board.view_count += 1; // 조회수 증가
-        await board.save();
-      }
-
-      // 유저 정보 조회
-      const userData = await User.findById(board.user_id);
-
-      // 해당 게시글을 보고 있는 사용자의 thumb up or down 정보 조회
-      const thumbValue = board.thumb_users.get(userId);
-      console.log(thumbValue);
-
-      // 점수 정보 조회
-      const boardScore = await Score.findById(board.score_id);
-
-      // 댓글 조회
-      const comments = await Comment.find({ board_id: board._id });
-
-      // 시간 데이터 처리
-      const timeDisplay = CalcTime(board.created_at);
-
-      // 전송 데이터 생성
-      const data = {
-        id: board._id,
-        created_at: timeDisplay,
-        author: {
-          id: userData._id,
-          user_name: userData.user_name,
-          profile: {
-            image_url: userData.profile.image_url,
-          },
-        },
-        title: board.title,
-        content: board.content,
-        thumb_up: board.thumb_up,
-        thumb_down: board.thumb_down,
-        thumb_users: {
-          viewerThumbValue: thumbValue,
-        },
-        view_count: board.view_count,
-        board_score: boardScore,
-        comments: comments,
-      };
-
+      // 게시글 관련 데이터 조회
+      const data = await getBoardDetailData(board, userId);
       return res.status(200).json({ success: true, data: data });
     } catch (err) {
-      console.error(err);
+      Logger.error(err);
       res.status(500).json({ success: false, err });
     }
   });
@@ -728,7 +665,7 @@ export default (app) => {
       await board.save();
       return res.status(200).json({ success: true });
     } catch (err) {
-      console.log(err);
+      Logger.error(err);
       return res.json({ success: false, err });
     }
   });
@@ -795,6 +732,7 @@ export default (app) => {
       await comment.save();
       return res.status(200).json({ success: true });
     } catch (err) {
+      Logger.error(err);
       return res.json({ success: false, err });
     }
   });
@@ -880,7 +818,7 @@ export default (app) => {
 
       return res.status(200).json({ success: true });
     } catch (err) {
-      console.log(err);
+      Logger.error(err);
       return res.json({ success: false, err });
     }
   });
