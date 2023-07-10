@@ -7,17 +7,17 @@ import Daycheck from './Daycheck';
 import ThumbsUp from './ThumbsUp';
 import TopStatus from './TopStatus';
 import Voting from './Voting';
-
+import Comment from './Comment';
 
 const ReadDiv = styled.div`
     display:block;
     flex-direction: column;
     margin: auto;
     margin-top: 40px;
-    margin-bottom: 40px;
+    margin-bottom: auto;
     background-color: #3333;
     width: 70%;
-    height: 700px;
+    height: auto;
     padding: 30px;
     & > * + * {
         margin-top: 15px;
@@ -27,7 +27,7 @@ const ReadDiv = styled.div`
 const ReadViewDiv = styled.div`
   text-align: center;
   margin-top: 35px;
-  margin-bottom: 35px;
+  margin-bottom: auto;
   margin: 15px;
   background-color: white;
   
@@ -64,7 +64,9 @@ const ReadPageComponent = () => {
           <Voting />
         </VoteViewDiv>
 
+        <Comment />
 
+        <hr />
       </ReadViewDiv>
 
     </ReadDiv>

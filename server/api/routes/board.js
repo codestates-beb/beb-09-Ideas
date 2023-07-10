@@ -457,7 +457,7 @@ export default (app) => {
 
       // 조회수
       const userId = req.user._id;
-      // console.log(userId);
+       console.log(userId);
 
       // 이미 조회한 유저인지 확인
       if (!board.view_users || !board.view_users.get(userId)) {
