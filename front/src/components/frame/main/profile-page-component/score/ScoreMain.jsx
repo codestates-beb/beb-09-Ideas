@@ -1,16 +1,18 @@
 import React from 'react'
 import styled from 'styled-components'
 import Score from './Score';
+import { useSelector } from 'react-redux';
 
 const ScoreMainDiv = styled.h3`
     height: 500px;
     margin: 50px;
 `; 
 
-const ScoreMain = ( { profiledata } ) => {
+const ScoreMain = () => {
+    const userScore = useSelector(state=>(state.userProfile.userScore));
   return (
     <ScoreMainDiv>
-        <Score profiledata={profiledata}/>
+        <Score userScore={userScore}/>
     </ScoreMainDiv>
   )
 }

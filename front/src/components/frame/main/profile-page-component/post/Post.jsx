@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 const PostDiv = styled.div`
     /* background: #97e1e4; */
-    height: 500px;
+    height: 300px;
     margin: 30px;
     cursor: pointer;
     &:hover {
@@ -20,15 +20,15 @@ const PostContentDiv = styled.div`
 
 `;
 
-const Post = ({ profiledata }) => {
-    console.log(profiledata?.id?.data);
+const Post = ({board}) => {
     return (
         <PostDiv>
-            {profiledata?.id?.data?.userBoard?.map(element => (
-                <PostTitleDiv key={element}>{element.title} {element.content}</PostTitleDiv>
-                 
-            ))}
-         
+            <PostTitleDiv>
+                {board.title}
+            </PostTitleDiv>
+            <PostContentDiv>
+                {board.content}
+            </PostContentDiv>
         </PostDiv>
     )
 }

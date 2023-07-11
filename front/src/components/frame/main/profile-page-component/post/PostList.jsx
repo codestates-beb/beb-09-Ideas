@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 import Post from './Post';
+import { useSelector } from 'react-redux';
+
 
 const PostListDiv = styled.div`
     /* background: #f1f6f7; */
@@ -8,11 +10,12 @@ const PostListDiv = styled.div`
     margin-top: 50px;
 `; 
 
-const PostList = ( { profiledata } ) => {
+const PostList = () => {
+    const userBoard = useSelector(state=>(state.userProfile?.userBoard));
+    
   return (
     <PostListDiv>
-        <Post profiledata={profiledata}/>
-        <Post/>
+        {userBoard?.map(board=>(<Post board={board}/>))}
     </PostListDiv>
   )
 }

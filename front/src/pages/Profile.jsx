@@ -19,8 +19,7 @@ const Profile = () => {
         try {const response = await axios.get(`/user/profile/${id}`);
             
             if(response.status === 200) {
-                dispatch(actions1.setUserProfileInfo(response.data));
-                console.log(response.data);
+                dispatch(actions1.setUserProfileInfo(response.data.data));
             }
         }
         catch (err) {

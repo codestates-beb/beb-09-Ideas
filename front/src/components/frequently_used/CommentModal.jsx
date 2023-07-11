@@ -24,7 +24,6 @@ const CommentModal = ({open, handleClose, comments}) => {
             {comments.map(commnet=>(
                 <CommentBox comment={commnet}/>
             ))}
-            
         </Box>
     </Modal>
     

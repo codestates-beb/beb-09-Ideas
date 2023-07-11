@@ -4,6 +4,7 @@ import ProfileDescriptionMain from './profile-description/ProfileDescriptionMain
 import ScoreMain from './score/ScoreMain';
 import PostMain from './post/PostMain';
 
+
 const ProfileDiv = styled.div`
     margin-top:100px;
     margin-left:200px;
@@ -12,14 +13,16 @@ const ProfileDiv = styled.div`
     width: 1300px;
 `;
 
-const ProfilePageComponent = ({profiledata}) => {
+const ProfilePageComponent = () => {
+    
+    
   return (
     <ProfileDiv >
-        <ProfileDescriptionMain profiledata={profiledata}/>
-        <ScoreMain profiledata={profiledata}/>
-        <PostMain profiledata={profiledata}/>
+        <ProfileDescriptionMain />
+        <ScoreMain />
+        <PostMain />
     </ProfileDiv>    
   )
 }
 
-export default ProfilePageComponent
+export default ProfilePageComponent;

@@ -1,5 +1,6 @@
 import React from 'react';
 import { styled } from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const ProfileDiv = styled.div`
         text-align: center;
@@ -7,16 +8,13 @@ const ProfileDiv = styled.div`
     `;
 
 
-const Profile = ({profiledata}) => {
-    
-    //console.log("데이터 확인", profiledata);
+const Profile = () => {
+    const userData = useSelector(state=>(state.userProfile.userData));
   return (
     <ProfileDiv>
-        <img src={profiledata?.id?.data.userData.profile.image_url} alt="profile"  style={{ width: '80px', height: 'auto' }}/>
-        
-        <h2>{profiledata?.id?.data.userData.user_name} </h2>
-      
-        <span>followers: {profiledata?.id?.data.userData.followers}</span>
+        <img src={userData?.profile.image_url} alt="profile"  style={{ width: '80px', height: 'auto' }}/>
+        <h2>{userData?.user_name} </h2>
+        <span>followers: {userData?.followers}</span>
     </ProfileDiv>
   )
 }
