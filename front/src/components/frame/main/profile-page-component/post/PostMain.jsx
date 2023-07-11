@@ -12,12 +12,13 @@ const PostMainDiv = styled.div`
 `; 
 
 
-const PostMain = () => {
+const PostMain = ( {profiledata} ) => {
+  
   return (
     <PostMainDiv>
-        <h3>Zephyr <span style={{fontWeight:"normal"}}>&nbsp; uploaded 23 post </span></h3> 
+        <h3> {profiledata?.id?.data.userData.user_name} <span style={{fontWeight:"normal"}}>&nbsp; uploaded {profiledata?.id?.data.userBoard.length} post </span></h3> 
         <hr/>
-        <PostList/>
+        <PostList profiledata={profiledata}/>
     </PostMainDiv>
   )
 }

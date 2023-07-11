@@ -8,10 +8,10 @@ const PostListDiv = styled.div`
     margin-top: 50px;
 `; 
 
-const PostList = () => {
+const PostList = ( { profiledata } ) => {
   return (
     <PostListDiv>
-        <Post/>
+        <Post profiledata={profiledata}/>
         <Post/>
     </PostListDiv>
   )
