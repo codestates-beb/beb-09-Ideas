@@ -28,9 +28,9 @@ export default (app) => {
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 
   // Catch 404 and forward to the error handler
-  app.use((req, res, next) => {
-    const err = new Error("Not Found");
-    err.status = 404;
-    next(err);
-  });
+  // app.use((req, res, next) => {
+  //   const err = new Error("Not Found");
+  //   err.status = 404;
+  //   next(err);
+  // });
 };

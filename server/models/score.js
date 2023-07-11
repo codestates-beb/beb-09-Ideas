@@ -4,6 +4,10 @@ import mongoose from "mongoose";
  * Score Collection Schema
  */
 const scoreSchema = new mongoose.Schema({
+  total_scroe: {
+    type: Number,
+    default: 0,
+  },
   management: {
     voting_power: {
       type: Number,
@@ -268,6 +272,24 @@ const scoreSchema = new mongoose.Schema({
       },
     },
   },
+});
+
+/**
+ * 데이터 저장전에 totalScore 계산
+ */
+scoreSchema.pre("save", function (next) {
+  let scoreData = this;
+
+  let totalScore =
+    scoreData.management.score +
+    scoreData.economy.score +
+    scoreData.security.score +
+    scoreData.ai.score +
+    scoreData.blockchain +
+    scoreData.cloud;
+
+  scoreData.total_scroe = totalScore;
+  next();
 });
 
 const Score = mongoose.model("score", scoreSchema);
