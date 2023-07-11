@@ -2,6 +2,12 @@ import { Router } from "express";
 import User from "./../../models/user.js";
 import Score from "../../models/score.js";
 import Board from "../../models/board.js";
+import TokenAlgorithm from "../../models/tokenAlgorithm.js";
+import {
+  getTotalUserCount,
+  calculateUserScore,
+  getEtherPeice,
+} from "../../services/user.js";
 
 const route = Router();
 
@@ -289,5 +295,44 @@ export default (app) => {
     } catch (err) {
       return res.status(500).json({ success: false, err });
     }
+  });
+
+  /**
+   * 사용자 랭킹, 토큰 정보 출력
+   */
+  route.get("/rank", async (req, res) => {
+    try {
+      // mft 토큰 가격, 유저 능력치 계수, 보팅파워 계수 조회
+      const tokenAlgorithmData = await TokenAlgorithm.findOne();
+
+      // 이더리움 가격 조회
+      const etherPrice = await getEtherPeice();
+
+      // 총 유저 수
+      const totalUserCount = await getTotalUserCount();
+
+      // 능력치 높은 순으로 사용자 조회 (totalScore 기준)
+
+      // 반환 데이터 생성
+      const data = {
+        mft_token_price: tokenAlgorithmData.mft_price,
+        ether_price: etherPrice,
+        total_user_count: totalUserCount,
+        voting_power_coefficient: tokenAlgorithmData.tokenAlgorithmData,
+        user_score_coefficient: tokenAlgorithmData.user_score_coefficient,
+        //user_rank:
+      };
+      return res.status(200).json({ success: true, data: data });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ success: false, err });
+    }
+  });
+
+  /**
+   * 카테고리별 사용자 랭킹
+   */
+  route.get("/rank/:category", (req, res) => {
+    // 카테고리 별로 순위도 출력해야함
   });
 };
