@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "daemon" : "node daemon.js"
   },
   "author": "ideas",
   "license": "ISC",
@@ -25,6 +26,7 @@
     "ganache": "^7.8.0",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.3.1",
+    "node-fetch": "^3.3.1",
     "winston": "^3.9.0",
     "winston-daily-rotate-file": "^4.7.1"
   }

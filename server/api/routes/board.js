@@ -822,4 +822,9 @@ export default (app) => {
       return res.json({ success: false, err });
     }
   });
+
+  /**
+   * 게시판 카테고리 점수 저장
+   */
+  route.post("/boardScoreSave", Auth, (req, res) => {});
 };

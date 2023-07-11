@@ -30,8 +30,12 @@ export async function initServer(){
 
     const serverWallet = new Wallet(serverData);
 
+
+
     serverAccount.save();
     serverWallet.save();
+
+
 
 
 }
