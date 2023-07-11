@@ -29,7 +29,7 @@ const slice = createSlice({
       state.myProfile.id = action.payload;
     },
     setUserProfileInfo: (state, action) => {
-      state.userProfile.id = action.payload;
+      state.userProfile = action.payload;
     },
   },
 });

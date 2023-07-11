@@ -1,55 +1,68 @@
 import React, { PureComponent } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const data = [
-  {
-    name: 'Management',
-    uv: 4000,
-    entire: 5,
-    amt: 2400,
-  },
-  {
-    name: 'Economy',
-    uv: 3000,
-    entire: 19,
-    amt: 2210,
-  },
-  {
-    name: 'Security',
-    uv: 2000,
-    entire: 15,
-    amt: 2290,
-  },
-  {
-    name: 'AI',
-    uv: 2780,
-    entire: 7,
-    amt: 2000,
-  },
-  {
-    name: 'Blockchain',
-    uv: 1890,
-    entire: 42,
-    amt: 2181,
-  },
-  {
-    name: 'Cloud',
-    uv: 2390,
-    entire: 3,
-    amt: 2500,
-  }
-];
-
 export default class Example extends PureComponent {
   static demoUrl = 'https://codesandbox.io/s/bar-chart-has-no-padding-jphoc';
+  constructor(props) {
+    super(props);
+    this.state =  {
+        data: [
+    {
+        name: 'Management',
+        entire: 5,
+    },
+    {
+        name: 'Economy',
+        entire: 19,
+    },
+    {
+        name: 'Security',
+        entire: 15,
+    },
+    {
+        name: 'AI',
+        entire: 7,
+    },
+    {
+        name: 'Blockchain',
+        entire: 42,
+    },
+    {
+        name: 'Cloud',
+        entire: 3,
+    }
+    ]
+    }
+  }
+    
+  componentDidMount() {
+    const userScore = this.props.userScore;
+    // console.log(userScore);
+    let cateList = userScore?(Object.keys(userScore)?.slice(0,6)):"";
+    let scoreList = userScore?(Object.values(userScore)?.map(obj=>obj.score).slice(0,6)):"";
+    let newArr = [];
+    for(let i=0; i<cateList?.length; i++) {
+        newArr.push(
+            {
+                name: cateList[i],
+                entire: scoreList[i]
+            }
+        )
+    }
+    
+    this.setState((prevState)=>({data: newArr}));
+    
+  }
 
+  
   render() {
+    console.log(this.state);
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}
           height={300}
-          data={data}
+          data={this.state.data}
           margin={{
             top: 5,
             right: 30,

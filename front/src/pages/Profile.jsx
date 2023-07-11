@@ -11,7 +11,7 @@ const Profile = () => {
     const {id} = useParams();
     const dispatch = useDispatch();
     const profiledata = useSelector((state)=>(state.userProfile));
-    console.log("데이터 확인~~~~~~",profiledata);
+    
     useEffect(()=>{
         getAPIUserProfile();
     },[]);
@@ -19,8 +19,7 @@ const Profile = () => {
         try {const response = await axios.get(`/user/profile/${id}`);
             
             if(response.status === 200) {
-                dispatch(actions1.setUserProfileInfo(response.data));
-                console.log(response.data);
+                dispatch(actions1.setUserProfileInfo(response.data.data));
             }
         }
         catch (err) {

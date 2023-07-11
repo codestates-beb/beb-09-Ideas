@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import PostList from './PostList';
+import { useSelector } from 'react-redux';
 
 const PostMainDiv = styled.div`
     /* background: #f4e3f5; */
@@ -13,9 +14,10 @@ const PostMainDiv = styled.div`
 
 
 const PostMain = () => {
+  const userData = useSelector(state=>(state.userProfile));
   return (
     <PostMainDiv>
-        <h3>Zephyr <span style={{fontWeight:"normal"}}>&nbsp; uploaded 23 post </span></h3> 
+        <h3> {userData?.user_name} <span style={{fontWeight:"normal"}}>&nbsp; uploaded {userData?.userBoard?.length} post </span></h3> 
         <hr/>
         <PostList/>
     </PostMainDiv>

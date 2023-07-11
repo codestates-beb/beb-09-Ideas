@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components';
 import Profile from './Profile';
 import Description from './Description';
-import Title from './Title';
+
 
 const MainDiv = styled.div`
     display:grid;
@@ -18,13 +18,12 @@ const MainDiv = styled.div`
     }
 `;
 
-const ProfileDescriptionMain = ({profiledata}) => {
+const ProfileDescriptionMain = () => {
+    
   return (
     <MainDiv>
-        <Profile profiledata={profiledata}/>
+        <Profile />
         <div>
-            <Title/>
-            <hr/>
             <Description/>
         </div>
     </MainDiv>
