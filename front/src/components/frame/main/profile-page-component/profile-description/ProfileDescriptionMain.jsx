@@ -23,9 +23,9 @@ const ProfileDescriptionMain = ({profiledata}) => {
     <MainDiv>
         <Profile profiledata={profiledata}/>
         <div>
-            <Title/>
+            <Title profiledata={profiledata}/>
             <hr/>
-            <Description/>
+            <Description profiledata={profiledata}/>
         </div>
     </MainDiv>
   )

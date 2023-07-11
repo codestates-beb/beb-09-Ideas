@@ -5,10 +5,12 @@ const TitleDiv = styled.h3`
     text-align:center;
 `; 
 
-const Title = () => {
+const Title = ( {profiledata} ) => {
+
   return (
+    
     <TitleDiv>
-        Blockchain Alchemist: Transforming Possibilities into Reality
+        {profiledata?.id?.data.userData.profile.title}
     </TitleDiv>
   )
 }

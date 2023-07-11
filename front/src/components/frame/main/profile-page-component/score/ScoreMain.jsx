@@ -7,10 +7,10 @@ const ScoreMainDiv = styled.h3`
     margin: 50px;
 `; 
 
-const ScoreMain = () => {
+const ScoreMain = ( { profiledata } ) => {
   return (
     <ScoreMainDiv>
-        <Score/>
+        <Score profiledata={profiledata}/>
     </ScoreMainDiv>
   )
 }

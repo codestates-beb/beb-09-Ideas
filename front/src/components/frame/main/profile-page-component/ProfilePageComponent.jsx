@@ -16,8 +16,8 @@ const ProfilePageComponent = ({profiledata}) => {
   return (
     <ProfileDiv >
         <ProfileDescriptionMain profiledata={profiledata}/>
-        <ScoreMain/>
-        <PostMain/>
+        <ScoreMain profiledata={profiledata}/>
+        <PostMain profiledata={profiledata}/>
     </ProfileDiv>    
   )
 }

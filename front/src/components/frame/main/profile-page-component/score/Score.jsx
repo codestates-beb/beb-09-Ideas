@@ -42,8 +42,9 @@ const data = [
 
 export default class Example extends PureComponent {
   static demoUrl = 'https://codesandbox.io/s/bar-chart-has-no-padding-jphoc';
-
+  
   render() {
+
     return (
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
