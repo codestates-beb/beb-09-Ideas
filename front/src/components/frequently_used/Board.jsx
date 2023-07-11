@@ -33,6 +33,8 @@ const TopDiv = styled.div`
     left: 20px;
     display:grid;
     grid-template-columns: 70px 1fr;
+    align-items: center;
+    justify-items: center;
 `;
 
 const BottomDiv = styled.div`
@@ -48,7 +50,7 @@ const BottomDiv = styled.div`
 `;
 
 const ProfileImg = styled.img`
-     
+     border-radius: 35px;
     &:hover {
         opacity: 0.5;
     }
@@ -61,20 +63,7 @@ const TitleH3 = styled.h3`
     }
 
 `; 
-const CateDiv = styled.div`
-    position:absolute;
-    top:-20px;
-    left:-20px;
-    height: 30px;
-    width: 30px;
-    border-radius: 50px;
-    h4{
-        position:absolute;
-        top:-8px;
-        left:19px;
-        text-align: center;
-    }
-`;
+
 const CommentDiv = styled.span`
     /* font-weight: bold; */
     &:hover{
@@ -82,11 +71,6 @@ const CommentDiv = styled.span`
     }
 `;
 
-const ImgDiv = styled.div`
-    position: absolute;
-    top: 0;
-    right: 0;
-`;
 
 
 
@@ -123,20 +107,15 @@ const Board = ({board}) => {
     }
   return (
     <BoardDiv onClick={()=>{nav(`/board/${board?.id}`)}}>
-        <CateDiv>
-            <h4>{board?.category[0].toUpperCase()}</h4> 
-        </CateDiv>
-        <ImgDiv>
-           {CategoryIcon}
-        </ImgDiv>
         <TopDiv>
-            <ProfileImg src={board?.autor?.profile.image_url} width="70px" height="70px" onClick={goToProfile}/>
+            <div>
+                <ProfileImg src={board?.author?.profile.image_url} width="40px" height="40px" onClick={goToProfile}/>
+                <div style={{fontSize:'13px'}}>{board?.author.user_name}</div>
+            </div>
             <TitleH3>
-                {board?.title}
+                <span style={{marginRight:'5px'}}>{CategoryIcon}</span>{board?.title}
                 <span style={{fontWeight:'normal'}}> &nbsp;{board?.created_at}</span> 
-                
             </TitleH3>
-                
         </TopDiv>
         <BottomDiv>
             <div>manage: {board?.score.management.score} </div>
@@ -146,10 +125,10 @@ const Board = ({board}) => {
             <div>Blockchain : {board?.score.blockchain.score}</div>
             <div>Cloud : {board?.score.cloud.score}</div>
             <div>view : {board?.view_count}</div>
-            <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px"/> 87</CommentDiv>
+            <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px"/> {board?.comments.length}</CommentDiv>
         </BottomDiv>
         
-        <CommentModal open={open} handleClose={handleClose}/>
+        <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/>
     </BoardDiv>
   )
 }

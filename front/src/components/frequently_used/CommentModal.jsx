@@ -17,15 +17,14 @@ const style = {
   overflowY:'scroll'
 };
 
-const CommentModal = ({open, handleClose}) => {
+const CommentModal = ({open, handleClose, comments}) => {
   return (
     <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-            <CommentBox/>
-            <CommentBox/>
-            <CommentBox/>
-            <CommentBox/>
-            <CommentBox/>
+            {comments.map(commnet=>(
+                <CommentBox comment={commnet}/>
+            ))}
+            
         </Box>
     </Modal>
     

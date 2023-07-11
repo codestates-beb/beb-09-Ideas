@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { ethers, formatEther } from "ethers";
 import fs from "fs";
 import jwt from "jsonwebtoken";
 import config from "./../config/index.js";
@@ -85,7 +85,7 @@ let sendTokenTest = async (req, res, next) => {
 };
 
 let getERC20Test = async (req, res, next) => {
-  const provider = new ethers.JsonRpcProvider("http://127.0.0.1:7545");
+  const provider = new ethers.JsonRpcProvider("http://localhost:7545");
   const account = await provider.listAccounts();
   const privateKey =
     "0x119dc30ef65ad4617345190dccb34f43219fc714f608792c001598222bbadae5";
@@ -99,8 +99,8 @@ let getERC20Test = async (req, res, next) => {
   const serverBalance = await contract.balanceOf(account[0].address);
   const walletBalance = await contract.balanceOf(await newWallet.getAddress());
 
-  console.log("from ", serverBalance);
-  console.log("to ", walletBalance);
+  console.log("from ", formatEther(serverBalance));
+  console.log("to ", formatEther(walletBalance));
 
   next();
 };

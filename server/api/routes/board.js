@@ -730,6 +730,10 @@ export default (app) => {
     try {
       // 댓글 저장
       await comment.save();
+
+      // 댓글 작성한 사용자 isVote = true로 변경
+      await User.findByIdAndUpdate(req.user._id, { isVote: true });
+
       return res.status(200).json({ success: true });
     } catch (err) {
       Logger.error(err);

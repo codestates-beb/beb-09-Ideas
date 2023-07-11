@@ -40,41 +40,73 @@ const getEtherPeice = async () => {
 
     return ethereumPrice;
   } catch (err) {
-    console.error("Error fetching Ethereum price:", error);
+    console.log(err);
     throw err;
   }
 };
+// const getUsersByTotalScore = async () => {
+//   try {
+//     const users = await User.aggregate([
+//       { $addFields: { scoreId: { $toObjectId: User.score_id } } },
+//       {
+//         $lookup: {
+//           from: "scores", // 컬렉션 이름을 문자열로 지정
+//           localField: "scoreId",
+//           foreignField: "_id",
+//           as: "score",
+//         },
+//       },
+//       {
+//         $unwind: "$score",
+//       },
+//       {
+//         $sort: {
+//           "score.total_score": -1,
+//         },
+//       },
+//     ]).exec();
 
-const getUsersByTotalScore = async () => {
+//     console.log(users);
+//   } catch (err) {
+//     throw err;
+//   }
+// };
+
+/**
+ * 토큰 정보, 이더리움 가격, 전체 사용자 수 조회
+ * @returns {토큰 정보, 이더리움 가격, 전체 사용자 수}
+ */
+const getTokenInfo = async () => {
   try {
-    const users = await User.aggregate([
-      {
-        $lookup: {
-          from: "scores",
-          localField: "score_id",
-          foreignField: "_id",
-          as: "score",
-        },
-      },
-      {
-        $unwind: "$score",
-      },
-      {
-        $sort: {
-          "score.total_score": -1,
-        },
-      },
-    ]).exec();
+    // mft 토큰 가격, 유저 능력치 계수, 보팅파워 계수 조회
+    // const tokenInfo = ;
+    const { mft_price, user_score_coefficient, voting_power_coefficient } =
+      await TokenAlgorithm.findOne();
+    console.log(mft_price);
 
-    console.log(users);
+    // 이더리움 가격 조회
+    const etherPrice = await getEtherPeice();
+
+    // 전체 사용자 수
+    const totalUserCount = await getTotalUserCount();
+
+    return {
+      mft_price,
+      user_score_coefficient,
+      voting_power_coefficient,
+      etherPrice,
+      totalUserCount,
+    };
   } catch (err) {
     throw err;
   }
 };
 
-export {
-  getTotalUserCount,
-  calculateUserScore,
-  getEtherPeice,
-  getUsersByTotalScore,
+const getScoreRanking = async () => {
+  try {
+  } catch (err) {
+    throw err;
+  }
 };
+
+export { getTotalUserCount, calculateUserScore, getEtherPeice, getTokenInfo };

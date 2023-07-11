@@ -42,20 +42,20 @@ const ThumbDiv = styled.div`
     }
 `;
 
-const CommentBox = () => {
+const CommentBox = ({comment}) => {
   return (
     <CommentDiv>
         <AutorDiv>
-            Autor <span> &nbsp; 24 hours ago </span>
+            {comment?.user.user_name} <span> &nbsp; {comment?.created_at}</span>
         </AutorDiv>
         <ContentDiv >
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            {comment?.content}
         </ContentDiv>
         <BottomDiv>
             <span>comment</span>
             <ThumbDiv>
-                <div>up : 42</div>
-                <div>down : 14</div>
+                <div>up : {comment?.thumb_up}</div>
+                <div>down : {comment?.thumb_down}</div>
             </ThumbDiv>
         </BottomDiv>
     </CommentDiv>

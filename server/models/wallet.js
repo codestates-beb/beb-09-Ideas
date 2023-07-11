@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import config from "./../config/index.js";
 
 const walletSchema = new mongoose.Schema({
     userId:{
@@ -17,6 +16,6 @@ walletSchema.pre("save",function (next){
     next();
 })
 
-const Wallet = mongoose.model("wallet", walletSchema);;
+const Wallet = mongoose.model("wallet", walletSchema);
 
 export default Wallet;
