@@ -1,0 +1,13 @@
+# Atlas
+DB_USER=
+DB_PASS=
+
+# Port
+PORT=
+
+# development, production, test 
+NODE_ENV=development
+
+# error: 0 , warn: 1 , info: 2 , http: 3 , verbose: 4 , debug: 5 , silly: 6 
+# 숫자가 낮을수록 우선순위 높음
+LOG_LEVEL=infoß
