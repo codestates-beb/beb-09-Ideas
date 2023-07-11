@@ -3,6 +3,7 @@ import styled from '@emotion/styled';
 
 const TitleDiv = styled.h3`
     text-align:center;
+    font-size: 25px;
 `; 
 
 const Title = () => {

@@ -17,9 +17,11 @@ const ReadDiv = styled.div`
     margin-top: 40px;
     margin-bottom: auto;
     background-color: #3333;
-    width: 70%;
+    width: 55%;
     height: auto;
     padding: 30px;
+    border-radius: 15px;
+
     & > * + * {
         margin-top: 15px;
     }
@@ -31,6 +33,8 @@ const ReadViewDiv = styled.div`
   margin-bottom: auto;
   margin: 15px;
   background-color: white;
+  border-radius: 15px;
+  padding: 50px;
   
 `;
 
