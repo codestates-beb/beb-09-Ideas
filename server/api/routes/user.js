@@ -7,6 +7,7 @@ import {
   getTotalUserCount,
   calculateUserScore,
   getEtherPeice,
+  getUsersByTotalScore,
 } from "../../services/user.js";
 
 const route = Router();
@@ -312,6 +313,27 @@ export default (app) => {
       const totalUserCount = await getTotalUserCount();
 
       // 능력치 높은 순으로 사용자 조회 (totalScore 기준)
+      const users = await User.find({});
+
+      let userRank = [];
+      for (let user of users) {
+        const userScore = await Score.findById(user.score_id);
+        const userScoreData = {
+          user_id: user._id,
+          user_name: user.user_name,
+          profile: {
+            image_url: user.profile.image_url,
+          },
+          total_score: userScore.total_scroe,
+          userScore: userScore,
+        };
+        userRank.push(userScoreData);
+      }
+      // userRank.sort((a, b) => {
+      //   console.log(a.total_score, b.total_score);
+      //   b.total_score - a.total_score;
+      // });
+      console.log("**", userRank);
 
       // 반환 데이터 생성
       const data = {

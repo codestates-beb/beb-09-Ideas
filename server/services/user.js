@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import User from "../models/user.js";
+import Score from "../models/score.js";
 import TokenAlgorithm from "../models/tokenAlgorithm.js";
 
 /**
@@ -24,6 +25,10 @@ const calculateUserScore = async (boardId) => {
   console.log(userScoreCoefficient);
 };
 
+/**
+ *
+ * @returns 이더리움 가격 값
+ */
 const getEtherPeice = async () => {
   try {
     const response = await fetch(
@@ -40,4 +45,36 @@ const getEtherPeice = async () => {
   }
 };
 
-export { getTotalUserCount, calculateUserScore, getEtherPeice };
+const getUsersByTotalScore = async () => {
+  try {
+    const users = await User.aggregate([
+      {
+        $lookup: {
+          from: "scores",
+          localField: "score_id",
+          foreignField: "_id",
+          as: "score",
+        },
+      },
+      {
+        $unwind: "$score",
+      },
+      {
+        $sort: {
+          "score.total_score": -1,
+        },
+      },
+    ]).exec();
+
+    console.log(users);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export {
+  getTotalUserCount,
+  calculateUserScore,
+  getEtherPeice,
+  getUsersByTotalScore,
+};
