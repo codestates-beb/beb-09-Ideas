@@ -70,7 +70,7 @@ const CateVotingInput = ({cateInfoList, deleteIndex, addIndex, cateList, handleC
                     {cateList?.map(cate=>(<option value={cate}>{cate}</option>))} 
                 </CateSelect>
                 <div>
-                    <RatioInput type="text" onChange={(e)=>{handlePercentChange(e, index)}}/>
+                    <RatioInput type="text" onChange={(e)=>{handlePercentChange(e, index, userScore?userScore[category].score:"0")}}/>
                     <span>%</span>
                 </div>
             </CateVoting>
