@@ -3,7 +3,11 @@ import Board from "../../models/board.js";
 import Comment from "../../models/comment.js";
 import Score from "../../models/score.js";
 import Auth from "../../services/auth.js";
-import { getBoardData, getBoardDetailData } from "../../services/board.js";
+import {
+  getBoardData,
+  getBoardDetailData,
+  getCommentData,
+} from "../../services/board.js";
 import Logger from "../../loaders/logger.js";
 
 const route = Router();
@@ -652,7 +656,6 @@ export default (app) => {
    *           description: 게시글 내용
    */
   route.post("/create", Auth, async (req, res) => {
-    req.body.user_id = req.user._id; // 게시글 작성자 id 입력
     const board = new Board(req.body);
     const score = new Score();
 
@@ -724,17 +727,15 @@ export default (app) => {
    *           description: 게시글 아이디
    */
   route.post("/comment", Auth, async (req, res) => {
-    req.body.user_id = req.user._id; // 댓글 작성자 id 입력
+    // req.body.user_id = req.user._id; // 댓글 작성자 id 입력
     const comment = new Comment(req.body);
-
+    const commentsWithUserData = await getCommentData([comment]);
     try {
       // 댓글 저장
       await comment.save();
-
-      // 댓글 작성한 사용자 isVote = true로 변경
-      await User.findByIdAndUpdate(req.user._id, { isVote: true });
-
-      return res.status(200).json({ success: true });
+      return res
+        .status(200)
+        .json({ success: true, data: commentsWithUserData[0] });
     } catch (err) {
       Logger.error(err);
       return res.json({ success: false, err });

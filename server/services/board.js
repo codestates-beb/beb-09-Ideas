@@ -142,4 +142,4 @@ const getBoardDetailData = async (board, userId) => {
   }
 };
 
-export { getBoardData, getBoardDetailData };
+export { getBoardData, getBoardDetailData, getCommentData };

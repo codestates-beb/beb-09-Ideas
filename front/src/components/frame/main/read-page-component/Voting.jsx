@@ -19,13 +19,7 @@ const TitleView = styled.div`
 
 const VoteView = styled.div`
     
-  /* display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  flex-direction: column;
-  flex-wrap: wrap; */
-  
-  gap: 15px;
-  /* height: 500px; */
+  display: block;
 `;
 
 const VoteButton = styled.div`
@@ -46,8 +40,7 @@ const Voting = () => {
     const [cateVotingInputList, setCateVotingInputList] = useState([]);
     // const [cateMenuList, setCateMenuList] = useState([]);
 
-    const addCategory = (event) => {
-        console.log(event);
+    const addCategory = (param) => {
         let sc = false; // cateList의 element가 있으면 true, 없으면 false
         for( let element of cateList) {
             for (let el of cateVotingInputList) {
@@ -82,12 +75,13 @@ const Voting = () => {
         </TitleView>
 
         <VoteView>
-            <CateVotingInput isFirstInput={true} isVisible={true} addIndex={()=>{addCategory()}}  cateList={cateList} cateVotingInputList={cateVotingInputList}/>
+            <CateVotingInput isFirstInput={true} isVisible={true} addIndex={()=>{addCategory('first')}}  cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
             {cateVotingInputList.map((el,index)=>(
 
-                <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(el)} addIndex={()=>{addCategory()}} deleteIndex={()=>{deleteIndex(el)}} cateList={cateList} cateVotingInputList={cateVotingInputList}/>
+                <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(el)} addIndex={()=>{addCategory()}} deleteIndex={()=>{deleteIndex(el)}} cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
             ))}
             <button onClick={()=>{console.log(cateVotingInputList)}}>check</button>
+            
         </VoteView>
 
         <VoteButton>
