@@ -7,6 +7,7 @@ import {
   getTotalUserCount,
   calculateUserScore,
   getEtherPeice,
+  getTokenInfo,
 } from "../../services/user.js";
 
 const route = Router();
@@ -298,29 +299,125 @@ export default (app) => {
   });
 
   /**
-   * 사용자 랭킹, 토큰 정보 출력
+   * @swagger
+   * tags:
+   *   name: User
+   * /user/ranking/:
+   *   get:
+   *     summary: 사용자 랭킹, 토큰 정보 출력
+   *     tags: [User]
+   *     responses:
+   *       '200':
+   *         description: 성공
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 success:
+   *                   type: boolean
+   *                   example: true
+   *                 data:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Ranking_Data'
+   *       '500':
+   *         description: 서버 에러
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 success:
+   *                   type: boolean
+   *                   example: false
+   *                 err:
+   *                   type: object
    */
-  route.get("/rank", async (req, res) => {
+
+  /**
+   * @swagger
+   * components:
+   *   schemas:
+   *     Ranking_Data:
+   *       type: object
+   *       properties:
+   *         mft_token_price:
+   *           type: number
+   *           description: mft 토큰 가격
+   *         ether_price:
+   *           type: number
+   *           description: ethreum가격
+   *         total_user_count:
+   *           type: number
+   *           description: 총 유저 수
+   *         voting_power_coefficient:
+   *           type: number
+   *           description: 보팅 파워 계수
+   *         user_score_coefficient:
+   *           type: number
+   *           description: 유저 능력치 계수
+   *         user_ranking:
+   *           type: object
+   *           properties:
+   *            user_id:
+   *              type: string
+   *              description: 유저 id
+   *            user_name:
+   *              type: string
+   *              description: 유저 이름
+   *            profile:
+   *              type: object
+   *              properties:
+   *                image_url:
+   *                  type: string
+   *                  description: 유저 프로필 사진
+   *            total_score:
+   *              type: number
+   *              description: 전체 점수
+   *            user_score:
+   *              type: object
+   *              description: 유저 점수
+   */
+  route.get("/ranking", async (req, res) => {
     try {
-      // mft 토큰 가격, 유저 능력치 계수, 보팅파워 계수 조회
-      const tokenAlgorithmData = await TokenAlgorithm.findOne();
+      // 토큰 정보, 이더리움 가격, 전체 사용자 수 조회
+      const {
+        mft_price,
+        user_score_coefficient,
+        voting_power_coefficient,
+        etherPrice,
+        totalUserCount,
+      } = await getTokenInfo();
 
-      // 이더리움 가격 조회
-      const etherPrice = await getEtherPeice();
+      // 사용자 조회, 사용자 권한 0인 사용자만 조회 (1이상은 관리자)
+      const users = await User.find({ role: 0 });
 
-      // 총 유저 수
-      const totalUserCount = await getTotalUserCount();
-
-      // 능력치 높은 순으로 사용자 조회 (totalScore 기준)
+      let userRank = [];
+      for (let user of users) {
+        const userScore = await Score.findById(user.score_id);
+        const userScoreData = {
+          user_id: user._id,
+          user_name: user.user_name,
+          profile: {
+            image_url: user.profile.image_url,
+          },
+          followers: user.followers,
+          total_score: userScore.total_scroe,
+          userScore: userScore,
+        };
+        userRank.push(userScoreData);
+      }
+      userRank.sort((a, b) => b.total_score - a.total_score);
 
       // 반환 데이터 생성
       const data = {
-        mft_token_price: tokenAlgorithmData.mft_price,
+        mft_token_price: mft_price,
         ether_price: etherPrice,
         total_user_count: totalUserCount,
-        voting_power_coefficient: tokenAlgorithmData.tokenAlgorithmData,
-        user_score_coefficient: tokenAlgorithmData.user_score_coefficient,
-        //user_rank:
+        voting_power_coefficient: voting_power_coefficient,
+        user_score_coefficient: user_score_coefficient,
+        user_ranking: userRank,
       };
       return res.status(200).json({ success: true, data: data });
     } catch (err) {
@@ -330,9 +427,115 @@ export default (app) => {
   });
 
   /**
-   * 카테고리별 사용자 랭킹
+   * @swagger
+   * tags:
+   *   name: User
+   * /user/ranking/{category}:
+   *   get:
+   *     summary: 카테고리 별 사용자 랭킹, 토큰 정보 출력
+   *     tags: [User]
+   *     responses:
+   *       '200':
+   *         description: 성공
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 success:
+   *                   type: boolean
+   *                   example: true
+   *                 data:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Ranking_Data'
+   *       '500':
+   *         description: 서버 에러
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 success:
+   *                   type: boolean
+   *                   example: false
+   *                 err:
+   *                   type: object
    */
-  route.get("/rank/:category", (req, res) => {
-    // 카테고리 별로 순위도 출력해야함
+  route.get("/ranking/:category", async (req, res) => {
+    // management, economy, security, ai, blockchain, cloud,
+    const category = req.params.category;
+    console.log(category);
+    try {
+      // 토큰 정보, 이더리움 가격, 전체 사용자 수 조회
+      const {
+        mft_price,
+        user_score_coefficient,
+        voting_power_coefficient,
+        etherPrice,
+        totalUserCount,
+      } = await getTokenInfo();
+
+      // 사용자 조회, 사용자 권한 0인 사용자만 조회 (1이상은 관리자)
+      const users = await User.find({ role: 0 });
+
+      let userRank = [];
+      for (let user of users) {
+        const userScores = await Score.find(
+          { _id: user.score_id },
+          {
+            "management.score": 1,
+            "economy.score": 1,
+            "security.score": 1,
+            "ai.score": 1,
+            "blockchain.score": 1,
+            "cloud.score": 1,
+          }
+        ).lean();
+
+        console.log(userScores);
+
+        let categoryScore = 0;
+        if (category === "management") {
+          categoryScore = userScores.map((score) => score.management.score);
+        } else if (category === "economy") {
+          categoryScore = userScores.map((score) => score.economy.score);
+        } else if (category === "security") {
+          categoryScore = userScores.map((score) => score.security.score);
+        } else if (category === "ai") {
+          categoryScore = userScores.map((score) => score.ai.score);
+        } else if (category === "blockchain") {
+          categoryScore = userScores.map((score) => score.blockchain.score);
+        } else if (category === "cloud") {
+          categoryScore = userScores.map((score) => score.cloud.score);
+        }
+
+        const userScoreData = {
+          user_id: user._id,
+          user_name: user.user_name,
+          profile: {
+            image_url: user.profile.image_url,
+          },
+          followers: user.followers,
+          category_score: [category, categoryScore[0]],
+        };
+        userRank.push(userScoreData);
+      }
+      userRank.sort((a, b) => b.category_score[1] - a.category_score[1]);
+
+      // 반환 데이터 생성
+      const data = {
+        mft_token_price: mft_price,
+        ether_price: etherPrice,
+        total_user_count: totalUserCount,
+        voting_power_coefficient: user_score_coefficient,
+        user_score_coefficient: voting_power_coefficient,
+        user_ranking: userRank,
+      };
+      return res.status(200).json({ success: true, data: data });
+    } catch (err) {
+      console.log(err);
+      return res.status(500).json({ success: false, err });
+    }
   });
 };

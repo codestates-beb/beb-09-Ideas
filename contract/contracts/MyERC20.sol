@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.1;
 
 interface ERC20Interface{
     function totalSupply() external view returns (uint256);
@@ -30,7 +30,6 @@ contract MyERC20 is ERC20Interface{
         _totalSupply = 100000000e18;
         _balances[msg.sender] = _totalSupply;
     }
-
     function name() public view returns (string memory) {
         return _name;
     }
@@ -42,34 +41,32 @@ contract MyERC20 is ERC20Interface{
     function decimals() public view returns (uint8) {
         return _decimals;
     }
-    // ERC20 총 발행량 확인
+
     function totalSupply() external view virtual override returns (uint256) {
         return _totalSupply;
     }
-    // Owner의 토큰 보유량 확인
+
     function balanceOf(address account) external view virtual override returns (uint256) {
         return _balances[account];
     }
-    // ERC20 직접전송
+
     function transfer(address recipient, uint amount) public virtual override returns (bool) {
         _transfer(msg.sender, recipient, amount);
         emit Transfer(msg.sender, recipient, amount);
         return true;
     }
-    //
-    // owner가 spender에게 양도 설정한 토큰의 양을 확인
+
     function allowance(address owner, address spender) external view override returns (uint256) {
         return _allowances[owner][spender];
     }
-    // spender 에게 value 만큼의 토큰을 인출할 권리를 부여.
-    // 이용시 반드시 Approval 이벤트 함수를 호출해야 함.
+
     function approve(address spender, uint amount) external virtual override returns (bool) {
-        uint256 currentAllownace = _allowances[msg.sender][spender];
-        require(currentAllownace >= amount, "ERC20: Transfer amount exceeds allowance");
-        _approve(msg.sender, spender, currentAllownace, amount);
+        uint256 currentAllowance = _allowances[msg.sender][spender];
+        require(_balances[msg.sender] >= amount,"ERC20: The amount to be transferred exceeds the amount of tokens held by the owner.");
+        _approve(msg.sender, spender, currentAllowance, amount);
         return true;
     }
-    // spender가 거래 가능하도록 양도 받은 토큰을 전송
+
     function transferFrom(address sender, address recipient, uint256 amount) external virtual override returns (bool) {
         _transfer(sender, recipient, amount);
         emit Transfer(msg.sender, sender, recipient, amount);

@@ -13,8 +13,10 @@ const MainPageDiv = styled.div`
 const MainPage = () => {
   const dispatch = useDispatch();
   const boards = useSelector((state) => state.boards);
+  const rankingData = useSelector((state) => state.rankingData);
   useEffect(() => {
     listBoards();
+    getRankData();
   }, []);
 
   const listBoards = async () => {
@@ -29,9 +31,23 @@ const MainPage = () => {
       console.log(err);
     }
   };
+
+  // 사용자 순위, 토큰 정보 요청
+  const getRankData = async () => {
+    try {
+      const rankDataResponse = await axios.get("/user/ranking");
+      if (rankDataResponse.status === 200) {
+        dispatch(actions1.setRank(rankDataResponse.data.data));
+        console.log("RankData : ", rankDataResponse.data.data);
+      }
+      // console.log("RankData : ", rankDataResponse);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <MainPageDiv>
-      <MainPageComponent boards={boards} />
+      <MainPageComponent boards={boards} rankingData={rankingData} />
     </MainPageDiv>
   );
 };
