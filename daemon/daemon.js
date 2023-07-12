@@ -5,7 +5,7 @@ import Transaction from "./txModels.js";
 import mongoose from "mongoose";
 import config from "./config/config.js";
 
-const GANACHE_SERVER = "http://localhost:7545";
+const GANACHE_SERVER = "http://127.0.0.1:7545";
 const provider = new ethers.JsonRpcProvider(GANACHE_SERVER);
 const __dirname = '../contract/build/contracts';
 const abi = JSON.parse(fs.readFileSync(__dirname+"/MyERC20.json",'utf8'));

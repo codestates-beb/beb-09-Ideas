@@ -3,8 +3,8 @@ import User from "./../../models/user.js";
 import Wallet from "./../../models/wallet.js";
 import Auth from "../../services/auth.js";
 import Score from "../../models/score.js";
-import { ethers } from "ethers";
-import crypto from "crypto";
+import {createUserWallet} from "../../services/wallet.js";
+
 const route = Router();
 
 export default (app) => {
@@ -90,19 +90,8 @@ export default (app) => {
       // 사용자 데이터 저장
       await user.save();
 
-      //============
-      const id = crypto.randomBytes(32).toString("hex");
-      const privateKey = "0x" + id;
-      console.log("SAVE BUT DO NOT SHARE THIS", privateKey);
-
-      const newWallet = new ethers.Wallet(privateKey);
-      const walletData = {
-        userId: req.body.id,
-        address: newWallet.address,
-      };
-      const wallet = new Wallet(walletData);
-      await wallet.save();
-      //============
+      // 유저 지갑 생성
+      await createUserWallet(req.body.id);
 
       return res.status(200).json({ success: true });
     } catch (err) {

@@ -7,14 +7,14 @@ const ProfileDiv = styled.div`
       &:hover { 
         div {
             visibility: visible;
-            animation: appear 0.3s forwards;
-            top:120px;
+            animation: appear 0.2s forwards;
+            top:100px;
             opacity: 0;
             
         }
       @keyframes appear {
                 100% {
-                    top:60px;
+                    top:55px;
                     opacity: 100%;
                 }
             }

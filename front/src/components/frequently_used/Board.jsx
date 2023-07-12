@@ -1,49 +1,46 @@
-import React, { useState } from 'react'
+import React, {useState} from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineStar } from "react-icons/ai";
-import { BiSolidCommentDetail, BiSolidLockOpenAlt } from 'react-icons/bi';
-import { BsFillBootstrapFill, BsFillCloudsFill, BsPersonWorkspace } from "react-icons/bs";
+import { BiSolidCommentDetail, BiSolidLockOpenAlt} from 'react-icons/bi';
+import { BsFillBootstrapFill, BsFillCloudsFill } from "react-icons/bs";
 import { FaBookReader, FaChartLine, FaRobot } from 'react-icons/fa'
 import { RiMoneyDollarCircleFill } from 'react-icons/ri'
-import { GrOverview } from 'react-icons/gr'
 import CommentModal from './CommentModal';
 import { Modal, Box, Typography } from '@mui/material';
 
 
 const BoardDiv = styled.div`
-    position:relative;
-    padding: 15px;
-    border: 1 solid black;
-    border-radius: 15px;
-    height:100px;
-    align-items: center;
-    display:grid;
-    cursor: pointer;
-    background: rgb(255, 255, 255);
-    &:hover {
-        background: rgba(255, 255, 255, 0.85);
-    }
-    box-shadow: 3px 2px 2px;
-    
+  position: relative;
+  padding: 15px;
+  border: 1 solid black;
+  border-radius: 15px;
+  height: 100px;
+  align-items: center;
+  display: grid;
+  cursor: pointer;
+  background: rgb(255, 255, 255);
+  &:hover {
+    background: rgba(255, 255, 255, 0.85);
+  }
+  box-shadow: 3px 2px 2px;
 `;
 
 const TopDiv = styled.div`
-    position:absolute;
-    top:15px;
-    left: 20px;
-    display:grid;
-    grid-template-columns: 70px 1fr;
-    align-items: center;
-    justify-items: center;
+  position: absolute;
+  top: 15px;
+  left: 20px;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+  justify-items: center;
 `;
 
 const BottomDiv = styled.div`
     position:absolute;
     bottom:5px;
-    left:65px;
+    left:40px;
     display:grid;
-    grid-gap: 45px;
     grid-template-columns: repeat(8, 1fr);
     justify-content: space-between;
     div {
@@ -66,18 +63,21 @@ const TitleH3 = styled.h3`
     h3 {
         float:left;
     }
+
 `;
 
 const CommentDiv = styled.span`
-    /* font-weight: bold; */
-    &:hover{
-        opacity: 0.8;
-    }
+  /* font-weight: bold; */
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 
 
-const Board = ({ board }) => {
+
+
+const Board = ({board}) => {
     let CategoryIcon;
     const [open, setOpen] = useState(false);
     const handleClose = (event) => {
@@ -85,31 +85,28 @@ const Board = ({ board }) => {
         setOpen(!open);
     }
     const nav = useNavigate();
-    const goToProfile = (event) => {
+    const goToProfile = (event)=>{
         event.stopPropagation();
-        nav(`/profile/${board?.author.id}`);
+        nav(`/profile/${board?.author.id}`); 
     }
-    try {
-        if (board.category[0] === "m") {
-            CategoryIcon = <FaBookReader size="25px" />
-        }
-        else if (board.category[0] === "e") {
-            CategoryIcon = <RiMoneyDollarCircleFill size="25px" />
-        }
-        else if (board.category[0] === "s") {
-            CategoryIcon = <BiSolidLockOpenAlt size="25px" />
-        }
-        else if (board.category[0] === "a") {
-            CategoryIcon = <FaRobot size="25px" />
-        }
-        else if (board.category[0] === "b") {
-            CategoryIcon = <BsFillBootstrapFill size="25px" />
-        }
-        else if (board.category[0] === "c") {
-            CategoryIcon = <BsFillCloudsFill size="25px" />
-        }
-    } catch (eror) {
-        console.log(eror);
+
+    if (board?.category[0] === "m"){
+        CategoryIcon = <FaBookReader size= "25px"/> 
+    }
+    else if (board?.category[0] === "e"){
+        CategoryIcon = <RiMoneyDollarCircleFill size = "25px" />
+    }
+    else if (board?.category[0] === "s"){
+        CategoryIcon = <BiSolidLockOpenAlt size= "25px"/> 
+    }
+    else if (board?.category[0] === "a"){
+        CategoryIcon = <FaRobot size= "25px"/> 
+    }
+    else if (board?.category[0] === "b"){
+        CategoryIcon = <BsFillBootstrapFill size= "25px"/> 
+    }
+    else if (board?.category[0] === "c"){
+        CategoryIcon = <BsFillCloudsFill size= "25px" />
     }
 
     return (
@@ -139,5 +136,4 @@ const Board = ({ board }) => {
         </BoardDiv>
     )
 }
-
-export default Board
+export default Board;
