@@ -9,7 +9,7 @@ import TokenAlgorithm from "../models/tokenAlgorithm.js";
  */
 const getTotalUserCount = async () => {
   try {
-    const userCount = await User.countDocuments();
+    const userCount = await User.countDocuments({ role: 0 });
     return userCount;
   } catch (err) {
     throw err;
@@ -97,13 +97,6 @@ const getTokenInfo = async () => {
       etherPrice,
       totalUserCount,
     };
-  } catch (err) {
-    throw err;
-  }
-};
-
-const getScoreRanking = async () => {
-  try {
   } catch (err) {
     throw err;
   }

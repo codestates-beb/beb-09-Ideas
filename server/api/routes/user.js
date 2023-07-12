@@ -390,8 +390,6 @@ export default (app) => {
         totalUserCount,
       } = await getTokenInfo();
 
-      console.log(mft_price, etherPrice, totalUserCount);
-
       // 사용자 조회, 사용자 권한 0인 사용자만 조회 (1이상은 관리자)
       const users = await User.find({ role: 0 });
 
@@ -404,6 +402,7 @@ export default (app) => {
           profile: {
             image_url: user.profile.image_url,
           },
+          followers: user.followers,
           total_score: userScore.total_scroe,
           userScore: userScore,
         };
@@ -517,11 +516,12 @@ export default (app) => {
           profile: {
             image_url: user.profile.image_url,
           },
-          category_score: categoryScore,
+          followers: user.followers,
+          category_score: [category, categoryScore[0]],
         };
         userRank.push(userScoreData);
       }
-      userRank.sort((a, b) => b.category_score - a.category_score);
+      userRank.sort((a, b) => b.category_score[1] - a.category_score[1]);
 
       // 반환 데이터 생성
       const data = {
