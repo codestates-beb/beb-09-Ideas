@@ -80,10 +80,12 @@ let sendTokenUserToUser = async (req, res, next) => {
 
   const wallet1Address = await wallet1.getAddress();
   const wallet2Address = await wallet2.getAddress();
+
+  console.log(privateKey1);
+  console.log(privateKey2);
   const contract = new ethers.Contract(contractAddress, abi.abi, provider);
   const amount = ethers.parseUnits(sendAmount, 18);
   const gasPrice = await provider.getFeeData().gasPrice;
-
   const transferTx = await contract
     .connect(wallet1)
     .transfer(wallet2Address, amount, {

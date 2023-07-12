@@ -1,19 +1,20 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Menu from "./Menu";
+import { CgProfile } from "react-icons/cg"
 
 const ProfileDiv = styled.div`
       &:hover { 
         div {
             visibility: visible;
-            animation: appear 0.3s forwards;
-            top:120px;
+            animation: appear 0.2s forwards;
+            top:100px;
             opacity: 0;
             
         }
       @keyframes appear {
                 100% {
-                    top:60px;
+                    top:55px;
                     opacity: 100%;
                 }
             }
@@ -25,7 +26,7 @@ const Profile = ({handleLogout}) => {
 
   return (
     <ProfileDiv>
-        <img src="profile.png" alt="profile" width="60px" height="60px" />
+        <CgProfile  size={"40px"}/>
         <Menu handleLogout={handleLogout}/>
     </ProfileDiv>
   );

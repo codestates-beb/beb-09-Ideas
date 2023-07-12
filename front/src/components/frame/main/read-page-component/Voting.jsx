@@ -18,7 +18,6 @@ const TitleView = styled.div`
 `;
 
 const VoteView = styled.div`
-    
   display: block;
 `;
 
@@ -36,36 +35,53 @@ const VoteViewDiv = styled.div`
 
 
 const Voting = () => {
-    const [cateList] = useState(['management', 'economy', 'security', 'ai', 'blockchain', 'cloud']);
-    const [cateVotingInputList, setCateVotingInputList] = useState([]);
+    const [cateList, setCateList] = useState(['management', 'economy', 'security', 'ai', 'blockchain', 'cloud']);
+    const [cateInfoList, setCateInfoList] = useState([{category:'', percent:0}]);
+
+    const handleCateChange = (event, index) => {
+         const updatedCateInfoList = [...cateInfoList];
+         updatedCateInfoList[index] = {...updatedCateInfoList[index], category:event.target.value}
+         setCateInfoList(updatedCateInfoList);
+    }
+
+    const handlePercentChange = (event, index) => {
+         const updatedCateInfoList = [...cateInfoList];
+         updatedCateInfoList[index] = {...updatedCateInfoList[index], percent:Number(event.target.value)}
+         setCateInfoList(updatedCateInfoList);
+    }
+
     // const [cateMenuList, setCateMenuList] = useState([]);
 
-    const addCategory = (param) => {
-        let sc = false; // cateList의 element가 있으면 true, 없으면 false
-        for( let element of cateList) {
-            for (let el of cateVotingInputList) {
-                if(el === element) {
-                    sc = true;
-                    break;
-                }
-            }
-            if(!sc) {
-                setCateVotingInputList([...cateVotingInputList, element])
-                break;
-            }
-        }
+    // const addCategory = (param) => {
+    //     let sc = false; // cateList의 element가 있으면 true, 없으면 false
+    //     for( let element of cateList) {
+    //         for (let el of cateVotingInputList) {
+    //             if(el === element) {
+    //                 sc = true;
+    //                 break;
+    //             }
+    //         }
+    //         if(!sc) {
+    //             setCateVotingInputList([...cateVotingInputList, element])
+    //             break;
+    //         }
+    //     }
     // const currentIndex = cateVotingInputList.indexOf(index);
     // if (currentIndex === -1) {
     //   setCateVotingInputList([...cateVotingInputList, index]);
     // } 
-  };
+
+
+//   };
     const deleteIndex = (index) => {
-    const currentIndex = cateVotingInputList.indexOf(index);
-    if (currentIndex !== -1){
-      setCateVotingInputList(cateVotingInputList.filter((item) => item !== index));
-    } 
+
+    const newArray = [...cateInfoList.slice(0, index), ...cateInfoList.slice(index + 1)];
+      setCateInfoList(newArray); 
     };
     
+    const addIndex = () => {
+        setCateInfoList([...cateInfoList, {category:"", percent:0}]);
+    }
 
   return (
     <VoteViewDiv>
@@ -75,12 +91,16 @@ const Voting = () => {
         </TitleView>
 
         <VoteView>
-            <CateVotingInput isFirstInput={true} isVisible={true} addIndex={()=>{addCategory('first')}}  cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
+            {cateInfoList.map((el,index)=>{
+                    return (<CateVotingInput cateInfoList={cateInfoList} handleCateChange={handleCateChange} handlePercentChange={handlePercentChange} addIndex={addIndex} deleteIndex={deleteIndex} index={index} cateList={cateList}/>);
+            })}
+            
+            {/* <CateVotingInput isFirstInput={true} isVisible={true}  cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
             {cateVotingInputList.map((el,index)=>(
 
-                <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(el)} addIndex={()=>{addCategory()}} deleteIndex={()=>{deleteIndex(el)}} cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
-            ))}
-            <button onClick={()=>{console.log(cateVotingInputList)}}>check</button>
+                <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(el)}  deleteIndex={()=>{deleteIndex(el)}} cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
+            ))}*/}
+            <button onClick={()=>{console.log(cateInfoList)}}>check</button> 
             
         </VoteView>
 
