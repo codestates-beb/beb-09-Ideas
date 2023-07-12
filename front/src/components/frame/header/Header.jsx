@@ -24,7 +24,7 @@ const BlurrDiv = styled.div`
 `;
 
 const HeaderDiv = styled.div`
-  background-color: rgba(236, 245, 250);
+  background-image: linear-gradient(to bottom, #ffffff, #e4f7f8);
   position: fixed;
   border-radius: 0px 0px 15px 15px;
   width:94%;

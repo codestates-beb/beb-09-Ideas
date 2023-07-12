@@ -49,7 +49,9 @@ const getBoardData = async (boards) => {
       const boardScore = await Score.findById(board.score_id);
 
       // 게시글별 댓글 조회
-      const comments = await Comment.find({ board_id: board._id });
+      const comments = await Comment.find({ board_id: board._id }).sort({
+        created_at: -1,
+      });
       const commentsWithUserData = await getCommentData(comments);
 
       // 전송 데이터 생성
@@ -107,7 +109,9 @@ const getBoardDetailData = async (board, userId) => {
     const boardScore = await Score.findById(board.score_id);
 
     // 게시글에 작성된 댓글 정보 조회
-    const comments = await Comment.find({ board_id: board._id });
+    const comments = await Comment.find({ board_id: board._id }).sort({
+      created_at: -1,
+    });
     const commentsWithUserData = await getCommentData(comments);
 
     // 게시글을 보고 있는 사용자 정보 조회 (해당 게시글에 좋아요/싫어요 클릭 여부 확인)
