@@ -17,7 +17,7 @@ export default (app) => {
   route.post("/quantity", getERC20, (req, res) => {
     console.log(req.quantity);
     try {
-      return res.status(200).send({ success: true, quantity:req.quantity });
+      return res.status(200).send({ success: true });
     } catch (err) {
       return res.json({ success: false, err });
     }
