@@ -87,24 +87,25 @@ const Board = ({board}) => {
         nav(`/profile/${board?.author.id}`); 
     }
 
-    if (board.category[0] === "m"){
-        CategoryIcon = <FaBookReader size= "25px"/> 
-    }
-    else if (board.category[0] === "e"){
-        CategoryIcon = <RiMoneyDollarCircleFill size = "25px" />
-    }
-    else if (board.category[0] === "s"){
-        CategoryIcon = <BiSolidLockOpenAlt size= "25px"/> 
-    }
-    else if (board.category[0] === "a"){
-        CategoryIcon = <FaRobot size= "25px"/> 
-    }
-    else if (board.category[0] === "b"){
-        CategoryIcon = <BsFillBootstrapFill size= "25px"/> 
-    }
-    else if (board.category[0] === "c"){
-        CategoryIcon = <BsFillCloudsFill size= "25px" />
-    }
+    // if (board?.category[0] === "m"){
+    //     CategoryIcon = <FaBookReader size= "25px"/> 
+    // }
+    // else if (board?.category[0] === "e"){
+    //     CategoryIcon = <RiMoneyDollarCircleFill size = "25px" />
+    // }
+    // else if (board?.category[0] === "s"){
+    //     CategoryIcon = <BiSolidLockOpenAlt size= "25px"/> 
+    // }
+    // else if (board?.category[0] === "a"){
+    //     CategoryIcon = <FaRobot size= "25px"/> 
+    // }
+    // else if (board?.category[0] === "b"){
+    //     CategoryIcon = <BsFillBootstrapFill size= "25px"/> 
+    // }
+    // else if (board?.category[0] === "c"){
+    //     CategoryIcon = <BsFillCloudsFill size= "25px" />
+    // }
+
   return (
     <BoardDiv onClick={()=>{nav(`/board/${board?.id}`)}}>
         <TopDiv>
@@ -128,7 +129,7 @@ const Board = ({board}) => {
             <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px"/> {board?.comments.length}</CommentDiv>
         </BottomDiv>
         
-        <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/>
+        {/* <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/> */}
     </BoardDiv>
   )
 }

@@ -1,6 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { styled } from 'styled-components';
+import { useSelector } from 'react-redux'; 
+
 
 const ProfileDiv = styled.div`
     width: 100%;
@@ -76,23 +78,24 @@ const RightDiv = styled.div`
 
 const Profile = () => {
     const nav = useNavigate();
+    const board = useSelector(state=>(state?.board));
     return (
         <ProfileDiv>
             <LeftDiv onClick={()=>{nav(`/profile/id`)}}>
-                <img src="https://newsimg.sedaily.com/2023/04/11/29O9FX10T6_1.jpg" alt="profile" width="50px" />
+                <img src={board?.author?.profile.image_url} alt="profile" width="50px" />
                 <div>
-                    <h4>Zephyr</h4>
-                    <span>follower : 329</span>
+                    <h4>{board?.author?.user_name}</h4>
+                    <span>follower : 328</span>
                 </div>
             </LeftDiv>
             <RightDiv>
                 <div>
                     <button>👍</button>
-                    <p style={{color:'blue'}}>0</p>
+                    <p style={{color:'blue'}}>{board?.thumb_up}</p>
                 </div>
                 <div>
                     <button>👎</button>
-                    <p style={{color:'red'}}>0</p>
+                    <p style={{color:'red'}}>{board?.thumb_down}</p>
                 </div>
             </RightDiv>
         </ProfileDiv>

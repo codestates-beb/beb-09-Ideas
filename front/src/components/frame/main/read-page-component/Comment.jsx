@@ -7,21 +7,61 @@ const NameTimeView = styled.div`
 `;
 
 const DescriptionView = styled.div`
-  margin: 10px;
+  margin: 20px;
 `;
 
-const CehckView = styled.div`
-  margin-top: 25px;
-  margin-left: 10px;
+
+const BottomDiv = styled.div`
+    display:flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: space-between;
+`;
+const LeftDiv = styled.div`
+    display:flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    width:100px;
+    height:30px;
+    border-radius: 15px;
+    &:hover{
+        cursor: pointer;
+        background: rgba(210,210,210,0.2);
+    }
+
 `;
 
-const ArrangementDiv = styled.div` //배치위한 div
-  display: flex;
-  
-  float: right;
+const RightDiv = styled.div`
+    display:flex;
+    align-items: center;
+    justify-items: center;
+    width:200px;
+    justify-content: space-around;
+    div > button {
+        border: 0;
+        border-radius: 30px;
+        background: transparent;
+        width:30px;
+        height:30px;
+        font-size: 20px;
+        margin: auto;
+        padding:0;
+        &:hover {
+            background: rgba(210,210,210,0.2);
+            cursor: pointer;
+        }
+    }
+    div > p {
+        font-size: 20px;
+    }
+    div {
+        display:flex;
+    }
 `;
 
-const Comment = () => {
+const Comment = ({comment}) => {
+
   const [userComment, setUserComment] = useState('');
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
@@ -38,22 +78,29 @@ const Comment = () => {
     <>
         <hr />
         <NameTimeView>
-        coding kim 2hour ago
+            <span style={{fontWeight:'bold', fontSize:'18px'}}>{comment.user.user_name}</span> <span style={{fontSize:"12px"}}>{comment.created_at}</span>
         </NameTimeView>
 
         <DescriptionView>
-        The vanishing and exploding gradient phenomena are often encountered in the context of RNNs. The reason why they happen is that it is difficult to capture long term dependencies because of multiplicative gradient that can be exponentially decreasing/increasing with respect to the number of layers.
-
+            {comment.content}
         </DescriptionView>
-
-        <CehckView>
-        3 comment
-        <ArrangementDiv>
-            <button onClick={handleLike}>좋아요</button><p>{likeCount}</p>
-            <button onClick={handleDislike}>싫어요</button>  <p>{dislikeCount}</p>
-        </ArrangementDiv>
-
-        </CehckView>
+        <BottomDiv>
+            <LeftDiv>
+                <div>
+                    0 comment
+                </div>
+            </LeftDiv>
+            <RightDiv>
+                <div>
+                    <button>👍</button>
+                    <p style={{color:'blue'}}>0</p>
+                </div>
+                <div>
+                    <button>👎</button>
+                    <p style={{color:'red'}}>0</p>
+                </div>
+            </RightDiv>
+        </BottomDiv>
     </>
 
 
