@@ -8,6 +8,10 @@ const walletSchema = new mongoose.Schema({
     address:{
         type:String,
         unique:true
+    },
+    pk:{
+        type:String,
+        unique:true
     }
 });
 

@@ -1,6 +1,6 @@
 import { Router } from "express";
 import auth from "./routes/auth.js";
-import wallet from "./routes/wallet.js";
+import wallet from "./routes/contract.js";
 import user from "./routes/user.js";
 import board from "./routes/board.js";
 
