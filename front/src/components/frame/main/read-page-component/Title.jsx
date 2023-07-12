@@ -1,16 +1,17 @@
 import React from 'react'
 import styled from '@emotion/styled';
+import { useSelector } from 'react-redux'; 
 
 const TitleDiv = styled.h3`
     text-align:center;
     font-size: 25px;
+    margin: 40px;
 `; 
 
 const Title = () => {
+    const board = useSelector(state=>(state?.board));
   return (
-    <div>
-      <TitleDiv>Recurrent Neural Networks Explained with a Real Life Example and Python Code</TitleDiv>
-    </div>
+      <TitleDiv>{board?.title} <span style={{fontSize:'15px', fontWeight:'normal'}}>{board?.created_at}</span></TitleDiv>
   )
 }
 

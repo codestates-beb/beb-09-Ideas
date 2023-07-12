@@ -9,6 +9,7 @@ import Textarea from '@mui/joy/Textarea';
 import { Button as MuiButton } from '@mui/material';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const CreateBoardView = styled.div`
   display: flex;
@@ -52,10 +53,15 @@ const CreatePageComponent = () => {
     const [titleValue, setTitleValue] = useState('');
     const [contentValue, setContentValue] = useState('');
     const [categoryValue, setCategoryValue] = useState('');
+    const userId = useSelector(state=> (state.myProfile.id));
   
     const handleSignUp = () => {
-     
+    if (!userId) {
+        alert('Login first before create a post');
+        return;
+    }
       const data = {
+        user_id : userId,
         category : categoryValue,
         title : titleValue,
         content : contentValue

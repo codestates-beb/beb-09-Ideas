@@ -1,5 +1,7 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { useSelector } from 'react-redux'; 
+
 
 const StatusView = styled.div`
     float: left;
@@ -8,9 +10,10 @@ const StatusView = styled.div`
 `;
 
 const TopStatus = () => {
+    const score = useSelector(state=>(state?.board?.board_score));
   return (
     <StatusView>
-        Manage: 38 Economy: 8 Security : 22 AI : 113 Blockchain : 0 Cloud : 0
+        {`Manage: ${score?.management.score} Economy: ${score?.economy.score} Security : ${score?.security.score} AI : ${score?.ai.score} Blockchain : ${score?.blockchain.score} Cloud : ${score?.cloud.score}`}
     </StatusView>      
   )
 }

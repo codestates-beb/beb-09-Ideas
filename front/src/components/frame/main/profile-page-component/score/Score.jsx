@@ -37,9 +37,8 @@ export default class Example extends PureComponent {
     
   componentDidMount() {
     const userScore = this.props.userScore;
-    // console.log(userScore);
-    let cateList = userScore?(Object.keys(userScore)?.slice(0,6)):"";
-    let scoreList = userScore?(Object.values(userScore)?.map(obj=>obj.score).slice(0,6)):"";
+    let cateList = userScore?(Object.keys(userScore)?.slice(0,6)):""; // ['management', 'security', 'ecnomoy'] 같은 형식
+    let scoreList = userScore?(Object.values(userScore)?.map(obj=>obj.score).slice(0,6)):""; // ['management', 'security', 'ecnomoy'] 같은 형식
     let newArr = [];
     for(let i=0; i<cateList?.length; i++) {
         newArr.push(

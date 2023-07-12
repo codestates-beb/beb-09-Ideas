@@ -19,13 +19,7 @@ const TitleView = styled.div`
 
 const VoteView = styled.div`
     
-  /* display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  flex-direction: column;
-  flex-wrap: wrap; */
-  
-  gap: 15px;
-  /* height: 500px; */
+  display: block;
 `;
 
 const VoteButton = styled.div`
@@ -33,17 +27,37 @@ const VoteButton = styled.div`
   margin-right:150px;
   float: right;
 `;
+const VoteViewDiv = styled.div`
+  margin-top: 100px;
+  display: block;
+  width: 100%;
+`;
 
 
 
 const Voting = () => {
+    const [cateList] = useState(['management', 'economy', 'security', 'ai', 'blockchain', 'cloud']);
     const [cateVotingInputList, setCateVotingInputList] = useState([]);
-    console.log(cateVotingInputList);
-    const addIndex = (index) => {
-    const currentIndex = cateVotingInputList.indexOf(index);
-    if (currentIndex === -1) {
-      setCateVotingInputList([...cateVotingInputList, index]);
-    } 
+    // const [cateMenuList, setCateMenuList] = useState([]);
+
+    const addCategory = (param) => {
+        let sc = false; // cateList의 element가 있으면 true, 없으면 false
+        for( let element of cateList) {
+            for (let el of cateVotingInputList) {
+                if(el === element) {
+                    sc = true;
+                    break;
+                }
+            }
+            if(!sc) {
+                setCateVotingInputList([...cateVotingInputList, element])
+                break;
+            }
+        }
+    // const currentIndex = cateVotingInputList.indexOf(index);
+    // if (currentIndex === -1) {
+    //   setCateVotingInputList([...cateVotingInputList, index]);
+    // } 
   };
     const deleteIndex = (index) => {
     const currentIndex = cateVotingInputList.indexOf(index);
@@ -54,24 +68,27 @@ const Voting = () => {
     
 
   return (
-    <VotingView>
-      <TitleView>
-        Vote
-      </TitleView>
+    <VoteViewDiv>
+        <VotingView>
+        <TitleView>
+            Vote
+        </TitleView>
 
-      <VoteView>
-        <CateVotingInput isFirstInput={true} isVisible={cateVotingInputList.includes(1)} addIndex={()=>{addIndex(2)}} deleteIndex={()=>{deleteIndex(1)}}/>
-        <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(2)} addIndex={()=>{addIndex(3)}} deleteIndex={()=>{deleteIndex(2)}}/>
-        <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(3)} addIndex={()=>{addIndex(4)}} deleteIndex={()=>{deleteIndex(3)}}/>
-        <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(4)} addIndex={()=>{addIndex(5)}} deleteIndex={()=>{deleteIndex(4)}}/>
-        <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(5)} addIndex={()=>{addIndex(6)}} deleteIndex={()=>{deleteIndex(5)}}/>
-        <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(6)} addIndex={()=>{addIndex(7)}} deleteIndex={()=>{deleteIndex(6)}}/>
-      </VoteView>
+        <VoteView>
+            <CateVotingInput isFirstInput={true} isVisible={true} addIndex={()=>{addCategory('first')}}  cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
+            {cateVotingInputList.map((el,index)=>(
 
-      <VoteButton>
-        <MuiButton variant="contained">Vote</MuiButton>
-      </VoteButton>
-    </VotingView >
+                <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(el)} addIndex={()=>{addCategory()}} deleteIndex={()=>{deleteIndex(el)}} cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
+            ))}
+            <button onClick={()=>{console.log(cateVotingInputList)}}>check</button>
+            
+        </VoteView>
+
+        <VoteButton>
+            <MuiButton variant="contained">Vote</MuiButton>
+        </VoteButton>
+        </VotingView >
+    </VoteViewDiv>
   )
 }
 

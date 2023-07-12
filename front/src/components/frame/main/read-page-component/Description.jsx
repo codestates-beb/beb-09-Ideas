@@ -1,22 +1,24 @@
 import React from 'react'
 import styled from '@emotion/styled'
+import { useSelector } from 'react-redux'; 
 
 const DescriptionDiv = styled.div`
+    width:80%;
+    margin:auto;
+    text-align: left;
+    font-size: 20px;
+    margin-top: 80px;
+    margin-bottom: 100px;
     
-    text-align: center;
 `;
 
 const Description = () => {
+    const board = useSelector(state=>(state?.board));
   return (
-    <div>
-      <DescriptionDiv>
-      This is the second article in a series dedicated to Deep Learning, a group of Machine Learning methods that has its roots dating back to the 1940’s. Deep Learning gained attention in the last decades for its groundbreaking applications in areas like image classification, speech recognition, and machine translation
-
-But lots of real-world problems involve a time dimension. What about when the problem at hand comes in the form of a sequence?
-
-.......
-      </DescriptionDiv>
-    </div>
+    <DescriptionDiv>
+        {board?.content}
+    </DescriptionDiv>
+    
   )
 }
 
