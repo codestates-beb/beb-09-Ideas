@@ -1,6 +1,7 @@
 import User from "./../models/user.js";
 import {createServerAccount, createUserDistributedWallet} from "./wallet.js";
 import {divideTokenToUDW} from "./contract.js";
+import Wallet from "../models/wallet.js";
 
 export async function initServer(){
     let isServer =await User.find({id:"ideas"});
