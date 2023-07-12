@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import styled from '@emotion/styled'
 import { Button as MuiButton } from '@mui/material';
 import CateVotingInput from './CateVotingInput';
+import axios from 'axios';
 
 const VotingView = styled.div`
   width: 100%;
@@ -36,7 +37,8 @@ const VoteViewDiv = styled.div`
 
 const Voting = () => {
     const [cateList, setCateList] = useState(['management', 'economy', 'security', 'ai', 'blockchain', 'cloud']);
-    const [cateInfoList, setCateInfoList] = useState([{category:'', percent:0}]);
+    const [isVoted, setIsVoted] = useState(false);
+    const [cateInfoList, setCateInfoList] = useState([{category:'', percent:0, score:0}]);
 
     const handleCateChange = (event, index) => {
          const updatedCateInfoList = [...cateInfoList];
@@ -44,35 +46,16 @@ const Voting = () => {
          setCateInfoList(updatedCateInfoList);
     }
 
-    const handlePercentChange = (event, index) => {
+    const handlePercentChange = (event, index, votingPower) => {
+        
+        if(Number(event.target.value) > 100) event.target.value = 100;
          const updatedCateInfoList = [...cateInfoList];
-         updatedCateInfoList[index] = {...updatedCateInfoList[index], percent:Number(event.target.value)}
+         const percent = Number(event.target.value);
+         updatedCateInfoList[index] = {...updatedCateInfoList[index], percent:percent ,score: votingPower * percent/100}
          setCateInfoList(updatedCateInfoList);
     }
 
-    // const [cateMenuList, setCateMenuList] = useState([]);
 
-    // const addCategory = (param) => {
-    //     let sc = false; // cateList의 element가 있으면 true, 없으면 false
-    //     for( let element of cateList) {
-    //         for (let el of cateVotingInputList) {
-    //             if(el === element) {
-    //                 sc = true;
-    //                 break;
-    //             }
-    //         }
-    //         if(!sc) {
-    //             setCateVotingInputList([...cateVotingInputList, element])
-    //             break;
-    //         }
-    //     }
-    // const currentIndex = cateVotingInputList.indexOf(index);
-    // if (currentIndex === -1) {
-    //   setCateVotingInputList([...cateVotingInputList, index]);
-    // } 
-
-
-//   };
     const deleteIndex = (index) => {
 
     const newArray = [...cateInfoList.slice(0, index), ...cateInfoList.slice(index + 1)];
@@ -81,6 +64,27 @@ const Voting = () => {
     
     const addIndex = () => {
         setCateInfoList([...cateInfoList, {category:"", percent:0}]);
+    }
+
+    const handleSubmitAPI = async () => {
+        try{
+            const response = await axios.post('/board/boardScoreSave', {score_id:"", score: cateInfoList.map(obj=>{
+                const {['percent']: remove, ...rest} = obj
+                return rest;
+            })}, {
+            headers: {
+                "Content-Type": "application/json"
+                }
+            })
+            if(response.status === 200) {
+                setIsVoted(!isVoted);
+                alert('Success to vote');
+            }
+        }
+        catch (err) {
+            console.log(err);
+        }  
+        
     }
 
   return (
@@ -94,18 +98,12 @@ const Voting = () => {
             {cateInfoList.map((el,index)=>{
                     return (<CateVotingInput cateInfoList={cateInfoList} handleCateChange={handleCateChange} handlePercentChange={handlePercentChange} addIndex={addIndex} deleteIndex={deleteIndex} index={index} cateList={cateList}/>);
             })}
-            
-            {/* <CateVotingInput isFirstInput={true} isVisible={true}  cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
-            {cateVotingInputList.map((el,index)=>(
-
-                <CateVotingInput isFirstInput={false} isVisible={cateVotingInputList.includes(el)}  deleteIndex={()=>{deleteIndex(el)}} cateList={cateList} cateVotingInputList={cateVotingInputList} setCateVotingInputList={setCateVotingInputList}/>
-            ))}*/}
             <button onClick={()=>{console.log(cateInfoList)}}>check</button> 
             
         </VoteView>
 
         <VoteButton>
-            <MuiButton variant="contained">Vote</MuiButton>
+            {isVoted?<MuiButton variant="contained">Voted</MuiButton>:<MuiButton onClick={handleSubmitAPI} variant="contained">Vote</MuiButton>}
         </VoteButton>
         </VotingView >
     </VoteViewDiv>

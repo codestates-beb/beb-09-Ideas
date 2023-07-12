@@ -79,9 +79,13 @@ const RightDiv = styled.div`
 const Profile = () => {
     const nav = useNavigate();
     const board = useSelector(state=>(state?.board));
+    if(!board) {
+        return;
+    }
+    const {author, board_score, comments, } = board;
     return (
         <ProfileDiv>
-            <LeftDiv onClick={()=>{nav(`/profile/id`)}}>
+            <LeftDiv onClick={()=>{nav(`/profile/${author.id}`)}}>
                 <img src={board?.author?.profile.image_url} alt="profile" width="50px" />
                 <div>
                     <h4>{board?.author?.user_name}</h4>
