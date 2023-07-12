@@ -31,6 +31,9 @@ const slice = createSlice({
     setUserProfileInfo: (state, action) => {
       state.userProfile = action.payload;
     },
+    setRank: (state, action) => {
+      state.rankingData = action.payload;
+    },
     addComment: (state, action) => {
       state.board.comments.push(action.payload);
     },

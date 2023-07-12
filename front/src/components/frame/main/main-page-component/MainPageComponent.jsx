@@ -1,23 +1,20 @@
-import React from 'react'
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
-import BoardList from '../../../frequently_used/BoardList'
-import SideInfo from './SideInfo';
-
+import BoardList from "../../../frequently_used/BoardList";
+import SideInfo from "./SideInfo";
 
 const MainCompoDiv = styled.div`
-    display:flex;
-    
+  display: flex;
 `;
 
-const MainPageComponent = ({boards}) => {
-    
+const MainPageComponent = ({ boards, rankingData }) => {
   return (
     <MainCompoDiv>
-        <BoardList boards={boards}/>
-        <SideInfo/>
-    </MainCompoDiv> 
-  )
-}
+      <BoardList boards={boards} />
+      <SideInfo rankingData={rankingData} />
+    </MainCompoDiv>
+  );
+};
 
-export default MainPageComponent
+export default MainPageComponent;
