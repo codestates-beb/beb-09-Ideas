@@ -17,7 +17,7 @@ const SidebarDiv = styled.div`
 
 const VirtualSidebarDiv = styled.div` 
     width: 100px;
-    height: 1000px;
+    height: auto;
     
 `;
 

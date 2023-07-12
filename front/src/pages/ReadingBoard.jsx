@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux';
 import { actions1 } from '../reducer/testReducer';
 
 const ReadingPageDiv = styled.div`
-    width: 100%;
+    width: 90%;
+    height: 900px;
 `;
 
 
@@ -34,11 +35,9 @@ const ReadingBoard = () => {
   
 
   return (
-    <div>
-      <ReadingPageDiv>
-        <ReadPageComponent />
-      </ReadingPageDiv>
-    </div>
+    <ReadingPageDiv>
+      <ReadPageComponent />
+    </ReadingPageDiv>
   )
 }
 

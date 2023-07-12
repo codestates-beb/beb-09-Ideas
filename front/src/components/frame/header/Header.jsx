@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from '@mui/material'
+import { CgStark } from 'react-icons/cg'
 
 import Profile from "./Profile";
 
@@ -47,6 +48,9 @@ const HeaderDiv = styled.div`
 const VirtualHeaderDiv = styled.div`
     height: 70px;
  `;
+const textStyle = {
+  fontFamily: 'Arial, sans-serif',
+};
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -68,7 +72,7 @@ const Header = () => {
     <div>
         {loginModal &&(<BlurrDiv/>)}
         <HeaderDiv>
-            <h2 onClick={()=>{nav("/")}}>Ideas</h2>        
+            <h2 onClick={()=>{nav("/")}} style={textStyle}>Ideas<CgStark size={"30px"}/></h2>        
             <LoginModal
                 loginModal={loginModal}
                 onHide={() => setLoginModal(false)}

@@ -10,7 +10,6 @@ import { actions1 } from '../reducer/testReducer';
 
 const SignupPageView = styled.div`
   display: flex;
-  width: 100%;
   margin-top: 10px;
   margin-bottom: 20px;
   justify-content: center;

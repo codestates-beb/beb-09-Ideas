@@ -6,6 +6,7 @@ import PostMain from './post/PostMain';
 
 
 const ProfileDiv = styled.div`
+
     margin-top:100px;
     margin-left:200px;
     /* background: #bebeec; */

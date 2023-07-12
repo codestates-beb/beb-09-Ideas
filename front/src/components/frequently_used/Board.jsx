@@ -52,7 +52,10 @@ const BottomDiv = styled.div`
 `;
 
 const ProfileImg = styled.img`
-     border-radius: 35px;
+    align-items: center;
+    justify-items: center;
+    position:block;
+    border-radius: 35px;
     &:hover {
         opacity: 0.5;
     }
@@ -63,7 +66,6 @@ const TitleH3 = styled.h3`
     h3 {
         float:left;
     }
-
 `;
 
 const CommentDiv = styled.span`
@@ -72,6 +74,7 @@ const CommentDiv = styled.span`
         opacity: 0.8;
     }
 `;
+
 
 
 const Board = ({ board }) => {
@@ -114,7 +117,7 @@ const Board = ({ board }) => {
             <TopDiv>
                 <div>
                     <ProfileImg src={board?.author?.profile.image_url} width="40px" height="40px" onClick={goToProfile} />
-                    <div style={{ fontSize: '13px' }}>{board?.author.user_name}</div>
+                    <div style={{ fontSize: '13px'  }}>{board?.author.user_name}</div>
                 </div>
                 <TitleH3>
                     <span style={{ marginRight: '5px' }}>{CategoryIcon}</span>{board?.title}
@@ -129,7 +132,7 @@ const Board = ({ board }) => {
                 <div><BsFillBootstrapFill size="25px" />  : {board?.score.blockchain.score}</div>
                 <div><BsFillCloudsFill size="25px" />  : {board?.score.cloud.score}</div>
                 <div><BsPersonWorkspace size={"25px"} /> : {board?.view_count}</div>
-                <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px" /> {board?.comments.length}</CommentDiv>
+                <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="25px" /> {board?.comments.length}</CommentDiv>
             </BottomDiv>
 
             <CommentModal open={open} handleClose={handleClose} comments={board?.comments} />
