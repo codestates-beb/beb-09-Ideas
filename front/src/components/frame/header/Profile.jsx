@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Menu from "./Menu";
+import { CgProfile } from "react-icons/cg"
 
 const ProfileDiv = styled.div`
       &:hover { 
@@ -25,7 +26,7 @@ const Profile = ({handleLogout}) => {
 
   return (
     <ProfileDiv>
-        <img src="profile.png" alt="profile" width="60px" height="60px" />
+        <CgProfile  size={"40px"}/>
         <Menu handleLogout={handleLogout}/>
     </ProfileDiv>
   );

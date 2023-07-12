@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 
 const CreateBoardView = styled.div`
   display: flex;
-  width: 80%;
+  width: 100%;
   margin-top: 10px;
   margin-bottom: 20px;
   justify-content: center;
@@ -26,7 +26,7 @@ const TitleInput = styled.div`
 
 const CreatedView = styled.div`
   width: 100%;
-  max-width: 640px;
+  max-width: 1000px;
   padding: 24px;
   margin: 10px;
   text-align: left;

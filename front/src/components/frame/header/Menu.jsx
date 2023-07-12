@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import { CgProfile } from "react-icons/cg";
+import { BsFillDoorOpenFill } from "react-icons/bs"
 const MenuDiv = styled.div`
     position:absolute;
     background:rgb(240,240,240);
@@ -36,21 +37,21 @@ const SubMenuDiv = styled.div`
 `;
 
 
-const Menu = ({handleLogout}) => {
+const Menu = ({ handleLogout }) => {
     const nav = useNavigate();
-    const myProfile = useSelector(state=>(state.myProfile));
-  return (
-    <MenuDiv>
-        <SubMenuDiv onClick={()=>{nav(`profile/${myProfile?.id}`)}}>
-            <img src="profile.png" alt="profile" width="30px" height="30px"/>
-            <h4>profile</h4>
-        </SubMenuDiv>
-        <SubMenuDiv onClick={handleLogout}>
-            <img src="logout1.png" alt="profile" width="30px" height="30px"/>
-            <h4>Log out</h4>
-        </SubMenuDiv>
-    </MenuDiv>
-  )
+    const myProfile = useSelector(state => (state.myProfile));
+    return (
+        <MenuDiv>
+            <SubMenuDiv onClick={() => { nav(`profile/${myProfile?.id}`) }}>
+                <CgProfile size={"30px"} />
+                <h4>profile</h4>
+            </SubMenuDiv>
+            <SubMenuDiv onClick={handleLogout}>
+                <BsFillDoorOpenFill size={"30px"} />
+                <h4>Log out</h4>
+            </SubMenuDiv>
+        </MenuDiv>
+    )
 }
 
 export default Menu
