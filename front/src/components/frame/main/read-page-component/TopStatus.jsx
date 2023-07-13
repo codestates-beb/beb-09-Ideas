@@ -11,6 +11,9 @@ const StatusView = styled.div`
 
 const TopStatus = () => {
     const score = useSelector(state=>(state?.board?.board_score));
+    if(!score) {
+        return;
+    }
   return (
     <StatusView>
         {`Manage: ${score?.management.score} Economy: ${score?.economy.score} Security : ${score?.security.score} AI : ${score?.ai.score} Blockchain : ${score?.blockchain.score} Cloud : ${score?.cloud.score}`}
