@@ -34,7 +34,7 @@ const HeaderDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 3% 0 3%;
-  h2 {
+  h1 {
     cursor: pointer;
   }
   img {
