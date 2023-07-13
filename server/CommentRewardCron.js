@@ -1,5 +1,6 @@
 import cron from "node-cron";
 import User from "./models/user.js";
+import {CommentReward} from "./services/CommentReward.js";
 
 const schedule = "0 0 0 * * *"; // 오전 12시에 실행되는 cron 작업
 //const schedule = "* * * * *";  // 1분마다 실행되는 cron 작업 (테스트용)
@@ -7,6 +8,7 @@ const schedule = "0 0 0 * * *"; // 오전 12시에 실행되는 cron 작업
 const job = cron.schedule(schedule, async () => {
   try {
     // 모든 사용자의 isCommentVoted 필드를 false로 업데이트
+    await CommentReward();
     await User.updateMany(
       {},
       { $set: { isCommentVoted: false, isCommentRewarded: false } }

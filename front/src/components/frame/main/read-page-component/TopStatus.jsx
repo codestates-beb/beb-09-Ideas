@@ -14,10 +14,9 @@ const StatusView = styled.div`
 `;
 
 const TopStatus = () => {
-  const score = useSelector(state => (state?.board?.board_score));
-  if (!score) {
-    return;
-  }
+
+    const score = useSelector(state=>(state?.board?.board_score));
+
   return (
     <StatusView>
       <div><FaBookReader size="25px" /> : {parseFloat(score?.management.score.toFixed(3))}</div>
