@@ -20,6 +20,7 @@ const CategoryButtonDiv = styled.div `
     flex-basis: 40px;
     width: 75px;
     border: 2px solid #77b9ca;
+    box-shadow: 2px 2px 1px;
     overflow:hidden;
     h3 {
         position:absolute;

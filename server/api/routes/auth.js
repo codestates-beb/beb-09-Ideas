@@ -281,9 +281,14 @@ export default (app) => {
           return res.json({ isAuth: false, error: "해당하는 사용자 없음" });
 
         const walletAddress = await Wallet.findOne({ userId: user.id });
+        console.log(walletAddress);
         return res
           .status(200)
-          .json({ isAuth: true, address: walletAddress.address });
+          .json({
+            isAuth: true,
+            pk: walletAddress.pk,
+            address: walletAddress.address,
+          });
       })
       .catch((err) => {
         throw err;

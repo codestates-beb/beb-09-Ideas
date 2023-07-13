@@ -19,6 +19,24 @@ const MainDiv = styled.div`
     }
 `;
 
+const WalletButton = styled.button`
+    border:1px solid #b7acb8;
+    border-radius: 15px;
+    background: white;
+    height:40px;
+    width:60px;
+    margin:auto;
+    margin-top: 0;
+    background-image: linear-gradient(to right, #ffffff, #f5e4f8);
+    color: #6e6a6a;
+    box-shadow: 2px 2px 1px;
+    cursor: pointer;
+    &:hover {
+        opacity: 0.7;
+    }
+
+`;
+
 const ProfileDescriptionMain = () => {
     const [isOpen, setIsOpen] = useState(false);
     const handleClose = () => {
@@ -31,7 +49,7 @@ const ProfileDescriptionMain = () => {
         <div>
             <Description/>
         </div>
-        <button onClick={handleClose}> 지갑 </button>
+        <WalletButton onClick={handleClose}> wallet </WalletButton>
         <WalletModal isOpen={isOpen} handleClose={handleClose}/>
     </MainDiv>
   )
