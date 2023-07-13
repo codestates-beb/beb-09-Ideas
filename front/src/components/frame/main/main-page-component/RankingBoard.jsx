@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import IconComponent from "./IconComponent";
 
 const RankingBoardDiv = styled.div`
   height: 100px;
@@ -67,7 +68,7 @@ const RankingBoard = ({
     );
     topScores = sortedScores.slice(0, 2);
   }
-
+  //console.log("데이터 확인1111111111111",topScores);
   // 프로필 이미지 클릭 시 사용자 상세 페이지로 이동
   const nav = useNavigate();
   const goToProfile = (event) => {
@@ -75,6 +76,10 @@ const RankingBoard = ({
     nav(`/profile/${userId}`);
   };
 
+
+
+  
+  
   return (
     <RankingBoardDiv>
       <hr />
@@ -100,8 +105,8 @@ const RankingBoard = ({
           <>
             <span>total : {totalScore}</span>
             {topScores.map(([category, scoreData]) => (
-              <span key={category}>
-                {category} : {scoreData.score}
+              <span key={category} >
+                {<IconComponent icon={category}/>} : {scoreData.score}
               </span>
             ))}
           </>
