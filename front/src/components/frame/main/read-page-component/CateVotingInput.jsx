@@ -38,12 +38,31 @@ const VotingDiv = styled.div`
     display:flex;
     align-items:center;
     font-size: 12px;
+    div {
+        display:flex;
+        flex-direction: column;
+        & > span:nth-child(2) {
+            color:rgb(130, 233, 130);
+            font-weight:bold;
+        }
+    }
 
+
+
+`;
+const InputDiv = styled.div`
+    span {
+        position:absolute;
+        right: 16px;
+        top: 10px;
+        font-weight: bold;
+        font-size: 13px;
+    }
 `;
 
 const RatioInput = styled.input`
     height:32px;
-    width:45px;
+    width:55px;
     font-weight: bold;
     text-align: center;
 `;
@@ -58,8 +77,7 @@ const CateSelect = styled.select`
 const CateVotingInput = ({cateInfoList, deleteIndex, addIndex, cateList, handleCateChange, handlePercentChange, index}) => {
     const [category, setCategory] = useState();
     const userScore = useSelector(state=>(state.myProfile?.userScore));
-    console.log('---------------');
-    // console.log(userScore[category]);
+    
   return (
         <CateVotingDiv>
             <ButtonDiv>
@@ -71,13 +89,16 @@ const CateVotingInput = ({cateInfoList, deleteIndex, addIndex, cateList, handleC
                     <option disabled selected>category</option>
                     {cateList?.map(cate=>(<option value={cate}>{cate}</option>))} 
                 </CateSelect>
-                <div>
-                    <RatioInput type="text" onChange={(e)=>{handlePercentChange(e, index, category?userScore[category]?.score:"1")}}/>
+                <InputDiv>
+                    <RatioInput type="text" onChange={(e)=>{handlePercentChange(e, index, category?userScore[category]?.voting_power:"1")}}/>
                     <span>%</span>
-                </div>
+                </InputDiv>
             </CateVoting>
             <VotingDiv>
-                <span>{`${category?`voting power : ${userScore[category]?.voting_power}`:""}`}</span>
+                <div>
+                    <span>{`${category?`voting power : ${userScore[category]?.voting_power}`:""}`}</span>
+                    <span>{`${cateInfoList[index].score? `🔼: ${cateInfoList[index].score}` : ''}`}</span>
+                </div>
             </VotingDiv>
         </CateVotingDiv>
   )

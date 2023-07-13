@@ -18,12 +18,12 @@ export default (app) => {
     const quantity = req.quantity;
     console.log(quantity);
     const responseData = {
-      success:true,
-      quantity:quantity
+      success: true,
+      quantity: quantity,
     };
     try {
       return res.status(200).json({
-        data: responseData
+        data: responseData,
       });
     } catch (err) {
       return res.json({ success: false, err });
@@ -31,6 +31,7 @@ export default (app) => {
   });
 
   route.post("/send/server", sendTokenServerToUser, (req, res) => {
+    // address, ammount
     //console.log(req.body);
     try {
       return res.status(200).send({ success: true });
