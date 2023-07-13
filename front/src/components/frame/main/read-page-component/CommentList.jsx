@@ -5,7 +5,9 @@ import Comment from './Comment';
 import { useDispatch, useSelector } from 'react-redux'; 
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+
 import { actions1 } from '../../../../reducer/testReducer';
+
 
 const CommentView = styled.div`
   margin: 25px;
@@ -41,16 +43,15 @@ const CommentList = () => {
   const dispatch = useDispatch();
   const [userComment, setUserComment] = useState('');
   const {id} = useParams();
-  const comments = useSelector(state=>(state?.board?.comments));
-  console.log(comments);
+  const comments = useSelector(state=>(state.board?.comments));
+  const myProfile = useSelector(state=>(state.myProfile));
   const userId = useSelector(state=>state?.myProfile?.userData?.db_id);
+
   const handleSubmitCommentAPI = async () => {
-    if(!userId) {
-        alert('Login first before sending comment');
-        return;
-    }
+        const {isCommentVoted, isCommentRewarded} = myProfile;
+         
     try{
-        const response = await axios.post('/board/comment', {user_id:userId, board_id:id, content:userComment}, {
+        const response = await axios.post('/board/comment', {user_id:userId, board_id:id, content:userComment, isCommentVoted, isCommentRewarded}, {
                 headers: {
                     "Content-Type":"application/json",
             
@@ -68,7 +69,7 @@ const CommentList = () => {
   return (
     <CommentView>
       {comments?.length} comment
-      <TextView>
+      {userId ? <TextView>
         <TextField
           label="Comment"
           required
@@ -81,7 +82,7 @@ const CommentList = () => {
           onChange={e => setUserComment(e.target.value)}
         />
         <button onClick={handleSubmitCommentAPI}>create</button>
-      </TextView>
+      </TextView>:""}
       <CommentListDiv>
         {comments?.map(comment=>(
             <Comment comment={comment}/>

@@ -37,6 +37,12 @@ const slice = createSlice({
     addComment: (state, action) => {
       state.board.comments.unshift(action.payload);
     },
+    setBoardScore: (state, action) => {
+      state.board.board_score = action.payload;
+    },
+    toggleIsCommentVoted: (state, action) => {
+      state.myProfile.isCommentVoted = action.payload;
+    },
   },
 });
 

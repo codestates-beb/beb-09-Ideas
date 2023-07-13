@@ -26,8 +26,6 @@ const CommentModal = ({open, handleClose, comments}) => {
             ))}
         </Box>
     </Modal>
-    
-    
   )
 }
 

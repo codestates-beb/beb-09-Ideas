@@ -3,12 +3,14 @@ import Board from "../../models/board.js";
 import Comment from "../../models/comment.js";
 import Score from "../../models/score.js";
 import Auth from "../../services/auth.js";
+import User from "../../models/user.js";
 import {
   getBoardData,
   getBoardDetailData,
   getCommentData,
 } from "../../services/board.js";
 import Logger from "../../loaders/logger.js";
+import user from "./user.js";
 
 const route = Router();
 
@@ -829,13 +831,60 @@ export default (app) => {
   });
 
   /**
-   * 게시판 카테고리 점수 저장
+   * @swagger
+   * /boardScoreSave:
+   *   post:
+   *     summary: 게시판 카테고리 점수 저장
+   *     tags: [Score]
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               score_id:
+   *                 type: string
+   *                 description: Score 문서의 고유 ID
+   *               score:
+   *                 type: array
+   *                 description: 각 카테고리의 점수 배열
+   *                 items:
+   *                   type: object
+   *                   properties:
+   *                     category:
+   *                       type: string
+   *                       description: 카테고리 이름
+   *                     score:
+   *                       type: number
+   *                       description: 추가할 점수
+   *     responses:
+   *       200:
+   *         description: 성공적으로 점수를 저장하고 수정된 Score 데이터를 반환합니다.
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 success:
+   *                   type: boolean
+   *                   description: 성공 여부를 나타내는 플래그
+   *                 boardScore:
+   *                   $ref: '#/components/schemas/Score'
+   *       400:
+   *         description: 요청이 잘못되었거나 필수 필드가 누락되었습니다.
+   *       404:
+   *         description: 해당 score_id에 해당하는 Score 데이터를 찾을 수 없습니다.
+   *       500:
+   *         description: 서버 내부 오류가 발생하여 요청을 처리할 수 없습니다.
    */
   route.post("/boardScoreSave", Auth, async (req, res) => {
     // console.log(req.body);
     const { score_id, score } = req.body;
 
-    console.log(score_id);
+    // console.log(score_id);
     try {
       // Score 모델에서 해당 scoreId에 해당하는 문서 가져오기
       const scoreData = await Score.findById(score_id);
@@ -857,24 +906,45 @@ export default (app) => {
         }
       });
 
-      // let totalScore =
-      //   scoreData.management.score +
-      //   scoreData.economy.score +
-      //   scoreData.security.score +
-      //   scoreData.ai.score +
-      //   scoreData.blockchain.score + // 수정된 부분
-      //   scoreData.cloud.score; // 수정된 부분
-
-      // // total_score 수정
-      // scoreData.total_scroe = totalScore;
-
       // 수정된 Score 데이터 저장
       await scoreData.save();
+
+      // isCommentVoted 값 수정
+      const boardData = await Board.findOne({ score_id: score_id });
+      const userData = await User.findById(boardData.user_id);
+      userData.isCommentVoted = true;
+      userData.save();
+
+      const userSendData = {
+        userID: userData._id,
+        isCommentVoted: userData.isCommentVoted,
+      };
 
       // Score 모델에서 해당 scoreId에 해당하는 문서 가져오기
       const scoreSaveData = await Score.findById(score_id);
 
-      return res.json({ success: true, boardScore: scoreSaveData });
+      return res.json({
+        success: true,
+        boardScore: scoreSaveData,
+        userSendData: userSendData,
+      });
+    } catch (err) {
+      Logger.error(err);
+      return res.json({ success: false, err });
+    }
+  });
+
+  /**
+   * 시현용 - isCommentVoted 값 수정
+   */
+  route.put("/isCommentVotedFalse", async (req, res) => {
+    try {
+      // users 컬렉션의 isCommentVoted 값을 false로 업데이트
+      await User.updateMany(
+        {},
+        { $set: { isCommentVoted: false, isCommentRewarded: false } }
+      );
+      return res.status(200).json({ success: true });
     } catch (err) {
       Logger.error(err);
       return res.json({ success: false, err });
