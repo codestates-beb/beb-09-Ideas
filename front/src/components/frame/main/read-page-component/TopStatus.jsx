@@ -20,12 +20,12 @@ const TopStatus = () => {
   }
   return (
     <StatusView>
-      <div><FaBookReader size="25px" /> : {score?.management.score}</div>
-      <div><RiMoneyDollarCircleFill size="25px" /> : {score?.economy.score}</div>
-      <div><BiSolidLockOpenAlt size="25px" /> : {score?.security.score}</div>
-      <div><FaRobot size="25px" />  :  {score?.ai.score}</div>
-      <div><BsFillBootstrapFill size="25px" />  :  {score?.blockchain.score}</div>
-      <div><BsFillCloudsFill size="25px" />  : {score?.cloud.score}</div>
+      <div><FaBookReader size="25px" /> : {parseFloat(score?.management.score.toFixed(3))}</div>
+      <div><RiMoneyDollarCircleFill size="25px" /> : {parseFloat(score?.economy.score.toFixed(3))}</div>
+      <div><BiSolidLockOpenAlt size="25px" /> : {parseFloat(score?.security.score.toFixed(3))}</div>
+      <div><FaRobot size="25px" />  :  {parseFloat(score?.ai.score.toFixed(3))}</div>
+      <div><BsFillBootstrapFill size="25px" />  :  {parseFloat(score?.blockchain.score.toFixed(3))}</div>
+      <div><BsFillCloudsFill size="25px" />  : {parseFloat(score?.cloud.score.toFixed(3))}</div>
     </StatusView>
   )
 }

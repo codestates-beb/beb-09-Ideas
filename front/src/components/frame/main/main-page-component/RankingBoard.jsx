@@ -75,10 +75,6 @@ const RankingBoard = ({
     event.stopPropagation();
     nav(`/profile/${userId}`);
   };
-
-
-
-  
   
   return (
     <RankingBoardDiv>

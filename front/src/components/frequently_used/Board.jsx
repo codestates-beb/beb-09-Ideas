@@ -89,22 +89,22 @@ const Board = ({ board }) => {
     }
     console.log("데이터확인",board.category[0]);
     
-    if (board.category[0].toUpperCase()  === "M") {
+    if (board.category[0] === "m" || board.category[0] === "M") {
         CategoryIcon = <FaBookReader size="25px" />
     }
-    else if (board.category[0].toUpperCase()  === "E") {
+    else if (board.category[0] === "e" || board.category[0] === "E") {
         CategoryIcon = <RiMoneyDollarCircleFill size="25px" />
     }
-    else if (board.category[0].toUpperCase()  === "S") {
+    else if (board.category[0] === "s" || board.category[0] === "S") {
         CategoryIcon = <BiSolidLockOpenAlt size="25px" />
     }
-    else if (board.category[0].toUpperCase()  === "A") {
+    else if (board.category[0] === "a" || board.category[0] === "A") {
         CategoryIcon = <FaRobot size="25px" />
     }
-    else if (board.category[0].toUpperCase()  === "B") {
+    else if (board.category[0] === "b" || board.category[0] === "B") {
         CategoryIcon = <BsFillBootstrapFill size="25px" />
     }
-    else if (board.category[0].toUpperCase()  === "C") {
+    else if (board.category[0] === "c" || board.category[0] === "C") {
         CategoryIcon = <BsFillCloudsFill size="25px" />
     }
 
