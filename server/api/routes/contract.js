@@ -15,9 +15,16 @@ export default (app) => {
   app.use("/contract", route);
 
   route.post("/quantity", getERC20, (req, res) => {
-    console.log(req.quantity);
+    const quantity = req.quantity;
+    console.log(quantity);
+    const responseData = {
+      success:true,
+      quantity:quantity
+    };
     try {
-      return res.status(200).send({ success: true });
+      return res.status(200).json({
+        data: responseData
+      });
     } catch (err) {
       return res.json({ success: false, err });
     }
