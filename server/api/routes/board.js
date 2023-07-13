@@ -732,9 +732,21 @@ export default (app) => {
     // req.body.user_id = req.user._id; // 댓글 작성자 id 입력
     const comment = new Comment(req.body);
     const commentsWithUserData = await getCommentData([comment]);
+    cons / ole.log(commentsWithUserData);
     try {
       // 댓글 저장
-      await comment.save();
+      await comment
+        .save()
+        .then(async (data) => {
+          // isCommentRewarded true로 변경
+          const userData = await User.findById(commentsWithUserData.user.id);
+          userData.isCommentRewarded = true;
+          userData.save();
+        })
+        .catch((err) => {
+          Logger.error(err);
+          return res.json({ success: false, err });
+        });
       return res
         .status(200)
         .json({ success: true, data: commentsWithUserData[0] });
