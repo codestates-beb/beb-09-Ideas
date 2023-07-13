@@ -1,39 +1,39 @@
 import User from "./../models/user.js";
-import {createServerAccount, createUserDistributedWallet} from "./wallet.js";
-import {divideTokenToUDW} from "./contract.js";
-import Wallet from "../models/wallet.js";
+import { createServerAccount, createUserDistributedWallet } from "./wallet.js";
+import { divideTokenToUDW } from "./contract.js";
+import Wallet from "./../models/wallet.js";
 
-export async function initServer(){
-    let isServer =await User.find({id:"ideas"});
+export async function initServer() {
+  let isServer = await User.find({ id: "ideas" });
 
-    if (isServer.length !== 0) {
-        console.log("Exist server");
-        return;
-    }
-    const userData = {
-        "id": "ideas",
-        "email": "ideas@gmail.com",
-        "user_name": "server",
-        "password": "goodideas",
-        "phoneNum": "82 10-1234-0101",
-        "role" : 1
-    }
+  if (isServer.length !== 0) {
+    console.log("Exist server");
+    return;
+  }
+  const userData = {
+    id: "ideas",
+    email: "ideas@gmail.com",
+    user_name: "server",
+    password: "goodideas",
+    phoneNum: "82 10-1234-0101",
+    role: 1,
+  };
 
-    const serverAccountForDB = new User(userData);
+  const serverAccountForDB = new User(userData);
 
-    console.log("서버생성");
-    const serverWallet = await createServerAccount();
-    const serverAddress = serverWallet.address;
+  console.log("서버생성");
+  const serverWallet = await createServerAccount();
+  const serverAddress = serverWallet.address;
 
-    const serverData = {
-        "userId":"ideas",
-        "address": serverAddress,
-        "pk":process.env.SERVER_PRIVATE_KEY
-    }
+  const serverData = {
+    userId: "ideas",
+    address: serverAddress,
+    pk: process.env.SERVER_PRIVATE_KEY,
+  };
 
-    const serverWalletForDB = new Wallet(serverData);
+  const serverWalletForDB = new Wallet(serverData);
 
-    serverAccountForDB.save();
-    serverWalletForDB.save();
-    await divideTokenToUDW(await createUserDistributedWallet());
+  serverAccountForDB.save();
+  serverWalletForDB.save();
+  await divideTokenToUDW(await createUserDistributedWallet());
 }

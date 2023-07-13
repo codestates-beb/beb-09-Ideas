@@ -6,7 +6,7 @@ import {
   sendTokenTest,
   divideTokenToUDW,
   sendTokenUserToUser,
-  initUserWallet
+  initUserWallet,
 } from "../../services/contract.js";
 
 const route = Router();
@@ -45,11 +45,10 @@ export default (app) => {
   route.post("/init", async (req, res) => {
     //console.log(req.body);
     try {
-
       await initUserWallet(req.body.address);
-      return res.status(200).send({success: true});
+      return res.status(200).send({ success: true });
     } catch (err) {
-      return res.json({success: false, err});
+      return res.json({ success: false, err });
     }
   });
 
@@ -77,5 +76,4 @@ export default (app) => {
       return res.json({ success: false, err });
     }
   });
-
 };
