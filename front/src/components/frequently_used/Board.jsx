@@ -39,11 +39,10 @@ const TopDiv = styled.div`
 const BottomDiv = styled.div`
     position:absolute;
     bottom:5px;
-    left:60px;
+    left:50px;
     display:grid;
-    grid-column-gap: 50px;
+    grid-column-gap: 40px;
     grid-template-columns: repeat(8, 1fr);
-    justify-content: space-between;
     div {
         margin:2px 3px 5px 3px;
     }
@@ -88,24 +87,24 @@ const Board = ({ board }) => {
         event.stopPropagation();
         nav(`/profile/${board?.author.id}`);
     }
-    console.log(board.category[0]);
+    console.log("데이터확인",board.category[0]);
     
-    if (board.category[0] === "M") {
+    if (board.category[0].toUpperCase()  === "M") {
         CategoryIcon = <FaBookReader size="25px" />
     }
-    else if (board.category[0] === "E") {
+    else if (board.category[0].toUpperCase()  === "E") {
         CategoryIcon = <RiMoneyDollarCircleFill size="25px" />
     }
-    else if (board.category[0] === "S") {
+    else if (board.category[0].toUpperCase()  === "S") {
         CategoryIcon = <BiSolidLockOpenAlt size="25px" />
     }
-    else if (board.category[0] === "A") {
+    else if (board.category[0].toUpperCase()  === "A") {
         CategoryIcon = <FaRobot size="25px" />
     }
-    else if (board.category[0] === "B") {
+    else if (board.category[0].toUpperCase()  === "B") {
         CategoryIcon = <BsFillBootstrapFill size="25px" />
     }
-    else if (board.category[0] === "C") {
+    else if (board.category[0].toUpperCase()  === "C") {
         CategoryIcon = <BsFillCloudsFill size="25px" />
     }
 
@@ -122,14 +121,14 @@ const Board = ({ board }) => {
                 </TitleH3>
             </TopDiv>
             <BottomDiv>
-                <div><FaBookReader size="25px" /> : {board?.score.management.score} </div>
-                <div><RiMoneyDollarCircleFill size="25px" /> : {board?.score.economy.score}</div>
-                <div><BiSolidLockOpenAlt size="25px" />  : {board?.score.security.score}</div>
-                <div><FaRobot size="25px" />  : {board?.score.ai.score}</div>
-                <div><BsFillBootstrapFill size="25px" />  : {board?.score.blockchain.score}</div>
-                <div><BsFillCloudsFill size="25px" />  : {board?.score.cloud.score}</div>
-                <div><BsPersonWorkspace size={"25px"} /> : {board?.view_count}</div>
-                <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="25px" /> {board?.comments.length}</CommentDiv>
+                <span><FaBookReader size="20px" /> : {parseFloat(board?.score.management.score.toFixed(3))} </span>
+                <span><RiMoneyDollarCircleFill size="20px" /> : {parseFloat(board?.score.economy.score.toFixed(3))}</span>
+                <span><BiSolidLockOpenAlt size="20px" />  : {parseFloat(board?.score.security.score.toFixed(3))}</span>
+                <span><FaRobot size="20px" />  : {parseFloat(board?.score.ai.score.toFixed(3))}</span>
+                <span><BsFillBootstrapFill size="20px" />  : {parseFloat(board?.score.blockchain.score.toFixed(3))}</span>
+                <span><BsFillCloudsFill size="20px" />  : {parseFloat(board?.score.cloud.score.toFixed(3))}</span>
+                <span><BsPersonWorkspace size={"20px"} /> : {parseFloat(board?.view_count.toFixed(3))}</span>
+                <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px" /> {board?.comments.length}</CommentDiv>
             </BottomDiv>
 
             <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/>

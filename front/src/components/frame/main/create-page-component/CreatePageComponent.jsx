@@ -111,6 +111,8 @@ const CreatePageComponent = () => {
               onChange={e => setContentValue(e.target.value)}
               placeholder="내용을 입력하세요."
               minRows={15}
+              maxRows={15}
+              style={{ overflowY: 'auto' }}
               sx={{
                 '&::before': {
                   display: 'none',
