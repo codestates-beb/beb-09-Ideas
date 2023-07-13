@@ -128,6 +128,7 @@ const getUserDetailData = async (userId) => {
         user_id: userData.id,
         user_name: userData.user_name,
         followers: userData.followers,
+        isCommentVoted: userData.isCommentVoted,
         created_at: userData.created_at,
         profile: {
           image_url: userData.profile.image_url,
