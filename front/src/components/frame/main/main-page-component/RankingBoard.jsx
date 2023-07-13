@@ -57,7 +57,7 @@ const RankingBoard = ({
   totalScore,
   userScore, // 사용자 점수 또는 사용자의 카테고리 점수
 }) => {
-  console.log("사용자별 점수 : ", userScore);
+  // console.log("사용자별 점수 : ", userScore);
 
   let topScores = [];
   if (totalScore !== null) {

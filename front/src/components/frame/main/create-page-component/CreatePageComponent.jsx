@@ -89,7 +89,7 @@ const CreatePageComponent = () => {
             <FormControl sx={{ m: 0, minWidth: 150 }}>
               <InputLabel htmlFor="category">category</InputLabel>
               <Select defaultValue="" vlaue={categoryValue} onChange={e => setCategoryValue(e.target.value)} id="category-select" label="category">
-                <MenuItem value={"manage"}>Manage</MenuItem>
+                <MenuItem value={"management"}>Manage</MenuItem>
                 <MenuItem value={"economy"}>Economy</MenuItem>
                 <MenuItem value={"security"}>Security</MenuItem>
                 <MenuItem value={"ai"}>AI</MenuItem>
