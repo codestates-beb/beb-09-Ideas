@@ -38,11 +38,10 @@ export default class Example extends PureComponent {
   }
     
   componentDidMount() {
-    const userScore = this.props.userScore;
+    const userVotingPower = this.props.userScore;
 
-    console.log("US : ",userScore);
-    let cateList = userScore?(Object.keys(userScore)?.slice(0,6)):""; // ['management', 'security', 'ecnomoy'] 같은 형식
-    let showList = userScore?(Object.values(userScore)?.map(obj=> obj.score).slice(0,6)):""; // ['management', 'security', 'ecnomoy'] 같은 형식
+    let cateList = userVotingPower?(Object.keys(userVotingPower)?.slice(0,6)):""; // ['management', 'security', 'ecnomoy'] 같은 형식
+    let showList = userVotingPower?(Object.values(userVotingPower)?.map(obj=> obj.voting_power).slice(0,6)):""; // ['management', 'security', 'ecnomoy'] 같은 형식
 
 
       let newArr = [];
@@ -50,7 +49,7 @@ export default class Example extends PureComponent {
         newArr.push(
             {
                 name: cateList[i],
-                score: showList[i]
+                voting_power: showList[i]
             }
         )
     }
@@ -80,7 +79,7 @@ export default class Example extends PureComponent {
                      <Tooltip />
                      <Legend />
                      <CartesianGrid strokeDasharray="3 3" />
-                     <Bar dataKey="score" fill="#cdcbe7" background={{ fill: '#eee' }} />
+                     <Bar dataKey="voting_power" fill="#cdcbe7" background={{ fill: '#eee' }} />
                  </BarChart>
              </ResponsiveContainer>
     );
