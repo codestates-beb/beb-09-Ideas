@@ -9,9 +9,9 @@ import Profile from "./Profile";
 
 import LoginModal from "./LoginModal";
 import { actions1 } from "../../../reducer/testReducer";
-
 // import Logo from "../../frequently-used/Logo";
 // import { FiUser } from "react-icons/fi";
+
 
 const BlurrDiv = styled.div`
   position: fixed;
@@ -34,7 +34,7 @@ const HeaderDiv = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 0 3% 0 3%;
-  h2 {
+  h1 {
     cursor: pointer;
   }
   img {
@@ -48,11 +48,10 @@ const HeaderDiv = styled.div`
 const VirtualHeaderDiv = styled.div`
     height: 70px;
  `;
-const textStyle = {
-  fontFamily: 'Arial, sans-serif',
-};
+
 
 const Header = () => {
+  
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.isLoggedIn);
   const nav = useNavigate();
@@ -83,7 +82,7 @@ const Header = () => {
     <div>
         {loginModal &&(<BlurrDiv/>)}
         <HeaderDiv>
-            <h2 onClick={()=>{nav("/")}} style={textStyle}><CgStark size={"30px"}/>Ideas</h2>        
+            <h1 onClick={()=>{nav("/")}} ><CgStark size={"30px"}/>Ideas</h1>        
             <LoginModal
                 loginModal={loginModal}
                 onHide={() => setLoginModal(false)}
