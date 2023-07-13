@@ -6,11 +6,12 @@ import PostMain from './post/PostMain';
 
 
 const ProfileDiv = styled.div`
-    margin-top:100px;
-    margin-left:200px;
-    /* background: #bebeec; */
-    height:2000px;
-    width: 1300px;
+    margin:auto;
+    width: 75%;
+    display: block;
+    margin-bottom: 0px;
+    
+    
 `;
 
 const ProfilePageComponent = () => {

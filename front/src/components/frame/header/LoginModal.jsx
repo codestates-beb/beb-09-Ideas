@@ -87,7 +87,7 @@ const LoginModal = ({ loginModal, onHide }) => {
         if(response.status === 200) {
             dispatch(actions1.toggleIsLoggedIn(true));
             dispatch(actions1.setAccessToken(cookies.x_auth));
-            dispatch(actions1.setMyProfileInfo(response.data.id));
+            dispatch(actions1.setMyProfileInfo(response.data.data));
             onHide();
         }
         

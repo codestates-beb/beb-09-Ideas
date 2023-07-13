@@ -41,10 +41,10 @@ const CommentList = () => {
   const dispatch = useDispatch();
   const [userComment, setUserComment] = useState('');
   const {id} = useParams();
-  const comments = useSelector(state=>(state?.board.comments));
+  const comments = useSelector(state=>(state?.board?.comments));
   console.log(comments);
-  const userId = useSelector(state=>state?.myProfile?.id);
-  const sendAPIComment = async () => {
+  const userId = useSelector(state=>state?.myProfile?.userData?.db_id);
+  const handleSubmitCommentAPI = async () => {
     if(!userId) {
         alert('Login first before sending comment');
         return;
@@ -80,7 +80,7 @@ const CommentList = () => {
           onClick={()=>{}}
           onChange={e => setUserComment(e.target.value)}
         />
-        <button onClick={sendAPIComment}>create</button>
+        <button onClick={handleSubmitCommentAPI}>create</button>
       </TextView>
       <CommentListDiv>
         {comments?.map(comment=>(

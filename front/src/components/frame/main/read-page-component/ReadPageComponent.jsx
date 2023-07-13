@@ -12,7 +12,7 @@ const ReadDiv = styled.div`
     flex-direction: column;
     margin: auto;
     margin-top: 40px;
-    margin-bottom: auto;
+    margin-bottom: 40px;
     background-color: #3333;
     width: 55%;
     height: auto;

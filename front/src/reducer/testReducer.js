@@ -26,7 +26,7 @@ const slice = createSlice({
       state.board = action.payload;
     },
     setMyProfileInfo: (state, action) => {
-      state.myProfile.id = action.payload;
+      state.myProfile = action.payload;
     },
     setUserProfileInfo: (state, action) => {
       state.userProfile = action.payload;
@@ -35,7 +35,7 @@ const slice = createSlice({
       state.rankingData = action.payload;
     },
     addComment: (state, action) => {
-      state.board.comments.push(action.payload);
+      state.board.comments.unshift(action.payload);
     },
   },
 });

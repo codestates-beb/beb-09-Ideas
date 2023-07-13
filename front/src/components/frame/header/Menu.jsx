@@ -40,9 +40,10 @@ const SubMenuDiv = styled.div`
 const Menu = ({ handleLogout }) => {
     const nav = useNavigate();
     const myProfile = useSelector(state => (state.myProfile));
+    console.log(myProfile)
     return (
         <MenuDiv>
-            <SubMenuDiv onClick={() => { nav(`profile/${myProfile?.id}`) }}>
+            <SubMenuDiv onClick={() => { nav(`profile/${myProfile?.userData.db_id}`) }}>
                 <CgProfile size={"30px"} />
                 <h4>profile</h4>
             </SubMenuDiv>

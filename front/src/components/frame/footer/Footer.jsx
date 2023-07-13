@@ -13,6 +13,9 @@ const FooterContainer = styled.footer`
   padding: 2%;
   text-align: center;
   background-color: #353535;
+  align-items: stretch;
+  margin-left: 80px;
+  bottom: 0;
 `;
 
 const LogoAndLinksContainer = styled.div`
@@ -71,6 +74,10 @@ const CountryText = styled.span`
   margin-left: 10px;
 `;
 
+const textStyle = {
+  fontFamily: 'monospace',
+};
+
 const Footer = () => (
   <FooterContainer>
     <LogoAndLinksContainer>
@@ -82,14 +89,14 @@ const Footer = () => (
       </FooterLinks>
     </LogoAndLinksContainer>
     <LogoDescription>
-      <p>Ideas는 조직의 의사결정을 판가름하는것이 아닌 개개인들의 지식 능력을 수치화 하고</p>
-      <p>객관하여 이끌어 가는 Proof of Ablility(능력 증명 방식)을 생각하여 게시판을 통해</p>
-      <p>서로의 지적 능력을 평가하여 이를 통계적으로 수치화 하여 운영되도록 설계되었습니다.</p>
+      <p style={textStyle}>Ideas는 조직의 의사결정을 판가름하는것이 아닌 개개인들의 지식 능력을 수치화 하고</p>
+      <p style={textStyle}>객관하여 이끌어 가는 Proof of Ablility(능력 증명 방식)을 생각하여 게시판을 통해</p>
+      <p style={textStyle}>서로의 지적 능력을 평가하여 이를 통계적으로 수치화 하여 운영되도록 설계되었습니다.</p>
     </LogoDescription>
     <FooterText>
-      © 2023 Ideas Company
-      <CgStark size={"35px"}/>
-      <CountryText>조영훈 이승민 이지수 김성환</CountryText>
+      © 2023 <CgStark size={"35px"}/> Ideas Company
+
+      <CountryText style={textStyle}>조영훈 이승민 이지수 김성환</CountryText>
     </FooterText>
   </FooterContainer>
 );

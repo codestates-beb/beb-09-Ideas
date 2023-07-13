@@ -5,8 +5,10 @@ import { useSelector } from 'react-redux';
 
 const PostMainDiv = styled.div`
     /* background: #f4e3f5; */
-    height: 500px;
-    margin: 50px;
+    /* height: 500px;
+    margin: 50px; */
+    display: block;
+    margin-bottom: 0;
     h3 {
         padding: 20px;
     }

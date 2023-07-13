@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import { Button } from '@mui/material'
+import { CgStark } from 'react-icons/cg'
 
 import Profile from "./Profile";
 
@@ -45,8 +46,11 @@ const HeaderDiv = styled.div`
 `;
 
 const VirtualHeaderDiv = styled.div`
-  height: 70px;
-`;
+    height: 70px;
+ `;
+const textStyle = {
+  fontFamily: 'Arial, sans-serif',
+};
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -77,30 +81,24 @@ const Header = () => {
 
   return (
     <div>
-      {loginModal && <BlurrDiv />}
-      <HeaderDiv>
-        <h2
-          onClick={() => {
-            nav("/");
-          }}
-        >
-          Ideas
-        </h2>
-        <LoginModal
-          loginModal={loginModal}
-          onHide={() => setLoginModal(false)}
-        />
-        {isLoggedIn ? (
-          // 로그인이 완료되었을 때 표시되는 아이콘
-          <Profile handleLogout={handleLogout} />
-        ) : (
-          // 로그인이 안되었을때 표시 로그인 버튼
-          <Button onClick={handleLogin} variant="contained">
-            Login
-          </Button>
-        )}
-      </HeaderDiv>
-      <VirtualHeaderDiv />
+        {loginModal &&(<BlurrDiv/>)}
+        <HeaderDiv>
+            <h2 onClick={()=>{nav("/")}} style={textStyle}><CgStark size={"30px"}/>Ideas</h2>        
+            <LoginModal
+                loginModal={loginModal}
+                onHide={() => setLoginModal(false)}
+            />
+            {isLoggedIn ? (
+                // 로그인이 완료되었을 때 표시되는 아이콘
+                <Profile handleLogout={handleLogout}/>
+            ) : (
+                // 로그인이 안되었을때 표시 로그인 버튼
+                <Button onClick={handleLogin} variant='contained' >Login</Button>
+                
+            )}
+
+        </HeaderDiv>
+        <VirtualHeaderDiv/>
     </div>
   );
 };

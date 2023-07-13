@@ -1,9 +1,9 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { AiOutlineStar } from "react-icons/ai";
-import { BiSolidCommentDetail, BiSolidLockOpenAlt} from 'react-icons/bi';
-import { BsFillBootstrapFill, BsFillCloudsFill } from "react-icons/bs";
+import { BiSolidCommentDetail, BiSolidLockOpenAlt } from 'react-icons/bi';
+import { BsFillBootstrapFill, BsFillCloudsFill, BsPersonWorkspace} from "react-icons/bs";
 import { FaBookReader, FaChartLine, FaRobot } from 'react-icons/fa'
 import { RiMoneyDollarCircleFill } from 'react-icons/ri'
 import CommentModal from './CommentModal';
@@ -39,8 +39,9 @@ const TopDiv = styled.div`
 const BottomDiv = styled.div`
     position:absolute;
     bottom:5px;
-    left:40px;
+    left:60px;
     display:grid;
+    grid-column-gap: 50px;
     grid-template-columns: repeat(8, 1fr);
     justify-content: space-between;
     div {
@@ -49,8 +50,10 @@ const BottomDiv = styled.div`
 `;
 
 const ProfileImg = styled.img`
-  border-radius: 35px;
-  &:hover {
+    align-items: center;
+    justify-items: center;
+    border-radius: 35px;
+    &:hover {
     opacity: 0.5;
   }
 `;
@@ -61,7 +64,7 @@ const TitleH3 = styled.h3`
         float:left;
     }
 
-`; 
+`;
 
 const CommentDiv = styled.span`
   /* font-weight: bold; */
@@ -73,7 +76,7 @@ const CommentDiv = styled.span`
 
 
 
-const Board = ({board}) => {
+const Board = ({ board }) => {
     let CategoryIcon;
     const [open, setOpen] = useState(false);
     const handleClose = (event) => {
@@ -81,55 +84,56 @@ const Board = ({board}) => {
         setOpen(!open);
     }
     const nav = useNavigate();
-    const goToProfile = (event)=>{
+    const goToProfile = (event) => {
         event.stopPropagation();
-        nav(`/profile/${board?.author.id}`); 
+        nav(`/profile/${board?.author.id}`);
     }
 
-    if (board?.category[0] === "m"){
-        CategoryIcon = <FaBookReader size= "25px"/> 
+
+    if (board?.category[0] === "m") {
+        CategoryIcon = <FaBookReader size="25px" />
     }
-    else if (board?.category[0] === "e"){
-        CategoryIcon = <RiMoneyDollarCircleFill size = "25px" />
+    else if (board?.category[0] === "e") {
+        CategoryIcon = <RiMoneyDollarCircleFill size="25px" />
     }
-    else if (board?.category[0] === "s"){
-        CategoryIcon = <BiSolidLockOpenAlt size= "25px"/> 
+    else if (board?.category[0] === "s") {
+        CategoryIcon = <BiSolidLockOpenAlt size="25px" />
     }
-    else if (board?.category[0] === "a"){
-        CategoryIcon = <FaRobot size= "25px"/> 
+    else if (board?.category[0] === "a") {
+        CategoryIcon = <FaRobot size="25px" />
     }
-    else if (board?.category[0] === "b"){
-        CategoryIcon = <BsFillBootstrapFill size= "25px"/> 
+    else if (board?.category[0] === "b") {
+        CategoryIcon = <BsFillBootstrapFill size="25px" />
     }
-    else if (board?.category[0] === "c"){
-        CategoryIcon = <BsFillCloudsFill size= "25px" />
+    else if (board?.category[0] === "c") {
+        CategoryIcon = <BsFillCloudsFill size="25px" />
     }
 
-  return (
-    <BoardDiv onClick={()=>{nav(`/board/${board?.id}`)}}>
-        <TopDiv>
-            <div>
-                <ProfileImg src={board?.author?.profile.image_url} width="40px" height="40px" onClick={goToProfile}/>
-                <div style={{fontSize:'13px'}}>{board?.author.user_name}</div>
-            </div>
-            <TitleH3>
-                <span style={{marginRight:'5px'}}>{CategoryIcon}</span>{board?.title}
-                <span style={{fontWeight:'normal'}}> &nbsp;{board?.created_at}</span> 
-            </TitleH3>
-        </TopDiv>
-        <BottomDiv>
-            <div>manage: {board?.score.management.score} </div>
-            <div>Economy : {board?.score.economy.score}</div>
-            <div>Security : {board?.score.security.score}</div>
-            <div>AI : {board?.score.ai.score}</div>
-            <div>Blockchain : {board?.score.blockchain.score}</div>
-            <div>Cloud : {board?.score.cloud.score}</div>
-            <div>view : {board?.view_count}</div>
-            <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="20px"/> {board?.comments.length}</CommentDiv>
-        </BottomDiv>
-        
-        {/* <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/> */}
-    </BoardDiv>
-  )
+    return (
+        <BoardDiv onClick={() => { nav(`/board/${board?.id}`) }}>
+            <TopDiv>
+                <div>
+                    <ProfileImg src={board?.author?.profile.image_url} width="40px" height="40px" onClick={goToProfile} />
+                    <div style={{ fontSize: '13px' }}>{board?.author.user_name}</div>
+                </div>
+                <TitleH3>
+                    <span style={{ marginRight: '5px' }}>{CategoryIcon}</span>{board?.title}
+                    <span style={{ fontWeight: 'normal' }}> &nbsp;{board?.created_at}</span>
+                </TitleH3>
+            </TopDiv>
+            <BottomDiv>
+                <div><FaBookReader size="25px" /> : {board?.score.management.score} </div>
+                <div><RiMoneyDollarCircleFill size="25px" /> : {board?.score.economy.score}</div>
+                <div><BiSolidLockOpenAlt size="25px" />  : {board?.score.security.score}</div>
+                <div><FaRobot size="25px" />  : {board?.score.ai.score}</div>
+                <div><BsFillBootstrapFill size="25px" />  : {board?.score.blockchain.score}</div>
+                <div><BsFillCloudsFill size="25px" />  : {board?.score.cloud.score}</div>
+                <div><BsPersonWorkspace size={"25px"} /> : {board?.view_count}</div>
+                <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="25px" /> {board?.comments.length}</CommentDiv>
+            </BottomDiv>
+
+            {/* <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/> */}
+        </BoardDiv>
+    )
 }
 export default Board;
