@@ -1,7 +1,8 @@
-import React from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components';
 import Profile from './Profile';
 import Description from './Description';
+import WalletModal from '../../../../frequently_used/WalletModal';
 
 
 const MainDiv = styled.div`
@@ -19,13 +20,19 @@ const MainDiv = styled.div`
 `;
 
 const ProfileDescriptionMain = () => {
-    
+    const [isOpen, setIsOpen] = useState(false);
+    const handleClose = () => {
+        setIsOpen(!isOpen);
+    }
+
   return (
     <MainDiv>
         <Profile />
         <div>
             <Description/>
         </div>
+        <button onClick={handleClose}> 지갑 </button>
+        <WalletModal isOpen={isOpen} handleClose={handleClose}/>
     </MainDiv>
   )
 }
