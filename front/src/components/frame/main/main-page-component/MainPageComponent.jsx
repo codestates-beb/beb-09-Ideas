@@ -6,7 +6,7 @@ import SideInfo from "./SideInfo";
 
 const MainCompoDiv = styled.div`
   display: flex;
-  margin-left: 15px;
+  margin-left: 150px;
 `;
 
 const MainPageComponent = ({ boards, rankingData }) => {

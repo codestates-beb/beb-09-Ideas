@@ -1,7 +1,7 @@
 import { Router } from "express";
 import {
-  sendTokenServerToUser,
-  getERC20,
+  sendTokenServerToUserForRouter,
+  getERC20ForRouter,
   getERC20Test,
   sendTokenTest,
   divideTokenToUDW,
@@ -14,7 +14,7 @@ const route = Router();
 export default (app) => {
   app.use("/contract", route);
 
-  route.post("/quantity", getERC20, (req, res) => {
+  route.post("/quantity", getERC20ForRouter, (req, res) => {
     const quantity = req.quantity;
     console.log(quantity);
     const responseData = {
@@ -30,7 +30,7 @@ export default (app) => {
     }
   });
 
-  route.post("/send/server", sendTokenServerToUser, (req, res) => {
+  route.post("/send/server", sendTokenServerToUserForRouter, (req, res) => {
     // address, ammount
     //console.log(req.body);
     try {

@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { formatEther } from "ethers";
-import { createServerAccount, createUserWallet } from "./wallet.js";
+import {createServerAccount, createUserDistributedWallet, createUserWallet} from "./wallet.js";
 import fs from "fs";
 const __dirname = "../contract/build/contracts";
 
@@ -39,33 +39,42 @@ let divideTokenToUDW = async (UDW) => {
   await tx.wait();
 };
 
-let sendTokenServerToUser = async (req, res, next) => {
+let sendTokenServerToUser = async (amount, address) =>{
   const provider = new ethers.JsonRpcProvider(providerUrl);
-  let sendAmount = req.body.amount;
-  let userWalletAddress = req.body.address;
+  let sendAmount = amount;
+  let userWalletAddress = address;
 
-  const serverWallet = await createServerAccount();
+  const serverWallet = await createUserDistributedWallet();
   const serverWalletAddress = serverWallet.address;
   const signer = await provider.getSigner(serverWalletAddress);
 
   const contract = new ethers.Contract(contractAddress, abi.abi, provider);
 
-  const amount = ethers.parseUnits(sendAmount, 18);
+  const tokenAmount = ethers.parseUnits(sendAmount, 18);
 
   const contractSigner = contract.connect(signer);
-  const tx = await contractSigner.transfer(userWalletAddress, amount);
+  const tx = await contractSigner.transfer(userWalletAddress, tokenAmount);
   await tx.wait();
+}
+
+let sendTokenServerToUserForRouter = async (req, res, next) => {
+  await sendTokenServerToUser(req.body.amount, req.body.address);
 
   next();
 };
 
-let getERC20 = async (req, res, next) => {
+let getERC20 = async (address) => {
   const provider = new ethers.JsonRpcProvider(providerUrl);
 
-  const walletAddress = req.body.address;
+  const walletAddress = address;
 
   const contract = new ethers.Contract(contractAddress, abi.abi, provider);
   const walletBalance = await contract.balanceOf(walletAddress);
+  return walletBalance;
+};
+
+let getERC20ForRouter = async (req, res, next) => {
+  const walletBalance= await getERC20(req.body.address);
   req.quantity = formatEther(walletBalance);
   next();
 };
@@ -140,7 +149,9 @@ export {
   sendTokenServerToUser,
   sendTokenTest,
   getERC20,
+  getERC20ForRouter,
   getERC20Test,
   divideTokenToUDW,
   sendTokenUserToUser,
+  sendTokenServerToUserForRouter
 };
