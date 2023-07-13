@@ -11,7 +11,7 @@ const scoreSchema = new mongoose.Schema({
   management: {
     voting_power: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     score: {
       type: Number,
@@ -45,7 +45,7 @@ const scoreSchema = new mongoose.Schema({
   economy: {
     voting_power: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     score: {
       type: Number,
@@ -79,7 +79,7 @@ const scoreSchema = new mongoose.Schema({
   security: {
     voting_power: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     score: {
       type: Number,
@@ -131,7 +131,7 @@ const scoreSchema = new mongoose.Schema({
   ai: {
     voting_power: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     score: {
       type: Number,
@@ -183,7 +183,7 @@ const scoreSchema = new mongoose.Schema({
   blockchain: {
     voting_power: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     score: {
       type: Number,
@@ -229,7 +229,7 @@ const scoreSchema = new mongoose.Schema({
   cloud: {
     voting_power: {
       type: Number,
-      default: 0,
+      default: 1,
     },
     score: {
       type: Number,
@@ -285,8 +285,8 @@ scoreSchema.pre("save", function (next) {
     scoreData.economy.score +
     scoreData.security.score +
     scoreData.ai.score +
-    scoreData.blockchain +
-    scoreData.cloud;
+    scoreData.blockchain.score +
+    scoreData.cloud.score;
 
   scoreData.total_scroe = totalScore;
   next();

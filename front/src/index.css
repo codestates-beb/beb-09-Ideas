@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Chela+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chela+One&family=Playball&display=swap');
 
 body {
   margin: 0;
@@ -9,7 +9,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 h1{
-  font-family: 'Chela One' ;
+  font-family: 'Playball' ;
 }
 
 code {

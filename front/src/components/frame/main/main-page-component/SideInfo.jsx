@@ -21,7 +21,7 @@ const Myh2 = styled.h2`
 `;
 
 const SideInfo = ({ rankingData }) => {
-  console.log("SideInfo : ", rankingData);
+  //console.log("SideInfo : ", rankingData);
   return (
     <SideInfoDiv>
       <Myh2>Token Info</Myh2>

@@ -66,7 +66,7 @@ let getERC20 = async (req, res, next) => {
 
   const contract = new ethers.Contract(contractAddress, abi.abi, provider);
   const walletBalance = await contract.balanceOf(walletAddress);
-  req.quantity = walletBalance;
+  req.quantity = formatEther(walletBalance);
   next();
 };
 
