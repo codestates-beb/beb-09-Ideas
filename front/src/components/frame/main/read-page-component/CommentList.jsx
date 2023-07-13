@@ -43,12 +43,15 @@ const CommentList = () => {
   const dispatch = useDispatch();
   const [userComment, setUserComment] = useState('');
   const {id} = useParams();
-  const comments = useSelector(state=>(state?.board?.comments));
+  const comments = useSelector(state=>(state.board?.comments));
+  const myProfile = useSelector(state=>(state.myProfile));
   const userId = useSelector(state=>state?.myProfile?.userData?.db_id);
 
   const handleSubmitCommentAPI = async () => {
+        const {isCommentVoted, isCommentRewarded} = myProfile;
+         
     try{
-        const response = await axios.post('/board/comment', {user_id:userId, board_id:id, content:userComment}, {
+        const response = await axios.post('/board/comment', {user_id:userId, board_id:id, content:userComment, isCommentVoted, isCommentRewarded}, {
                 headers: {
                     "Content-Type":"application/json",
             

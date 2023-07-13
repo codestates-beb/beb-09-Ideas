@@ -874,7 +874,7 @@ export default (app) => {
       // Score 모델에서 해당 scoreId에 해당하는 문서 가져오기
       const scoreSaveData = await Score.findById(score_id);
 
-      return res.json({ success: true, boardScore: scoreSaveData });
+      return res.status(200).json({ success: true, boardScore: scoreSaveData });
     } catch (err) {
       Logger.error(err);
       return res.json({ success: false, err });

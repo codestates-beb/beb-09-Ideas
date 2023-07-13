@@ -27,9 +27,12 @@ const VoteView = styled.div`
 `;
 
 const VoteButton = styled.div`
-  display: block;
-  margin-right:150px;
+
+  display: flex;
+  margin-right:50px;
+  margin-top: 20px;
   float: right;
+  align-items: center;
 `;
 const VoteViewDiv = styled.div`
   margin-top: 100px;
@@ -50,6 +53,17 @@ const LoginFirstDiv = styled.div`
     background-image: linear-gradient(to right, #ffffff, #eef6f8);
 `
 
+const CancelVoteButton = styled.div`
+    border:0;
+    border-radius:10px;
+    width:15px;
+    height:15px;
+    /* background: red; */
+    &:hover{
+        background: silver;
+    }
+`
+
 
 
 const Voting = () => {
@@ -59,7 +73,8 @@ const Voting = () => {
     const [isOpenModal , setIsOpenModal] = useState(false);
     const myProfile = useSelector(state=>(state.myProfile));
     const board_score = useSelector(state=>(state.board?.board_score?._id));
-    const isCommentVoted = useSelector(state=>(state.isCommentVoted));
+    
+    console.log(myProfile);
     const handleModalToggle = ()=> {
         setIsOpenModal(!isOpenModal);
     }
@@ -104,14 +119,29 @@ const Voting = () => {
                 console.log(response.data);
                 dispatch(actions1.toggleIsCommentVoted(true));
                 setIsOpenModal(!isOpenModal);
-                dispatch(actions1.setBoardScore(response.data.data));
+                dispatch(actions1.setBoardScore(response.data.boardScore));
             }
+            // console.log('------------------------');
+            // console.log(response);
         }
         catch (err) {
             console.log(err);
             alert(err);
         }  
         
+    }
+
+    const handleVoteCancle = async () => {
+        try{
+            const response = await axios.get('/');
+            if(response.status(200)){
+                dispatch(actions1.toggleIsCommentVoted(false));
+            }
+        }
+        catch(err) {
+            console.log(err);
+        }
+
     }
 
     if(!Object.keys(myProfile).length) {
@@ -132,11 +162,12 @@ const Voting = () => {
             {cateInfoList.map((el,index)=>{
                     return (<CateVotingInput handleSubmitAPI={handleSubmitAPI} cateInfoList={cateInfoList} handleCateChange={handleCateChange} handlePercentChange={handlePercentChange} addIndex={addIndex} deleteIndex={deleteIndex} index={index} cateList={cateList}/>);
             })}
-            <button onClick={()=>{console.log(cateInfoList)}}>check</button> 
+            {/* <button onClick={()=>{console.log(cateInfoList)}}>check</button>  */}
         </VoteView>
 
         <VoteButton>
-            {isCommentVoted?<MuiButton variant="contained">Voted</MuiButton>:<MuiButton onClick={handleModalToggle} variant="contained">Vote</MuiButton>}
+            {myProfile?.isCommentVoted?<MuiButton disabled variant="contained">Voted</MuiButton>:<MuiButton onClick={handleModalToggle} variant="contained">Vote</MuiButton>}
+            <CancelVoteButton onClick={handleVoteCancle}></CancelVoteButton>
         </VoteButton>
         </VotingView >
         <BasicModal handleModalToggle={handleModalToggle} isOpenModal={isOpenModal} handleSubmitAPI={handleSubmitAPI} />

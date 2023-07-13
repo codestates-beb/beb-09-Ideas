@@ -9,7 +9,6 @@ const slice = createSlice({
     board: {},
     myProfile: {},
     userProfile: {},
-    isCommentVoted: false,
   }, // 여기에 모든 데이터가 저장이 됌
   reducers: {
     //조건문
@@ -42,7 +41,7 @@ const slice = createSlice({
       state.board.board_score = action.payload;
     },
     toggleIsCommentVoted: (state, action) => {
-      state.isCommentVoted = action.payload;
+      state.myProfile.isCommentVoted = action.payload;
     },
   },
 });
