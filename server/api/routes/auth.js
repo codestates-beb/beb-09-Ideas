@@ -74,11 +74,21 @@ export default (app) => {
     // console.log(req.body);
 
     // profile 더미 데이터
-    const image_url = "https://newsimg.sedaily.com/2023/04/11/29O9FX10T6_1.jpg";
+    const imageUrls = [
+      "https://newsimg.sedaily.com/2023/04/11/29O9FX10T6_1.jpg",
+      "https://cdn.pixabay.com/photo/2023/07/05/04/45/european-shorthair-8107433_1280.jpg",
+      "https://cdn.pixabay.com/photo/2023/06/04/15/51/mountains-8040132_1280.jpg",
+      "https://cdn.pixabay.com/photo/2023/06/04/23/47/rufus-8041082_1280.jpg",
+      "https://cdn.pixabay.com/photo/2023/07/03/19/35/border-collie-8104878_1280.jpg",
+      "https://cdn.pixabay.com/photo/2023/06/22/02/25/motocross-8080377_1280.jpg",
+    ];
+    const randomImageUrl =
+      imageUrls[Math.floor(Math.random() * imageUrls.length)];
     req.body.profile = {
-      image_url: image_url,
-      title: "춘식이",
-      description: "test",
+      image_url: randomImageUrl,
+      title: "Blockchain Alchemist: Transforming Possibilities into Reality",
+      description:
+        "Blockchain developer by day, digital storyteller by night. Witnessing the convergence of technology and creativity, I share my journey in blockchain development while exploring the endless possibilities it brings to the world. Join me as we unravel the power of decentralized innovation one post at a time",
     };
     const user = new User(req.body);
     const score = new Score();
