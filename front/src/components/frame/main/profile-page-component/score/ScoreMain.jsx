@@ -9,7 +9,7 @@ const ScoreMainDiv = styled.h3`
 `; 
 
 const ScoreMain = () => {
-    const userScore = useSelector(state=>(state.userProfile.userScore));
+    const userScore = useSelector(state=>(state.userProfile?.userScore));
   return (
     <ScoreMainDiv>
         <Score userScore={userScore}/>

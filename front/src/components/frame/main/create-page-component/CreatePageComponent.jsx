@@ -53,7 +53,7 @@ const CreatePageComponent = () => {
     const [titleValue, setTitleValue] = useState('');
     const [contentValue, setContentValue] = useState('');
     const [categoryValue, setCategoryValue] = useState('');
-    const userId = useSelector(state=> (state.myProfile.id));
+    const userId = useSelector(state=> (state.myProfile.userData.db_id));
   
     const handleSignUp = () => {
     if (!userId) {
