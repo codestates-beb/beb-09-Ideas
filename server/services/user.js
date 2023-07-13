@@ -1,6 +1,7 @@
 import fetch from "node-fetch";
 import User from "../models/user.js";
 import Score from "../models/score.js";
+import Board from "../models/board.js";
 import TokenAlgorithm from "../models/tokenAlgorithm.js";
 
 /**
@@ -22,7 +23,7 @@ const calculateUserScore = async (boardId) => {
     {},
     { user_score_coefficient: 1 }
   );
-  console.log(userScoreCoefficient);
+  // console.log(userScoreCoefficient);
 };
 
 /**
@@ -36,7 +37,7 @@ const getEtherPeice = async () => {
     );
     const data = await response.json();
     const ethereumPrice = data.ethereum.usd;
-    console.log(`Current Ethereum Price: $${ethereumPrice}`);
+    // console.log(`Current Ethereum Price: $${ethereumPrice}`);
 
     return ethereumPrice;
   } catch (err) {
@@ -82,7 +83,7 @@ const getTokenInfo = async () => {
     // const tokenInfo = ;
     const { mft_price, user_score_coefficient, voting_power_coefficient } =
       await TokenAlgorithm.findOne();
-    console.log(mft_price);
+    // console.log(mft_price);
 
     // 이더리움 가격 조회
     const etherPrice = await getEtherPeice();
@@ -102,4 +103,52 @@ const getTokenInfo = async () => {
   }
 };
 
-export { getTotalUserCount, calculateUserScore, getEtherPeice, getTokenInfo };
+/**
+ * 사용자 상세 정보 조회
+ */
+const getUserDetailData = async (userId) => {
+  try {
+    // 사용자 정보 조회
+    const userData = await User.findById(userId);
+    // console.log(userData);
+
+    // 사용자 점수 조회
+    const userScore = await Score.findById(userData.score_id);
+    // console.log(userScore);
+
+    // 사용자가 작성한 게시글 정보 조회
+    console.log("---userID : ", userId);
+    const userBoard = await Board.find({ user_id: userId });
+    console.log("board : ", userBoard);
+
+    // 전송 데이터 생성
+    const data = {
+      userData: {
+        db_id: userData._id,
+        user_id: userData.id,
+        user_name: userData.user_name,
+        followers: userData.followers,
+        created_at: userData.created_at,
+        profile: {
+          image_url: userData.profile.image_url,
+          title: userData.profile.title,
+          description: userData.profile.description,
+        },
+      },
+      userScore: userScore,
+      userBoard: userBoard,
+    };
+
+    return data;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export {
+  getTotalUserCount,
+  calculateUserScore,
+  getEtherPeice,
+  getTokenInfo,
+  getUserDetailData,
+};

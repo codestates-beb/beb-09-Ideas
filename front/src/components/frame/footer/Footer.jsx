@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 // import Logo from '../../frequently-used/Logo';
+import { CgStark } from 'react-icons/cg'
 
 const FooterContainer = styled.footer`
   display: flex;
@@ -81,14 +82,13 @@ const Footer = () => (
       </FooterLinks>
     </LogoAndLinksContainer>
     <LogoDescription>
-      <p>Ideas는 유저의 가상화폐 지갑과 연동되어 거래소 본연의 역할을 수행합니다.</p>
-      <p>즉 유저가 보유한 디지털 자산을 자신들의 거래소에 저장하지 않으며,</p>
-      <p>NFT를 구매, 판매, 생성 및 거래할 수 있는 장소를 제공하고</p>
-      <p>판매자와 구매자의 지갑에서 거래가 이뤄지도록 설계되었습니다</p>
+      <p>Ideas는 조직의 의사결정을 판가름하는것이 아닌 개개인들의 지식 능력을 수치화 하고</p>
+      <p>객관하여 이끌어 가는 Proof of Ablility(능력 증명 방식)을 생각하여 게시판을 통해</p>
+      <p>서로의 지적 능력을 평가하여 이를 통계적으로 수치화 하여 운영되도록 설계되었습니다.</p>
     </LogoDescription>
     <FooterText>
       © 2023 Ideas Company
-      <LogoIcon src="korea.png" alt="Logo Icon" />
+      <CgStark size={"35px"}/>
       <CountryText>조영훈 이승민 이지수 김성환</CountryText>
     </FooterText>
   </FooterContainer>
