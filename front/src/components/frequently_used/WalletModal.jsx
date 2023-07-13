@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState} from 'react'
 import {Modal, Box, Button} from '@mui/material';
 import axios from 'axios';
 const style = {
@@ -17,8 +17,10 @@ const style = {
 const WalletModal = ({isOpen, handleClose}) => {
     const [myToken, setMyToken] = useState('0');
     const [address, setAddress] = useState('');
+    const [pk, setPK] = useState('');
     const [toAddress, setToAddress] = useState('');
     const [amount, setAmount] = useState('');
+
 
     const handleToAddressChange = (event) =>{
         setToAddress(event.target.value);
@@ -31,10 +33,11 @@ const WalletModal = ({isOpen, handleClose}) => {
     const handleSendButtonClick = () =>{
         console.log("btn click");
         const body ={
-            from:address,
+            from:pk,
             to: toAddress,
             amount: amount
         };
+        console.log(body);
         axios.post('/contract/send/user', body)
             .then((res)=>{
 
@@ -44,24 +47,31 @@ const WalletModal = ({isOpen, handleClose}) => {
         })
     }
 
-    console.log(address);
+    const changeAddress = (obj, newAddress) =>{
+        obj.address = newAddress;
+    }
     const body = {
-        address: '0xE6bf42281A3d11b616032FCd75cAC09d2c4D1630'
+        address: ''
     };
+
     axios.get('/auth/decodeToken')
-        .then((res)=>{
+        .then(async (res) => {
+            setPK(res.data.pk);
             setAddress(res.data.address);
+            changeAddress(body, res.data.address);
+            console.log(body.address);
+            await axios.post('/contract/quantity', body,)
+                .then(res => {
+                    setMyToken(res.data.data.quantity);
+                })
+                .catch(err => {
+                    console.log("no data");
+                })
         })
         .catch((err)=>{
             console.error(err);
         })
-    axios.post('/contract/quantity', body, )
-        .then(res => {
-        setMyToken(res.data.data.quantity);
-    })
-        .catch(err => {
-            console.log("no data");
-        })
+
     return (
         <Modal open={isOpen} onClose={handleClose}>
             <Box sx={style}>
