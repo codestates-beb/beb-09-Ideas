@@ -57,7 +57,11 @@ const userSchema = new mongoose.Schema({
     // ref: "Score",
     type: String,
   },
-  isVoted: {
+  isCommentVoted: {
+    type: Boolean,
+    default: false,
+  },
+  isCommentRewarded: {
     type: Boolean,
     default: false,
   },
