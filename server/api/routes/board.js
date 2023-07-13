@@ -940,7 +940,10 @@ export default (app) => {
   route.put("/isCommentVotedFalse", async (req, res) => {
     try {
       // users 컬렉션의 isCommentVoted 값을 false로 업데이트
-      await User.updateMany({}, { $set: { isCommentVoted: false } });
+      await User.updateMany(
+        {},
+        { $set: { isCommentVoted: false, isCommentRewarded: false } }
+      );
       return res.status(200).json({ success: true });
     } catch (err) {
       Logger.error(err);
