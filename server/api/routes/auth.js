@@ -282,7 +282,13 @@ export default (app) => {
 
         const walletAddress = await Wallet.findOne({ userId: user.id });
         console.log(walletAddress);
-        return res.status(200).json({ isAuth: true, pk: walletAddress.pk });
+        return res
+          .status(200)
+          .json({
+            isAuth: true,
+            pk: walletAddress.pk,
+            address: walletAddress.address,
+          });
       })
       .catch((err) => {
         throw err;
