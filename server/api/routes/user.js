@@ -253,8 +253,8 @@ export default (app) => {
    */
   route.get("/profile/:id", async (req, res) => {
     const userId = req.params.id;
-    console.log("userID");
-    console.log(userId);
+    // console.log("userID");
+    // console.log(userId);
 
     try {
       // 사용자 상세 정보 조회
@@ -432,7 +432,7 @@ export default (app) => {
   route.get("/ranking/:category", async (req, res) => {
     // management, economy, security, ai, blockchain, cloud,
     const category = req.params.category;
-    console.log(category);
+    // console.log(category);
     try {
       // 토큰 정보, 이더리움 가격, 전체 사용자 수 조회
       const {
@@ -460,7 +460,7 @@ export default (app) => {
           }
         ).lean();
 
-        console.log(userScores);
+        // console.log(userScores);
 
         let categoryScore = 0;
         if (category === "management") {
