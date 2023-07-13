@@ -1,10 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { FaBookReader, FaRobot } from "react-icons/fa";
-import { RiMoneyDollarCircleFill } from "react-icons/ri";
-import { BiSolidLockOpenAlt } from "react-icons/bi";
-import { BsFillBootstrapFill, BsFillCloudsFill} from "react-icons/bs";
+import IconComponent from "./IconComponent";
 
 const RankingBoardDiv = styled.div`
   height: 100px;
@@ -71,43 +68,20 @@ const RankingBoard = ({
     );
     topScores = sortedScores.slice(0, 2);
   }
-  console.log("데이터 확인1111111111111",topScores);
+  //console.log("데이터 확인1111111111111",topScores);
   // 프로필 이미지 클릭 시 사용자 상세 페이지로 이동
   const nav = useNavigate();
   const goToProfile = (event) => {
     event.stopPropagation();
     nav(`/profile/${userId}`);
   };
-   
 
-  // let CategoryIcon;
 
-  // topScores.map((category)=>{
-  //     console.log("데이터 확인 22222222",category[0][0]);
-  //   if(category[0][0] === "m" || category[1][0] === "m"){      
-  //    CategoryIcon = <FaBookReader size="25px" />
-  //   } 
-  //   else if(category[0][0] === "e" || category[1][0] === "e"){
-  //     CategoryIcon = <RiMoneyDollarCircleFill size="25px" />
-  //   }
-  //   else if(category[0][0] === "s" || category[1][0] === "s"){
-  //     CategoryIcon = <BiSolidLockOpenAlt size="25px" />
-  //   }
-  //   else if(category[0][0] === "a" || category[1][0] === "a"){
-  //     CategoryIcon = <FaRobot size="25px" />
-  //   }
-  //   else if(category[0][0] === "b" || category[1][0] === "b"){
-  //     CategoryIcon = <BsFillBootstrapFill size="25px" />
-  //   }
-  //   else if(category[0][0] === "c" || category[1][0] === "c"){
-  //     CategoryIcon = <BsFillCloudsFill size="25px" />
-  //   }
-  // })
+
   
   
   return (
     <RankingBoardDiv>
-
       <hr />
       <RankingTopDiv>
         <CircleDiv>
@@ -130,11 +104,9 @@ const RankingBoard = ({
         {totalScore !== null ? (
           <>
             <span>total : {totalScore}</span>
-           
-          
-            {topScores.map(([category, scoreData]) => (              
+            {topScores.map(([category, scoreData]) => (
               <span key={category}>
-                 {category} : {scoreData.score}
+                {<IconComponent icon={category}/>} : {scoreData.score}
               </span>
             ))}
           </>
