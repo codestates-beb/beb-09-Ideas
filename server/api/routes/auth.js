@@ -266,4 +266,27 @@ export default (app) => {
         return res.json({ success: false, err });
       });
   });
+
+  route.get("/decodeToken", (req, res) => {
+    const token = req.cookies.x_auth;
+
+    if (!token) {
+      return res.status(400).json({ success: false, message: "토큰 없음" });
+    }
+
+    // 토큰 복호화 후 유저 검색
+    User.findByToken(token)
+      .then(async (user) => {
+        if (!user)
+          return res.json({ isAuth: false, error: "해당하는 사용자 없음" });
+
+        const walletAddress = await Wallet.findOne({ userId: user.id });
+        return res
+          .status(200)
+          .json({ isAuth: true, address: walletAddress.address });
+      })
+      .catch((err) => {
+        throw err;
+      });
+  });
 };
