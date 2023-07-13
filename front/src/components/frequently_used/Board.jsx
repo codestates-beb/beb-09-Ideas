@@ -88,24 +88,24 @@ const Board = ({ board }) => {
         event.stopPropagation();
         nav(`/profile/${board?.author.id}`);
     }
-
-
-    if (board?.category[0] === "m") {
+    console.log(board.category[0]);
+    
+    if (board.category[0] === "M") {
         CategoryIcon = <FaBookReader size="25px" />
     }
-    else if (board?.category[0] === "e") {
+    else if (board.category[0] === "E") {
         CategoryIcon = <RiMoneyDollarCircleFill size="25px" />
     }
-    else if (board?.category[0] === "s") {
+    else if (board.category[0] === "S") {
         CategoryIcon = <BiSolidLockOpenAlt size="25px" />
     }
-    else if (board?.category[0] === "a") {
+    else if (board.category[0] === "A") {
         CategoryIcon = <FaRobot size="25px" />
     }
-    else if (board?.category[0] === "b") {
+    else if (board.category[0] === "B") {
         CategoryIcon = <BsFillBootstrapFill size="25px" />
     }
-    else if (board?.category[0] === "c") {
+    else if (board.category[0] === "C") {
         CategoryIcon = <BsFillCloudsFill size="25px" />
     }
 
@@ -132,7 +132,7 @@ const Board = ({ board }) => {
                 <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="25px" /> {board?.comments.length}</CommentDiv>
             </BottomDiv>
 
-            {/* <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/> */}
+            <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/>
         </BoardDiv>
     )
 }
