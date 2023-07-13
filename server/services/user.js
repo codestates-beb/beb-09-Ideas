@@ -117,9 +117,9 @@ const getUserDetailData = async (userId) => {
     // console.log(userScore);
 
     // 사용자가 작성한 게시글 정보 조회
-    console.log("---userID : ", userId);
+    // console.log("---userID : ", userId);
     const userBoard = await Board.find({ user_id: userId });
-    console.log("board : ", userBoard);
+    // console.log("board : ", userBoard);
 
     // 전송 데이터 생성
     const data = {
