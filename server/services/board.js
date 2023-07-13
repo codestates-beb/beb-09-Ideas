@@ -12,6 +12,7 @@ const getCommentData = async (comments) => {
   const commentsWithUserData = await Promise.all(
     comments.map(async (comment) => {
       const commentUserData = await User.findById(comment.user_id);
+      console.log(commentUserData);
       return {
         id: comment._id,
         user: {
