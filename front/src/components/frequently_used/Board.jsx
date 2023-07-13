@@ -132,7 +132,7 @@ const Board = ({ board }) => {
                 <CommentDiv onClick={handleClose}><BiSolidCommentDetail size="25px" /> {board?.comments.length}</CommentDiv>
             </BottomDiv>
 
-            {/* <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/> */}
+            <CommentModal open={open} handleClose={handleClose} comments={board?.comments}/>
         </BoardDiv>
     )
 }

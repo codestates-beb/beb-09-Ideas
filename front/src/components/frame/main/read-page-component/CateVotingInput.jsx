@@ -58,6 +58,8 @@ const CateSelect = styled.select`
 const CateVotingInput = ({cateInfoList, deleteIndex, addIndex, cateList, handleCateChange, handlePercentChange, index}) => {
     const [category, setCategory] = useState();
     const userScore = useSelector(state=>(state.myProfile?.userScore));
+    console.log('---------------');
+    // console.log(userScore[category]);
   return (
         <CateVotingDiv>
             <ButtonDiv>
@@ -70,12 +72,12 @@ const CateVotingInput = ({cateInfoList, deleteIndex, addIndex, cateList, handleC
                     {cateList?.map(cate=>(<option value={cate}>{cate}</option>))} 
                 </CateSelect>
                 <div>
-                    <RatioInput type="text" onChange={(e)=>{handlePercentChange(e, index, userScore?userScore[category].score:"0")}}/>
+                    <RatioInput type="text" onChange={(e)=>{handlePercentChange(e, index, category?userScore[category]?.score:"1")}}/>
                     <span>%</span>
                 </div>
             </CateVoting>
             <VotingDiv>
-                <span>{`voting power : ${userScore?userScore[category].score:"0"}`}</span>
+                <span>{`${category?`voting power : ${userScore[category]?.voting_power}`:""}`}</span>
             </VotingDiv>
         </CateVotingDiv>
   )

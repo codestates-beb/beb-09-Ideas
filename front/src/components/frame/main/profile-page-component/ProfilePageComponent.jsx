@@ -3,13 +3,11 @@ import styled from 'styled-components'
 import ProfileDescriptionMain from './profile-description/ProfileDescriptionMain';
 import ScoreMain from './score/ScoreMain';
 import PostMain from './post/PostMain';
-
+import { Modal} from '@mui/material';
 
 const ProfileDiv = styled.div`
-    /* margin-top:100px;
-    margin-left:200px; */
-    /* background: #bebeec; */
-    /* height:2000px; */
+    margin:auto;
+    width: 75%;
     display: block;
     margin-bottom: 0px;
     

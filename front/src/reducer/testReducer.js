@@ -35,7 +35,7 @@ const slice = createSlice({
       state.rankingData = action.payload;
     },
     addComment: (state, action) => {
-      state.board.comments.push(action.payload);
+      state.board.comments.unshift(action.payload);
     },
   },
 });
