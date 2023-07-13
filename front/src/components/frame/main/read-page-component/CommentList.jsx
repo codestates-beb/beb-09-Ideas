@@ -41,9 +41,9 @@ const CommentList = () => {
   const dispatch = useDispatch();
   const [userComment, setUserComment] = useState('');
   const {id} = useParams();
-  const comments = useSelector(state=>(state?.board.comments));
+  const comments = useSelector(state=>(state?.board?.comments));
   console.log(comments);
-  const userId = useSelector(state=>state?.myProfile?.userData.db_id);
+  const userId = useSelector(state=>state?.myProfile?.userData?.db_id);
   const handleSubmitCommentAPI = async () => {
     if(!userId) {
         alert('Login first before sending comment');

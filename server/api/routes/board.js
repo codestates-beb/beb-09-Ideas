@@ -831,5 +831,7 @@ export default (app) => {
   /**
    * 게시판 카테고리 점수 저장
    */
-  route.post("/boardScoreSave", Auth, (req, res) => {});
+  route.post("/boardScoreSave", Auth, (req, res) => {
+    console.log(req.body);
+  });
 };

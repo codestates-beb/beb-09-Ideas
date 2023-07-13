@@ -50,7 +50,7 @@ const ReadPageComponent = () => {
         <Description />
         <hr />
         <TopStatus />
-        {/* <Voting /> */}
+        <Voting />
         <CommentList />
       </ReadViewDiv>
     </ReadDiv>
