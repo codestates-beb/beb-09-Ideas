@@ -285,8 +285,8 @@ scoreSchema.pre("save", function (next) {
     scoreData.economy.score +
     scoreData.security.score +
     scoreData.ai.score +
-    scoreData.blockchain +
-    scoreData.cloud;
+    scoreData.blockchain.score +
+    scoreData.cloud.score;
 
   scoreData.total_scroe = totalScore;
   next();

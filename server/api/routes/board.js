@@ -831,7 +831,53 @@ export default (app) => {
   /**
    * 게시판 카테고리 점수 저장
    */
-  route.post("/boardScoreSave", Auth, (req, res) => {
-    console.log(req.body);
+  route.post("/boardScoreSave", Auth, async (req, res) => {
+    // console.log(req.body);
+    const { score_id, score } = req.body;
+
+    console.log(score_id);
+    try {
+      // Score 모델에서 해당 scoreId에 해당하는 문서 가져오기
+      const scoreData = await Score.findById(score_id);
+
+      if (!scoreData) {
+        return res.json({
+          success: false,
+          message: "Score 데이터를 찾을 수 없습니다.",
+        });
+      }
+
+      // 각 카테고리별 점수 더하기
+      score.forEach((item) => {
+        const category = item.category;
+        const score = item.score;
+
+        if (category in scoreData) {
+          scoreData[category].score += score;
+        }
+      });
+
+      // let totalScore =
+      //   scoreData.management.score +
+      //   scoreData.economy.score +
+      //   scoreData.security.score +
+      //   scoreData.ai.score +
+      //   scoreData.blockchain.score + // 수정된 부분
+      //   scoreData.cloud.score; // 수정된 부분
+
+      // // total_score 수정
+      // scoreData.total_scroe = totalScore;
+
+      // 수정된 Score 데이터 저장
+      await scoreData.save();
+
+      // Score 모델에서 해당 scoreId에 해당하는 문서 가져오기
+      const scoreSaveData = await Score.findById(score_id);
+
+      return res.json({ success: true, boardScore: scoreSaveData });
+    } catch (err) {
+      Logger.error(err);
+      return res.json({ success: false, err });
+    }
   });
 };
