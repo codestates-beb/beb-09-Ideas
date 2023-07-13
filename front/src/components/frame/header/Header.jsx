@@ -72,7 +72,7 @@ const Header = () => {
     <div>
         {loginModal &&(<BlurrDiv/>)}
         <HeaderDiv>
-            <h2 onClick={()=>{nav("/")}} style={textStyle}>Ideas<CgStark size={"30px"}/></h2>        
+            <h2 onClick={()=>{nav("/")}} style={textStyle}><CgStark size={"30px"}/>Ideas</h2>        
             <LoginModal
                 loginModal={loginModal}
                 onHide={() => setLoginModal(false)}

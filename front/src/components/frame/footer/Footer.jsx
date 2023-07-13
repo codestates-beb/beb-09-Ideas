@@ -7,13 +7,15 @@ const FooterContainer = styled.footer`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: center; */
+  align-items: center;
   background-image: url("bg.png");
   background-size: cover;
   padding: 2%;
   text-align: center;
   background-color: #353535;
   align-items: stretch;
+  margin-left: 80px;
+  bottom: 0;
 `;
 
 const LogoAndLinksContainer = styled.div`

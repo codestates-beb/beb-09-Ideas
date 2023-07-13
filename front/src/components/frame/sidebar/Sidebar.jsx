@@ -12,12 +12,19 @@ const SidebarDiv = styled.div`
     flex-direction: column;
     align-items:center;
     justify-content: center;
+    /* width: 100px;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.6);
+    
+    float:left;
+
+    left: 0;
+    height: 90vh;
+    bottom: 0; */
 
 `;
 
 const VirtualSidebarDiv = styled.div` 
     width: 100px;
-    height: auto;
     
 `;
 
@@ -25,7 +32,7 @@ const VirtualSidebarDiv = styled.div`
 
 const Sidebar = () => {
   return (
-    <div style={{float:'left'}}>
+    
         <SidebarDiv>
                 <CategoryButton text1={"manage"} path="management"/>
                 <CategoryButton text1={"economy"} path="economy"/>
@@ -34,8 +41,6 @@ const Sidebar = () => {
                 <CategoryButton text1={"blockchain"} path="blockchain"/>
                 <CategoryButton text1={"cloud"} path="cloud"/>
         </SidebarDiv>
-        <VirtualSidebarDiv/>
-    </div>
   )
 }
 

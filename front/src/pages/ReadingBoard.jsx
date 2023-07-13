@@ -8,7 +8,6 @@ import { actions1 } from '../reducer/testReducer';
 
 const ReadingPageDiv = styled.div`
     width: 90%;
-    height: 900px;
 `;
 
 

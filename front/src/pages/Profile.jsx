@@ -5,6 +5,25 @@ import { useDispatch, useSelector} from 'react-redux';
 
 import ProfilePageComponent from '../components/frame/main/profile-page-component/ProfilePageComponent'
 import { actions1 } from '../reducer/testReducer';
+import styled from '@emotion/styled';
+
+const ReadDiv = styled.div`
+    display:block;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 40px;
+
+    width: 70%;
+    height: auto;
+    padding: 30px;
+    border-radius: 15px;
+    
+
+    & > * + * {
+        margin-top: 15px;
+    }
+`;
 
 
 const Profile = () => {
@@ -28,9 +47,9 @@ const Profile = () => {
     }
     
   return (
-    <div>
+    <ReadDiv>
         <ProfilePageComponent profiledata={profiledata}/>
-    </div>
+    </ReadDiv>
   )
 }
 
