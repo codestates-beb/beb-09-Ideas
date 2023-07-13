@@ -8,6 +8,7 @@ import {
   calculateUserScore,
   getEtherPeice,
   getTokenInfo,
+  getUserDetailData,
 } from "../../services/user.js";
 
 const route = Router();
@@ -256,42 +257,8 @@ export default (app) => {
     console.log(userId);
 
     try {
-      // 사용자 정보 조회
-      const userData = await User.findById(userId);
-      console.log(userData);
-
-      if (!userData) {
-        return res
-          .status(404)
-          .json({ success: false, message: "사용자를 찾을 수 없습니다." });
-      }
-
-      // 사용자 점수 조회
-      const userScore = await Score.findById(userData.score_id);
-      console.log(userScore);
-
-      // 사용자가 작성한 게시글 정보 조회
-      const userBoard = await Board.find({ user_id: userId });
-      console.log(userBoard);
-
-      // 전송 데이터 생성
-      const data = {
-        userData: {
-          db_id: userData._id,
-          user_id: userData.id,
-          user_name: userData.user_name,
-          followers: userData.followers,
-          created_at: userData.created_at,
-          profile: {
-            image_url: userData.profile.image_url,
-            title: userData.profile.title,
-            description: userData.profile.description,
-          },
-        },
-        userScore: userScore,
-        userBoard: userBoard,
-      };
-
+      // 사용자 상세 정보 조회
+      const data = await getUserDetailData(userId);
       return res.status(200).json({ success: true, data: data });
     } catch (err) {
       return res.status(500).json({ success: false, err });

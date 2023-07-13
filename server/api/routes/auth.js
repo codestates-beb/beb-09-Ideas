@@ -3,7 +3,8 @@ import User from "./../../models/user.js";
 import Wallet from "./../../models/wallet.js";
 import Auth from "../../services/auth.js";
 import Score from "../../models/score.js";
-import {createUserWallet} from "../../services/wallet.js";
+import { createUserWallet } from "../../services/wallet.js";
+import { getUserDetailData } from "../../services/user.js";
 
 const route = Router();
 
@@ -72,7 +73,7 @@ export default (app) => {
   route.post("/signup", async (req, res) => {
     // console.log(req.body);
 
-    // profile 더미 데이터 추가
+    // profile 더미 데이터
     const image_url = "https://newsimg.sedaily.com/2023/04/11/29O9FX10T6_1.jpg";
     req.body.profile = {
       image_url: image_url,
@@ -195,11 +196,14 @@ export default (app) => {
 
           // 비밀번호가 일치한다면 토큰 생성 후 쿠키에 저장
           return user.generateToken().then(() => {
-            Wallet.findOne({ userId: req.body.id }).then((wallet) => {
+            Wallet.findOne({ userId: req.body.id }).then(async (wallet) => {
+              // 사용자 상세 정보 조회
+              const data = await getUserDetailData(user._id);
+
               res.cookie("x_auth", user.token).status(200).json({
                 loginSuccess: true,
-                id: user._id,
                 address: wallet.address,
+                data: data,
               });
             });
           });
