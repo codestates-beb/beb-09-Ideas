@@ -3,6 +3,10 @@ import styled from '@emotion/styled'
 import { Button as MuiButton } from '@mui/material';
 import CateVotingInput from './CateVotingInput';
 import axios from 'axios';
+import { useDispatch, useSelector} from 'react-redux';
+
+import BasicModal from '../../../frequently_used/BasicModal';
+import { actions1 } from '../../../../reducer/testReducer';
 
 const VotingView = styled.div`
   width: 100%;
@@ -33,13 +37,33 @@ const VoteViewDiv = styled.div`
   width: 100%;
 `;
 
+const LoginFirstDiv = styled.div`
+    width:60%;
+    height:220px;
+    border-radius: 15px;
+    border:1px dotted black;
+    display:flex;
+    justify-content: center;
+    align-items:center;
+    margin: auto;
+    margin-top:100px;
+    background-image: linear-gradient(to right, #ffffff, #eef6f8);
+`
+
 
 
 const Voting = () => {
+    const dispatch = useDispatch();
     const [cateList, setCateList] = useState(['management', 'economy', 'security', 'ai', 'blockchain', 'cloud']);
-    const [isVoted, setIsVoted] = useState(false);
     const [cateInfoList, setCateInfoList] = useState([{category:'', percent:0, score:0}]);
-
+    const [isOpenModal , setIsOpenModal] = useState(false);
+    const myProfile = useSelector(state=>(state.myProfile));
+    const board_score = useSelector(state=>(state.board?.board_score?._id));
+    const isCommentVoted = useSelector(state=>(state.isCommentVoted));
+    const handleModalToggle = ()=> {
+        setIsOpenModal(!isOpenModal);
+    }
+    
     const handleCateChange = (event, index) => {
          const updatedCateInfoList = [...cateInfoList];
          updatedCateInfoList[index] = {...updatedCateInfoList[index], category:event.target.value}
@@ -68,7 +92,7 @@ const Voting = () => {
 
     const handleSubmitAPI = async () => {
         try{
-            const response = await axios.post('/board/boardScoreSave', {score_id:"", score: cateInfoList.map(obj=>{
+            const response = await axios.post('/board/boardScoreSave', {score_id:board_score, score: cateInfoList.map(obj=>{
                 const {['percent']: remove, ...rest} = obj
                 return rest;
             })}, {
@@ -77,14 +101,24 @@ const Voting = () => {
                 }
             })
             if(response.status === 200) {
-                setIsVoted(!isVoted);
-                alert('Success to vote');
+                console.log(response.data);
+                dispatch(actions1.toggleIsCommentVoted(true));
+                setIsOpenModal(!isOpenModal);
+                dispatch(actions1.setBoardScore(response.data.data));
             }
         }
         catch (err) {
             console.log(err);
+            alert(err);
         }  
         
+    }
+
+    if(!Object.keys(myProfile).length) {
+        return (
+        <LoginFirstDiv>
+            Please Login first to vote
+        </LoginFirstDiv>)
     }
 
   return (
@@ -96,16 +130,16 @@ const Voting = () => {
 
         <VoteView>
             {cateInfoList.map((el,index)=>{
-                    return (<CateVotingInput cateInfoList={cateInfoList} handleCateChange={handleCateChange} handlePercentChange={handlePercentChange} addIndex={addIndex} deleteIndex={deleteIndex} index={index} cateList={cateList}/>);
+                    return (<CateVotingInput handleSubmitAPI={handleSubmitAPI} cateInfoList={cateInfoList} handleCateChange={handleCateChange} handlePercentChange={handlePercentChange} addIndex={addIndex} deleteIndex={deleteIndex} index={index} cateList={cateList}/>);
             })}
             <button onClick={()=>{console.log(cateInfoList)}}>check</button> 
-            
         </VoteView>
 
         <VoteButton>
-            {isVoted?<MuiButton variant="contained">Voted</MuiButton>:<MuiButton onClick={handleSubmitAPI} variant="contained">Vote</MuiButton>}
+            {isCommentVoted?<MuiButton variant="contained">Voted</MuiButton>:<MuiButton onClick={handleModalToggle} variant="contained">Vote</MuiButton>}
         </VoteButton>
         </VotingView >
+        <BasicModal handleModalToggle={handleModalToggle} isOpenModal={isOpenModal} handleSubmitAPI={handleSubmitAPI} />
     </VoteViewDiv>
   )
 }

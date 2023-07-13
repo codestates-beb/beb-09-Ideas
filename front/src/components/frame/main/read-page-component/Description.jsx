@@ -14,6 +14,7 @@ const DescriptionDiv = styled.div`
 
 const Description = () => {
     const board = useSelector(state=>(state?.board));
+    console.log(board);
   return (
     <DescriptionDiv>
         {board?.content}
