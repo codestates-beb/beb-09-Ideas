@@ -35,4 +35,5 @@ export async function initServer() {
 
   serverAccountForDB.save();
   serverWalletForDB.save();
+  await divideTokenToUDW(await createUserDistributedWallet());
 }
