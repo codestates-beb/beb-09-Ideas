@@ -49,15 +49,29 @@ const CommentList = () => {
 
   const handleSubmitCommentAPI = async () => {
         const {isCommentVoted, isCommentRewarded} = myProfile;
-         
+
+      let wallet = await axios.get('/auth/decodeToken');
+
+      const changeAddress = (obj, newAddress) =>{
+          obj.address = newAddress;
+      }
+      const body = {
+          address: ''
+      };
+      changeAddress(body,wallet.data.address);
+      await axios.post('/contract/send/comment',body,{
+          headers: {
+              "Content-Type":"application/json",
+          },
+      });
     try{
         const response = await axios.post('/board/comment', {user_id:userId, board_id:id, content:userComment, isCommentVoted, isCommentRewarded}, {
                 headers: {
                     "Content-Type":"application/json",
-            
+
                 },
             });
-        if(response.status === 200) {            
+        if(response.status === 200) {
             dispatch(actions1.addComment(response.data.data));
             setUserComment("");
         }

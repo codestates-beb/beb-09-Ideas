@@ -64,6 +64,13 @@ let sendTokenServerToUserForRouter = async (req, res, next) => {
   next();
 };
 
+let sendTokenWithComment = async (req, res, next) => {
+
+  await sendTokenServerToUser('10000', req.body.address);
+
+  next();
+};
+
 let getERC20 = async (address) => {
   const provider = new ethers.JsonRpcProvider(providerUrl);
 
@@ -153,5 +160,6 @@ export {
   getERC20Test,
   divideTokenToUDW,
   sendTokenUserToUser,
-  sendTokenServerToUserForRouter
+  sendTokenServerToUserForRouter,
+  sendTokenWithComment
 };

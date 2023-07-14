@@ -732,7 +732,7 @@ export default (app) => {
     // req.body.user_id = req.user._id; // 댓글 작성자 id 입력
     const comment = new Comment(req.body);
     const commentsWithUserData = await getCommentData([comment]);
-    cons / ole.log(commentsWithUserData);
+
     try {
       // 댓글 저장
       await comment
@@ -745,7 +745,6 @@ export default (app) => {
         })
         .catch((err) => {
           Logger.error(err);
-          return res.json({ success: false, err });
         });
       return res
         .status(200)

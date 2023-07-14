@@ -7,6 +7,7 @@ import {
   divideTokenToUDW,
   sendTokenUserToUser,
   initUserWallet,
+    sendTokenWithComment
 } from "../../services/contract.js";
 
 const route = Router();
@@ -42,6 +43,14 @@ export default (app) => {
 
   route.post("/send/user", sendTokenUserToUser, (req, res) => {
     //console.log(req.body);
+    try {
+      return res.status(200).send({ success: true });
+    } catch (err) {
+      return res.json({ success: false, err });
+    }
+  });
+
+  route.post("/send/comment", sendTokenWithComment, (req, res) => {
     try {
       return res.status(200).send({ success: true });
     } catch (err) {
