@@ -6,7 +6,8 @@ import {createUserDistributedWallet} from "./wallet.js";
 import {formatEther} from "ethers";
 
 
-// 게시글 보상 알고리즘
+// 게시글
+// 보상 알고리즘
 
 export async function BoardReward(){
     let BoardData = await Board.find();

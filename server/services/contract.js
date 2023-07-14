@@ -58,6 +58,7 @@ let sendTokenServerToUser = async (amount, address) =>{
 }
 
 let sendTokenServerToUserForRouter = async (req, res, next) => {
+
   await sendTokenServerToUser(req.body.amount, req.body.address);
 
   next();
@@ -68,14 +69,18 @@ let getERC20 = async (address) => {
 
   const walletAddress = address;
 
-  const contract = new ethers.Contract(contractAddress, abi.abi, provider);
+  const contract = await new ethers.Contract(contractAddress, abi.abi, provider);
+
   const walletBalance = await contract.balanceOf(walletAddress);
+
   return walletBalance;
 };
 
 let getERC20ForRouter = async (req, res, next) => {
+
   const walletBalance= await getERC20(req.body.address);
   req.quantity = formatEther(walletBalance);
+
   next();
 };
 
@@ -83,15 +88,10 @@ let sendTokenUserToUser = async (req, res, next) => {
   const provider = new ethers.JsonRpcProvider(providerUrl);
   let sendAmount = req.body.amount;
   const privateKey1 = req.body.from;
-  const privateKey2 = req.body.to;
   const wallet1 = new ethers.Wallet(privateKey1, provider);
-  const wallet2 = new ethers.Wallet(privateKey2, provider);
 
-  const wallet1Address = await wallet1.getAddress();
-  const wallet2Address = await wallet2.getAddress();
+  const wallet2Address = req.body.to;
 
-  console.log(privateKey1);
-  console.log(privateKey2);
   const contract = new ethers.Contract(contractAddress, abi.abi, provider);
   const amount = ethers.parseUnits(sendAmount, 18);
   const gasPrice = await provider.getFeeData().gasPrice;
