@@ -155,6 +155,7 @@ const WalletModal = ({isOpen, handleClose}) => {
             })
             .catch((err)=>{
 
+
         })
     }
 
@@ -165,14 +166,18 @@ const WalletModal = ({isOpen, handleClose}) => {
         address: ''
     };
 
+    
     axios.get('/auth/decodeToken')
         .then(async (res) => {
+            console.log(res);
             setPK(res.data.pk);
             setAddress(res.data.address);
             changeAddress(body, res.data.address);
             console.log(body.address);
             await axios.post('/contract/quantity', body,)
                 .then(res => {
+                    console.log('------------------------------------------------------------');
+                    console.log(myToken);
                     setMyToken(res.data.data.quantity);
                 })
                 .catch(err => {
@@ -200,7 +205,7 @@ const WalletModal = ({isOpen, handleClose}) => {
                             <TokenCircleDiv></TokenCircleDiv>
                             <TokenMiddleDiv>
                                 <TokenNameDiv>MeaningFull</TokenNameDiv>
-                                <TokenAmmountDiv>1,032,042 MFT</TokenAmmountDiv>
+                                <TokenAmmountDiv>{Number(myToken).toLocaleString('ko-KR')} MFT</TokenAmmountDiv>
                             </TokenMiddleDiv>
                             <TokenPriceDiv>$1.12</TokenPriceDiv>
                         </TokenContainer>

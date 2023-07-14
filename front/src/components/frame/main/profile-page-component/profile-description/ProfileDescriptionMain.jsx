@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Profile from './Profile';
 import Description from './Description';
 import WalletModal from '../../../../frequently_used/WalletModal';
+import { useSelector } from 'react-redux';
 
 
 const MainDiv = styled.div`
@@ -39,6 +40,10 @@ const WalletButton = styled.button`
 
 const ProfileDescriptionMain = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const userId = useSelector(state=>(state.userProfile?.userData?.db_id));
+    const myId = useSelector(state=>(state.myProfile?.userData?.db_id));
+    // console.log(userProfile);
+    // console.log(myProfile);
     const handleClose = () => {
         setIsOpen(!isOpen);
     }
@@ -49,7 +54,8 @@ const ProfileDescriptionMain = () => {
         <div>
             <Description/>
         </div>
-        <WalletButton onClick={handleClose}> wallet </WalletButton>
+        {userId === myId ? <WalletButton onClick={handleClose}> wallet </WalletButton>:""}
+        
         <WalletModal isOpen={isOpen} handleClose={handleClose}/>
     </MainDiv>
   )
