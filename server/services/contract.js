@@ -77,8 +77,7 @@ let getERC20 = async (address) => {
   const walletAddress = address;
 
   const contract = await new ethers.Contract(contractAddress, abi.abi, provider);
-
-  const walletBalance = await contract.balanceOf(walletAddress);
+  const walletBalance = contract.balanceOf(walletAddress);
 
   return walletBalance;
 };
@@ -94,7 +93,8 @@ let getERC20ForRouter = async (req, res, next) => {
 let sendTokenUserToUser = async (req, res, next) => {
   const provider = new ethers.JsonRpcProvider(providerUrl);
   let sendAmount = req.body.amount;
-  const privateKey1 = req.body.from;
+  const privateKey1 =await req.body.from;
+
   const wallet1 = new ethers.Wallet(privateKey1, provider);
 
   const wallet2Address = req.body.to;

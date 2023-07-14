@@ -141,6 +141,7 @@ const WalletModal = ({isOpen, handleClose}) => {
     }
     const [myToken, setMyToken] = useState('0');
     const [address, setAddress] = useState('');
+    const [pk, setPK] = useState('');
 
 
 
@@ -157,9 +158,12 @@ const WalletModal = ({isOpen, handleClose}) => {
     axios.get('/auth/decodeToken')
         .then(async (res) => {
             console.log(res);
-            dispatch(actions1.setMyAddress(res.data.address));
-            // setPK(res.data.pk);
+            setPK(res.data.pk);
             setAddress(res.data.address);
+
+            dispatch(actions1.setMyAddress(address));
+            dispatch(actions1.setMyPK(pk));
+
             changeAddress(body, res.data.address);
             console.log(body.address);
             await axios.post('/contract/quantity', body,)

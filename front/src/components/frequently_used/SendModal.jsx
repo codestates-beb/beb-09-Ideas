@@ -158,7 +158,7 @@ const MaxButton = styled.button`
 
 
 const SendModal = ({isSendOpen, toggleSendModal, myToken }) => {
-    const pk = useSelector(state=>(state.myProfile?.walletAddress));
+    const pk = useSelector(state=>(state.myProfile?.pk));
 
     const [toAddress, setToAddress] = useState('');
     const [amount, setAmount] = useState('');

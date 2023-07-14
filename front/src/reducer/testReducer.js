@@ -46,6 +46,9 @@ const slice = createSlice({
     setMyAddress: (state, action) => {
       state.myProfile.walletAddress = action.payload;
     },
+    setMyPK: (state, action) => {
+      state.myProfile.pk = action.payload;
+    },
   },
 });
 
