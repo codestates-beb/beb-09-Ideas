@@ -3,6 +3,13 @@ import React, {useState} from 'react'
 import styled from 'styled-components';
 import {Modal, Box, Button} from '@mui/material';
 import axios from 'axios';
+
+import SendModal from './SendModal';
+import { useDispatch } from 'react-redux';
+
+import {actions1} from '../../reducer/testReducer';
+
+
 const style = {
   position: 'absolute',
   top: '50%',
@@ -126,38 +133,17 @@ const WalletButton = styled.button`
 
 
 const WalletModal = ({isOpen, handleClose}) => {
+    const dispatch = useDispatch();
+    const [isSendOpen, setIsSendOpen] = useState(false);
+
+    const toggleSendModal = () => {
+        setIsSendOpen(!isSendOpen);
+    }
     const [myToken, setMyToken] = useState('0');
     const [address, setAddress] = useState('');
-    const [pk, setPK] = useState('');
-    const [toAddress, setToAddress] = useState('');
-    const [amount, setAmount] = useState('');
 
 
-    const handleToAddressChange = (event) =>{
-        setToAddress(event.target.value);
-    }
 
-    const handleAmountChange = (event) =>{
-        setAmount(event.target.value);
-    }
-
-    const handleSendButtonClick = () =>{
-        console.log("btn click");
-        const body ={
-            from:pk,
-            to: toAddress,
-            amount: amount
-        };
-        console.log(body);
-        axios.post('/contract/send/user', body)
-            .then((res)=>{
-
-            })
-            .catch((err)=>{
-
-
-        })
-    }
 
     const changeAddress = (obj, newAddress) =>{
         obj.address = newAddress;
@@ -165,19 +151,19 @@ const WalletModal = ({isOpen, handleClose}) => {
     const body = {
         address: ''
     };
+    
 
     
     axios.get('/auth/decodeToken')
         .then(async (res) => {
             console.log(res);
-            setPK(res.data.pk);
+            dispatch(actions1.setMyAddress(res.data.address));
+            // setPK(res.data.pk);
             setAddress(res.data.address);
             changeAddress(body, res.data.address);
             console.log(body.address);
             await axios.post('/contract/quantity', body,)
                 .then(res => {
-                    console.log('------------------------------------------------------------');
-                    console.log(myToken);
                     setMyToken(res.data.data.quantity);
                 })
                 .catch(err => {
@@ -187,17 +173,18 @@ const WalletModal = ({isOpen, handleClose}) => {
         .catch((err)=>{
             console.error(err);
         })
-
+    
     return (
         <Modal open={isOpen} onClose={handleClose}>
             <Box sx={style}>
+                
                 <MainDiv>
                     <TopDiv>
                         <span>$1.05</span>
                         <ButtonContainer>
-                            <WalletButton id="sendBtn" onClick={handleSendButtonClick}>deposit</WalletButton>
-                            <WalletButton id="sendBtn" onClick={handleSendButtonClick}>buy</WalletButton>
-                            <WalletButton id="sendBtn" onClick={handleSendButtonClick}>send</WalletButton>
+                            <WalletButton id="sendBtn">deposit</WalletButton>
+                            <WalletButton id="sendBtn">buy</WalletButton>
+                            <WalletButton id="sendBtn" onClick={toggleSendModal}>send</WalletButton>
                         </ButtonContainer>
                     </TopDiv>
                     <BottomDiv>
@@ -206,22 +193,6 @@ const WalletModal = ({isOpen, handleClose}) => {
                             <TokenMiddleDiv>
                                 <TokenNameDiv>MeaningFull</TokenNameDiv>
                                 <TokenAmmountDiv>{Number(myToken).toLocaleString('ko-KR')} MFT</TokenAmmountDiv>
-                            </TokenMiddleDiv>
-                            <TokenPriceDiv>$1.12</TokenPriceDiv>
-                        </TokenContainer>
-                        <TokenContainer>
-                            <TokenCircleDiv></TokenCircleDiv>
-                            <TokenMiddleDiv>
-                                <TokenNameDiv>MeaningFull</TokenNameDiv>
-                                <TokenAmmountDiv>1,032,042 MFT</TokenAmmountDiv>
-                            </TokenMiddleDiv>
-                            <TokenPriceDiv>$1.12</TokenPriceDiv>
-                        </TokenContainer>
-                        <TokenContainer>
-                            <TokenCircleDiv></TokenCircleDiv>
-                            <TokenMiddleDiv>
-                                <TokenNameDiv>MeaningFull</TokenNameDiv>
-                                <TokenAmmountDiv>1,032,042 MFT</TokenAmmountDiv>
                             </TokenMiddleDiv>
                             <TokenPriceDiv>$1.12</TokenPriceDiv>
                         </TokenContainer>
@@ -241,6 +212,7 @@ const WalletModal = ({isOpen, handleClose}) => {
                     </div> */}
                     </BottomDiv>
                 </MainDiv>
+                <SendModal isSendOpen={isSendOpen} toggleSendModal={toggleSendModal} myToken={myToken}/>
             </Box>
         </Modal>
     )

@@ -43,6 +43,9 @@ const slice = createSlice({
     toggleIsCommentVoted: (state, action) => {
       state.myProfile.isCommentVoted = action.payload;
     },
+    setMyAddress: (state, action) => {
+      state.myProfile.walletAddress = action.payload;
+    },
   },
 });
 
