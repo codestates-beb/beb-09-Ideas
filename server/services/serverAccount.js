@@ -10,22 +10,15 @@ export async function initServer() {
     console.log("Exist server");
     return;
   }
-  // const userData = {
-  //   id: "ideas",
-  //   email: "ideas@gmail.com",
-  //   user_name: "server",
-  //   password: "goodideas",
-  //   phoneNum: "82 10-1234-0101",
-  //   role: 1,
-  // };
   const userData = {
-    id: "Bideas",
-    email: "Bideas@gmail.com",
-    user_name: "Bserver",
+    id: "ideas",
+    email: "ideas@gmail.com",
+    user_name: "server",
     password: "goodideas",
     phoneNum: "82 10-1234-0101",
     role: 1,
   };
+
   const serverAccountForDB = new User(userData);
 
   console.log("서버생성");
@@ -33,7 +26,7 @@ export async function initServer() {
   const serverAddress = serverWallet.address;
 
   const serverData = {
-    userId: "Bideas",
+    userId: "ideas",
     address: serverAddress,
     pk: process.env.SERVER_PRIVATE_KEY,
   };
